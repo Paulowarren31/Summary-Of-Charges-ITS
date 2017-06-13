@@ -10,6 +10,8 @@ import requests
 import base64
 import cx_Oracle #oracle DB lib
 
+#ayy
+
 try:
   with open('/usr/src/app/myapp/local/oracle/password', 'rb') as f:
     db_pass = f.read()
