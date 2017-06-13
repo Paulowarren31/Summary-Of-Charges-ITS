@@ -1,0 +1,9 @@
+django==1.11
+cryptography==1.5.1
+django-debug-toolbar==1.5
+gunicorn==19.4.5
+psycopg2
+whitenoise==3.0
+requests
+djangosaml2
+django-health-check

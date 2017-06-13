@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load staticfiles %}
+{% block index %}
+<table class="table table-bordered table-responsive">
+    <thead class="thead-inverse">
+        <tr>
+            <th>Expense Account</th>
+            <th>Item Description</th>
+            <th>Charge Codes</th>
+            <th>Rate</th>
+            <th>Avg Monthly Units Billed</th>
+            <th>Billed Units</th>
+            <th>Item Total</th>
+            <th>Item Group Total</th>
+            <th>Account Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for account in rows.items %}
+        <tr class="table-warning">
+            <th scope="row" colspan="8">{{account.1.group_dict.items.0.1.items.0.10}} - ({{account.0}})</th>
+            <td>{{account.1.a_total|floatformat:2|intcomma}}</td>
+        </tr>
+        {% for group in account.1.group_dict.items %}
+        <tr><td>{{group.0}} - </td>
+            <th scope="row" colspan="6"></th>
+            <td>{{group.1.total|floatformat:2|intcomma}}</td>
+        
+        </tr>
+        {% for item in group.1.items %}
+        <tr>
+            <td></td>
+            <td>{{item.13}}</td>
+            <td>{{item.12|default_if_none:""}}</td>
+            <td>${{item.14|default_if_none:""|floatformat:2|intcomma}}</td>
+            <td></td>
+            <td>{{item.15|default_if_none:""|floatformat:0}}</td>
+            <td>${{item.16|default_if_none:""|floatformat:2|intcomma}}</td>
+        </tr>
+        {% endfor %}
+
+        {% endfor %}
+        <!--
+        <tr class="table-warning" id="acc-{{account.pk}}">
+            <th scope="row" colspan="8" >{{account}} <i id="acc-i-{{account.pk}}"class="fa fa-caret-down" aria-hidden="true"></i></th>
+            <td> ${{account.total|intcomma}}</td>
+        </tr>
+        -->
+        {% endfor %}
+    </tbody>
+</table>
+<script src="{% static 'js/table.js' %}"></script>
+{% endblock %}
