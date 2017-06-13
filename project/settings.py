@@ -50,7 +50,9 @@ INSTALLED_APPS = (
     'health_check.db',                         
     'health_check.cache',
     'health_check.storage',
+    'crispy_forms'
     )
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -215,3 +217,4 @@ SAML_ATTRIBUTE_MAPPING = {
 
     }
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
