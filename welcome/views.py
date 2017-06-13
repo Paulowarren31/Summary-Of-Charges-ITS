@@ -16,7 +16,7 @@ import cx_Oracle #oracle DB lib
 try:
   with open('/usr/src/app/myapp/local/oracle/password', 'rb') as f:
     db_pass = f.read()
-  #connection_string = 'paulowar/'+db_pass+'@pinntst.dsc.umich.edu:1521/pinndev.world'
+  connection_string = 'paulowar/'+db_pass+'@pinntst.dsc.umich.edu:1521/pinndev.world'
 except:
   print 'error reading secret'
 
