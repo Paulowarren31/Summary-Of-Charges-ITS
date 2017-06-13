@@ -20,7 +20,7 @@ try:
 except:
   print 'error reading secret'
 
-#@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login')
 def index(request):
   dic = {}
 
@@ -50,7 +50,7 @@ def index(request):
 
   return render(request, 'index.html', dic)
 
-#@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login')
 def table(request):
 
   form = MyForm()
@@ -105,8 +105,6 @@ def table(request):
 
 
       return render(request, 'table.html', {"rows": final})
-
-
 
     #query = "select * from um_ecomm_dept_units_rept where "
 
