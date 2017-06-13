@@ -90,10 +90,10 @@ def table(request):
 
   return render(request, 'table.html', {'rows': final})
 
-def secret(request):
-  with open('/usr/src/app/myapp/local/saml/secret-key', 'rb') as f:
-    secret_key = str(base64.b64encode(f.read()), 'utf-8')
-    return render(request, 'secret.html', {'key': secret_key})
+#def secret(request):
+  #with open('/usr/src/app/myapp/local/saml/secret-key', 'rb') as f:
+    #secret_key = str(base64.b64encode(f.read()), 'utf-8')
+    #return render(request, 'secret.html', {'key': secret_key})
 
 def profile(request):
   return render(request, 'index.html')
