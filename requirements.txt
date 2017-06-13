@@ -7,3 +7,4 @@ whitenoise==3.0
 requests
 djangosaml2
 django-health-check
+django-crispy-forms
