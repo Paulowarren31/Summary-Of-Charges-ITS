@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from welcome.views import index, profile, table
+from welcome.views import index, profile, table, launch
 
 
 urlpatterns = [
@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^table/', table),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ht/$', include('health_check.urls')),
+    url(r'^launch/', launch),
 
 ]

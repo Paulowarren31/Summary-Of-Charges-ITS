@@ -3,11 +3,10 @@
 {% load staticfiles %}
 {% block index %}
 <table class="table table-bordered table-responsive">
-    <thead class="thead-inverse">
+    <thead class="thead">
         <tr>
             <th>Expense Account</th>
-            <th>Item Description</th>
-            <th>Charge Codes</th>
+            <th>Item Description & code</th>
             <th>Rate</th>
             <th>Avg Monthly Units Billed</th>
             <th>Billed Units</th>
@@ -30,8 +29,7 @@
         {% for item in group.1.items %}
         <tr>
             <td></td>
-            <td>{{item.13}}</td>
-            <td>{{item.12|default_if_none:""}}</td>
+            <td>{{item.13}}{{item.12|default_if_none:""}}</td>
             <td>${{item.14|default_if_none:""|floatformat:2|intcomma}}</td>
             <td></td>
             <td>{{item.15|default_if_none:""|floatformat:0}}</td>

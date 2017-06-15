@@ -85,7 +85,7 @@ TEMPLATES = [
       },
     ]
 
-WSGI_APPLICATION = 'wsgi.application'
+#WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
@@ -134,7 +134,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 SAML2_URL_PATH = '/accounts/'
-SAML2_URL_BASE = 'http://django-example-paulo-test.openshift.dsc.umich.edu/accounts/'
+SAML2_URL_BASE = 'https://django-example-paulo-test.openshift.dsc.umich.edu/accounts/'
 
 
 AUTHENTICATION_BACKENDS = (
@@ -160,7 +160,7 @@ SAML_CONFIG = {
     'service': {
       # we are just a lonely SP
       'sp': {
-        'name': 'Student Explorer',
+        'name': 'Summary Of Charges',
         'name_id_format': ('urn:oasis:names:tc:SAML:2.0:'
           'nameid-format:transient'),
         'authn_requests_signed': 'true',

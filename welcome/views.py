@@ -11,7 +11,6 @@ import requests
 import base64
 import cx_Oracle #oracle DB lib
 
-#ayy lmaoooooooo
 
 try:
   with open('/usr/src/app/myapp/local/oracle/password', 'rb') as f:
@@ -141,3 +140,8 @@ def table(request):
 
 def profile(request):
   return render(request, 'index.html')
+
+def launch(request):
+  if request.method == 'POST':
+    print request.POST
+    return render(request, 'index.html')
