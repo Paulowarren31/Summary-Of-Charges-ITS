@@ -46,8 +46,8 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'welcome',
     'djangosaml2',
-    'health_check',                             
-    'health_check.db',                         
+    'health_check',
+    'health_check.db',
     'health_check.cache',
     'health_check.storage',
     'crispy_forms'
@@ -102,8 +102,8 @@ DATABASES = {
       #'schemas': ['PAULOWAR', 'PINN_CUSTOM'],
       'ENGINE': 'django.db.backends.sqlite3',
       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+      }
     }
-  }
 
 
 # Internationalization
@@ -204,8 +204,13 @@ SAML_CONFIG = {
 
     'debug': 1,
     # certificate
-    'key_file': path.join(BASEDIR, 'saml/student-explorer-saml.key'),  'cert_file': path.join(BASEDIR, 'saml/student-explorer-saml.pem'),
-}
+    'key_file': path.join(BASEDIR, 'saml/student-explorer-saml.key'),
+    'cert_file': path.join(BASEDIR, 'saml/student-explorer-saml.pem'),
+    'encryption_keypairs': [{
+      'key_file': path.join(BASEDIR, 'saml/student-explorer-saml.key'),
+      'cert_file': path.join(BASEDIR, 'saml/student-explorer-saml.pem'),
+      }]
+    }
 
 SAML_CREATE_UNKNOWN_USER = True
 
