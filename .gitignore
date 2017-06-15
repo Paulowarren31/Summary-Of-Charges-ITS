@@ -63,3 +63,4 @@ target/
 # keys
 *.key
 *.csr
+*.pem
