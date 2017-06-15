@@ -1,3 +1,29 @@
 .hidden{
     display: none;
 }
+.account{
+    background-color: #eff0f1;
+}
+.account-total{
+    background-color: #587abc;
+    color: white;
+}
+.cat-total{
+    background-color: #a79d96;
+}
+.t-total{
+    background-color: #00274c;
+    color: white;
+}
+p{
+    margin-bottom: 0 !important;
+}
+
+.fa{
+
+    color: #024794;
+}
+
+i:hover{
+    cursor: grab;
+}

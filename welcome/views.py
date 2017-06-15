@@ -11,15 +11,17 @@ import requests
 import base64
 import cx_Oracle #oracle DB lib
 
+#ayy lmaoooooooo
 
 try:
   with open('/usr/src/app/myapp/local/oracle/password', 'rb') as f:
     db_pass = f.read()
   connection_string = 'paulowar/'+db_pass+'@pinntst.dsc.umich.edu:1521/pinndev.world'
 except:
+  connection_string = 'paulowar/Pw6517nP@pinntst.dsc.umich.edu:1521/pinndev.world'
   print 'error reading secret'
 
-@login_required(login_url='/accounts/login')
+#@login_required(login_url='/accounts/login')
 def index(request):
   dic = {}
 
@@ -49,7 +51,7 @@ def index(request):
 
   return render(request, 'index.html', dic)
 
-@login_required(login_url='/accounts/login')
+#@login_required(login_url='/accounts/login')
 def table(request):
 
   form = MyForm()

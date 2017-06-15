@@ -1,36 +1,41 @@
 $(function(){
-  accounts = $('[id^=acc]').not('[id$=cat]').not('[id$=i]')
+  accounts = $('[id^=a][id$=row]')
   accounts.on('click', function(e){
-    acc_pk = e.target.parentNode.id.split('-')[1]
+    icon = e.target.previousElementSibling
+    $(icon).toggleClass('fa-minus-circle fa-plus-circle')
+
+    acc = e.target.parentNode.id.split('-')[1]
 
     //get all the categories associated with the account
-    categories = $('[id^=acc-'+acc_pk+'][id$=cat]').toggleClass('hidden')
+    categories = $("[id^=a-"+acc+"][id$=grp]")
+
+    categories.toggleClass('hidden')
 
 
     //when toggling off, we wanna also hide the items
     if(categories.hasClass('hidden')){
-
       //get all items belonging to the categories above
-      items = $('[id^=acc-'+acc_pk+'][id$=i]')
+      items = $('[id^=a-'+acc+'][id$=items]')
       items.addClass('hidden')
     }
 
 
     //toggle triangle icon
-    $('#acc-i-'+acc_pk).toggleClass('fa-caret-down fa-caret-up')
+    //$('#acc-i-'+acc_pk).toggleClass('fa-caret-down fa-caret-up')
   })
 
-  categories = $('[id^=acc][id$=cat]')
+  categories = $('[id^=a][id$=grp]')
 
   //on category click, show all items under that category
   categories.on('click', function(e){
-    acc_pk = e.target.parentNode.id.split('-')[1]
-    cat_pk = e.target.parentNode.id.split('-')[3]
+    $(e.target.children).toggleClass('fa-plus-circle fa-minus-circle')
+    acc = e.target.id.split('-')[1]
+    grp = e.target.id.split('-')[2]
+    console.log(acc, grp)
 
-    //toggle hidden class for all items under a category
-    $('[id^=acc-'+acc_pk+'-cat-'+cat_pk+']').not('[id$=cat]').toggleClass('hidden')
+    elt = '#a-'+acc+'-g-'+grp+'-items'
 
-    $('#cat-i-'+cat_pk).toggleClass('fa-caret-down fa-caret-up')
+    $(elt).toggleClass('hidden')
 
   })
 

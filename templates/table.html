@@ -2,50 +2,101 @@
 {% load humanize %}
 {% load staticfiles %}
 {% block index %}
-<table class="table table-bordered table-responsive">
-    <thead class="thead">
-        <tr>
-            <th>Expense Account</th>
-            <th>Item Description & code</th>
-            <th>Rate</th>
-            <th>Avg Monthly Units Billed</th>
-            <th>Billed Units</th>
-            <th>Item Total</th>
-            <th>Item Group Total</th>
-            <th>Account Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for account in rows.items %}
-        <tr class="table-warning">
-            <th scope="row" colspan="8">{{account.1.group_dict.items.0.1.items.0.10}} - ({{account.0}})</th>
-            <td>{{account.1.a_total|floatformat:2|intcomma}}</td>
-        </tr>
+<div class="container-fluid" style="width: 80%">
+    <div class="row py-3">
+        <div class="col-2"><h4>Expense Account</h4></div>
+        <div class="col-3"><h4>Item Description & Item Code</h4></div>
+        <div class="col-2"><h4>Rate</h4></div>
+        <div class="col-2"><h4>Average Units</h4></div>
+        <div class="col-2"><h4>Billed Units</h4></div>
+        <div class="col-1"><h4>Total</h4></div>
+    </div>
+    {% for account in rows.items %}
+    <!-- for each account -->
+    <div class="row account">
+        <div id="a-{{forloop.counter}}-row" class="col-12"> 
+            <i class="fa fa-minus-circle" aria-hidden="true"></i>
+            <strong>{{account.1.group_dict.items.0.1.items.0.10}} - ({{account.0}})</strong></div>
+        <!--for each group -->
         {% for group in account.1.group_dict.items %}
-        <tr><td>{{group.0}} - </td>
-            <th scope="row" colspan="6"></th>
-            <td>{{group.1.total|floatformat:2|intcomma}}</td>
-        </tr>
+        <div id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp" class="col-12">
+            {{forloop.counter}}.
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+             {{group.0}}
+        </div>
+
+        <!-- for each item in group -->
+        <div id="a-{{forloop.parentloop.counter}}-g-{{forloop.counter}}-items"class="row hidden">
         {% for item in group.1.items %}
-        <tr>
-            <td></td>
-            <td>{{item.13}}{{item.12|default_if_none:""}}</td>
-            <td>${{item.14|default_if_none:""|floatformat:2|intcomma}}</td>
-            <td></td>
-            <td>{{item.15|default_if_none:""|floatformat:0}}</td>
-            <td>${{item.16|default_if_none:""|floatformat:2|intcomma}}</td>
-        </tr>
+            <div class="col-3 offset-md-2"> <p>{{item.13}}<br><strong>{{item.12|default_if_none:""}}</strong></p></div>
+            <div class="col-2">${{item.14|default_if_none:""|floatformat:2|intcomma}}</div>
+            <div class="col-2">3 x 4 months</div>
+            <div class="col-2">{{item.15|default_if_none:""|floatformat:0}}</div>
+            <div class="col-1">${{item.16|default_if_none:""|floatformat:2|intcomma}}</div>
+        {% endfor %}
+        </div>
+        <!-- endfor -->
+
+        <!-- group total -->
+        <div id="a-{{forloop.parentloop.counter}}-grp"class="col-1 offset-md-11 cat-total">$ {{group.1.total|floatformat:2|intcomma}}</div>
         {% endfor %}
 
-        {% endfor %}
-        <!--
-        <tr class="table-warning" id="acc-{{account.pk}}">
-            <th scope="row" colspan="8" >{{account}} <i id="acc-i-{{account.pk}}"class="fa fa-caret-down" aria-hidden="true"></i></th>
-            <td> ${{account.total|intcomma}}</td>
-        </tr>
-        -->
-        {% endfor %}
+
+
+        <!-- account total -->
+        <div class="col-1 offset-md-11 account-total">$ {{account.1.a_total|floatformat:2|intcomma}}</div>
+
+    </div>
+    <!-- endfor -->
+    {% endfor %}
+    <div class="row account">
+        <div class="col-1 offset-md-11 t-total">
+            TOTAL 
+        </div>
+    </div>
+
+</div>
+<!-- old table
+    <table class="table table-bordered table-responsive">
+    <thead class="thead">
+    <tr>
+    <th>Expense Account</th>
+    <th>Item Description & code</th>
+    <th>Rate</th>
+    <th>Avg Monthly Units Billed</th>
+    <th>Billed Units</th>
+    <th>Item Total</th>
+    <th>Item Group Total</th>
+    <th>Account Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for account in rows.items %}
+    <tr class="table-warning">
+    <th scope="row" colspan="8">{{account.1.group_dict.items.0.1.items.0.10}} - ({{account.0}})</th>
+    <td>{{account.1.a_total|floatformat:2|intcomma}}</td>
+    </tr>
+    {% for group in account.1.group_dict.items %}
+    <tr><td>{{group.0}} - </td>
+    <th scope="row" colspan="6"></th>
+    <td>{{group.1.total|floatformat:2|intcomma}}</td>
+    </tr>
+    {% for item in group.1.items %}
+    <tr>
+    <td></td>
+    <td>{{item.13}}{{item.12|default_if_none:""}}</td>
+    <td>${{item.14|default_if_none:""|floatformat:2|intcomma}}</td>
+    <td></td>
+    <td>{{item.15|default_if_none:""|floatformat:0}}</td>
+    <td>${{item.16|default_if_none:""|floatformat:2|intcomma}}</td>
+    </tr>
+    {% endfor %}
+
+    {% endfor %}
+    {% endfor %}
     </tbody>
-</table>
+    </table>
+-->
+
 <script src="{% static 'js/table.js' %}"></script>
 {% endblock %}
