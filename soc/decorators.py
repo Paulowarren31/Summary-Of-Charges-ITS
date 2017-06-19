@@ -11,11 +11,12 @@ def user_has_permission(function):
     except:
       connection_string = 'paulowar/Pw6517nP@pinntst.dsc.umich.edu:1521/pinndev.world'
 
+    print request.user.username
+
     c = cx_Oracle.connect(connection_string).cursor()
     query = 'select * from um_authorized_dept_users where uniqname=:u'
-    result = c.execute(query, {'u': request.user})
+    result = c.execute(query, {'u': request.user.username})
 
-    print request.user
     print result
 
     if len(result) == 0:
