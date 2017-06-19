@@ -78,7 +78,7 @@ def table(request):
 
       cursor = cx_Oracle.connect(connection_string).cursor()
 
-      rows = cursor.execute(query, {'b': minimum, 'e': maximum, 'fy': fiscal_yr})).fetchall()
+      rows = cursor.execute(query, {'b': minimum, 'e': maximum, 'fy': fiscal_yr}).fetchall()
 
       #dictionary that maps account #s to a list of items that belong to that account
       account_dict = {}
