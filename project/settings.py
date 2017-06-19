@@ -199,7 +199,6 @@ SAML_CONFIG = {
     # where the remote metadata is stored
     'metadata': {
       'local': [path.join(BASEDIR, 'saml/remote-metadata.xml')],
-
       },
 
     'debug': 1,

@@ -72,13 +72,13 @@ def table(request):
       fiscal_yr = cd.get('fiscal_yr')
 
       query = "select * from um_ecomm_dept_units_rept where "
-      query += "deptid between %s and %s and fiscal_yr=%s" 
+      query += "deptid between :b and :e and fiscal_yr=:fy" 
 
       print query
 
       cursor = cx_Oracle.connect(connection_string).cursor()
 
-      rows = cursor.execute(query, (minimum, maximum, fiscal_yr)).fetchall()
+      rows = cursor.execute(query, {'b': minimum, 'e': maximum, 'fy': fiscal_yr})).fetchall()
 
       #dictionary that maps account #s to a list of items that belong to that account
       account_dict = {}

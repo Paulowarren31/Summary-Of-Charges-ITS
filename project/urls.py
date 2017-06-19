@@ -5,10 +5,6 @@ from soc.views import index, table
 
 
 urlpatterns = [
-    # Examples:
-    # url(r'^$', 'project.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
     url(r'^accounts/', include('djangosaml2.urls')),
     url(r'^$', index),
     url(r'^table/', table),
