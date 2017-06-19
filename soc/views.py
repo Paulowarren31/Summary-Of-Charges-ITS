@@ -98,11 +98,11 @@ def table(request):
       # sorted by account ID and then by the group name within each account ID
       sort = sorted(rows, cmp=comp)
 
-      previous_acc = sort[0][9] # first account id
-      for row in sort:
-        if row[9] != previous_acc:
-          #new account
-        else:
+      #previous_acc = sort[0][9] # first account id
+      #for row in sort:
+      #  if row[9] != previous_acc:
+      #    #new account
+      #  else:
 
 
 
