@@ -1,16 +1,16 @@
 $(function(){
   accounts = $('[id^=a][id$=row]')
   accounts.on('click', function(e){
-    icon = e.target.previousElementSibling
+    icon = e.target
     $(icon).toggleClass('fa-minus-circle fa-plus-circle')
 
-    acc = e.target.parentNode.id.split('-')[1]
+    acc = e.target.id.split('-')[1]
+    console.log(acc)
 
     //get all the categories associated with the account
-    categories = $("[id^=a-"+acc+"][id$=grp]")
+    categories = $("[id^=a-"+acc+"][id$=grp-show]")
 
     categories.toggleClass('hidden')
-
 
     //when toggling off, we wanna also hide the items
     if(categories.hasClass('hidden')){
@@ -28,7 +28,8 @@ $(function(){
 
   //on category click, show all items under that category
   categories.on('click', function(e){
-    $(e.target.children).toggleClass('fa-plus-circle fa-minus-circle')
+    $(e.target).toggleClass('fa-plus-circle fa-minus-circle')
+
     acc = e.target.id.split('-')[1]
     grp = e.target.id.split('-')[2]
     console.log(acc, grp)
@@ -38,5 +39,4 @@ $(function(){
     $(elt).toggleClass('hidden')
 
   })
-
 })

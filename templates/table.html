@@ -11,18 +11,21 @@
         <div class="col-2"><h4>Billed Units</h4></div>
         <div class="col-1"><h4>Total</h4></div>
     </div>
-    {% for account in rows.items %}
+
     <!-- for each account -->
+    {% for account in rows.items %}
     <div class="row account">
-        <div id="a-{{forloop.counter}}-row" class="col-12"> 
+        <div  class="col-12"> 
             <strong>I</strong>
-            <i class="fa fa-minus-circle" aria-hidden="true"></i>
-            <strong>{{account.1.group_dict.items.0.1.items.0.10}} - ({{account.0}})</strong></div>
+            <i id="a-{{forloop.counter}}-row" class="fa fa-minus-circle" aria-hidden="true"></i>
+            <strong>{{account.1.group_dict.items.0.1.items.0.10}} - ({{account.0}})</strong>
+        </div>
+
         <!--for each group -->
         {% for group in account.1.group_dict.items %}
-        <div id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp" class="col-12">
+        <div id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp-show" class="col-12">
             {{forloop.counter}}.
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            <i id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp" class="fa fa-plus-circle" aria-hidden="true"></i>
              {{group.0}}
         </div>
 
@@ -48,11 +51,15 @@
         <div class="col-1 offset-md-11 account-total">$ {{account.1.a_total|floatformat:2|intcomma}}</div>
 
     </div>
-    <!-- endfor -->
+    {% empty %}
+    <div class="row">
+        <h4 class="text-danger"> No records found </h4>
+    </div>
     {% endfor %}
+    <!-- endfor -->
     <div class="row account">
         <div class="col-1 offset-md-11 t-total">
-            TOTAL 
+            ${{total|floatformat:2|intcomma}}
         </div>
     </div>
 

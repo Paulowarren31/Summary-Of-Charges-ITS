@@ -20,11 +20,12 @@ try:
     db_pass = f.read()
   connection_string = 'paulowar/'+db_pass+'@pinntst.dsc.umich.edu:1521/pinndev.world'
 except:
+  connection_string = 'paulowar/Pw6517nP@pinntst.dsc.umich.edu:1521/pinndev.world'
   print 'error reading DB secret'
 
 
 # index view
-@login_required(login_url='/accounts/login')
+#@login_required(login_url='/accounts/login')
 def index(request):
   res = {}
 
@@ -53,7 +54,7 @@ def index(request):
   return render(request, 'index.html', res)
 
 # table view
-@login_required(login_url='/accounts/login')
+#@login_required(login_url='/accounts/login')
 def table(request):
 
   form = MainForm()
@@ -66,21 +67,19 @@ def table(request):
       cd = form.cleaned_data
       #split dept id range by -
       id_range = cd.get('dept_id_range').split('-')
-      minimum = id_range[0]
-      maximum = id_range[1]
+      begin = id_range[0]
+      end = id_range[1]
 
       fiscal_yr = cd.get('fiscal_yr')
 
       query = "select * from um_ecomm_dept_units_rept where "
       query += "deptid between :b and :e and fiscal_yr=:fy" 
 
-      print query
+      c = cx_Oracle.connect(connection_string).cursor()
+      rows = c.execute(query, {'b': begin, 'e': end, 'fy': fiscal_yr}).fetchall()
 
-      cursor = cx_Oracle.connect(connection_string).cursor()
-
-      rows = cursor.execute(query, {'b': minimum, 'e': maximum, 'fy': fiscal_yr}).fetchall()
-
-      #dictionary that maps account #s to a list of items that belong to that account
+      #dictionary that maps account #s to a list of items that belong to that 
+      #account
       account_dict = {}
 
       for row in rows:
@@ -90,20 +89,22 @@ def table(request):
         else:
           account_dict[row[9]] = [row]
 
-      accounts = account_dict.iteritems()
+      accounts = account_dict.iteritems() #convert dictionary to list
 
       final = {}
+      total = 0
 
       for account in accounts:
-        #dictionary that maps group names to a list of items that belongs to that group
+        #dictionary that maps group names to a list of items that belongs to 
+        #that group
         group_dict = {}
         account_total = 0
-        acc_items = account[1]
+        acc_items = account[1] 
 
         for row in acc_items:
-          #row[11] is group name
-          g_name = row[11]
-          cost = row[16]
+          g_name = row[11] # group name column
+
+          cost = row[16] # cost column
           if g_name in group_dict:
             # each group will have a total and a list of items
             group_dict[g_name]['items'].append(row)
@@ -115,8 +116,9 @@ def table(request):
           account_total += float(cost)
 
 
+        total += account_total
         acc_id = account[0]
         final[acc_id] = {'a_total': account_total, 'group_dict': group_dict}
 
 
-      return render(request, 'table.html', {"rows": final})
+      return render(request, 'table.html', {'rows': final, 'total': total})
