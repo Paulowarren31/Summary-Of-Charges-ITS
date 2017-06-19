@@ -11,7 +11,6 @@ import requests
 import base64
 import cx_Oracle #oracle DB lib
 
-
 # Should this go somewhere else?
 
 try:
@@ -20,12 +19,11 @@ try:
     db_pass = f.read()
   connection_string = 'paulowar/'+db_pass+'@pinntst.dsc.umich.edu:1521/pinndev.world'
 except:
-  connection_string = 'paulowar/Pw6517nP@pinntst.dsc.umich.edu:1521/pinndev.world'
   print 'error reading DB secret'
 
 
 # index view
-#@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login')
 def index(request):
   res = {}
 
@@ -54,7 +52,7 @@ def index(request):
   return render(request, 'index.html', res)
 
 # table view
-#@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login')
 def table(request):
 
   form = MainForm()
@@ -64,19 +62,32 @@ def table(request):
     form = MainForm(request.POST)
     
     if form.is_valid():
-      cd = form.cleaned_data
-      #split dept id range by -
-      id_range = cd.get('dept_id_range').split('-')
-      begin = id_range[0]
-      end = id_range[1]
+      query = "select * from um_ecomm_dept_units_rept where "
 
+      cd = form.cleaned_data
+      id_range = cd.get('dept_id_range')
+      d_id = cd.get('dept_id')
       fiscal_yr = cd.get('fiscal_yr')
 
-      query = "select * from um_ecomm_dept_units_rept where "
-      query += "deptid between :b and :e and fiscal_yr=:fy" 
-
       c = cx_Oracle.connect(connection_string).cursor()
-      rows = c.execute(query, {'b': begin, 'e': end, 'fy': fiscal_yr}).fetchall()
+
+
+      if(id_range):
+        #split dept id range by -
+        split = id_range.split('-')
+        begin = split[0]
+        end = split[1]
+        query += "deptid between :b and :e and fiscal_yr=:fy" 
+        rows = c.execute(query, {'b': begin, 'e': end, 'fy': fiscal_yr}).fetchall()
+        print rows
+      else:
+        query += "deptid=:d and fiscal_yr=:fy" 
+        rows = c.execute(query, {'d': d_id, 'fy': fiscal_yr}).fetchall()
+
+      # currently not being used, but this is how they should be sorted.
+      # sorted by account ID and then by the group name within each account ID
+      sort = sorted(rows, cmp=comp)
+
 
       #dictionary that maps account #s to a list of items that belong to that 
       #account
@@ -122,3 +133,21 @@ def table(request):
 
 
       return render(request, 'table.html', {'rows': final, 'total': total})
+
+def comp(a, b):
+  a_id = int(a[9])
+  b_id = int(b[9])
+
+  if a_id == b_id:
+    a_grp = a[11]
+    b_grp = b[11]
+
+    if a_grp < b_grp:
+      return 1
+    else:
+      return -1
+  else:
+    return a_id - b_id
+
+
+

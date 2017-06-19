@@ -39,4 +39,16 @@ $(function(){
     $(elt).toggleClass('hidden')
 
   })
+
+
+  $('#ex-all').on('click', function(e){
+    all = $('[id^=a]')
+    $(all).removeClass('hidden')
+  })
+
+  $('#hd-all').on('click', function(e){
+    all = $('[id^=a]')
+    $(all).addClass('hidden')
+  })
+
 })

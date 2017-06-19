@@ -4,18 +4,22 @@
 {% block index %}
 <div class="container-fluid" style="width: 80%">
     <div class="row py-3">
-        <div class="col-2"><h4>Expense Account</h4></div>
-        <div class="col-3"><h4>Item Description & Item Code</h4></div>
-        <div class="col-2"><h4>Rate</h4></div>
-        <div class="col-2"><h4>Average Units</h4></div>
-        <div class="col-2"><h4>Billed Units</h4></div>
-        <div class="col-1"><h4>Total</h4></div>
+        <div class="col-md-2 col-sm-2"><h4>Expense Account</h4></div>
+        <div class="col-md-3 col-sm-5"><h4>Item Description & Item Code</h4></div>
+        <div class="col-md-2 col-sm-2"><h4>Rate</h4></div>
+        <div class="col-md-2 hidden-sm-down"><h4>Average Units</h4></div>
+        <div class="col-md-2 col-sm-2"><h4>Billed Units</h4></div>
+        <div class="col-md-1 col-sm-1"><h4>Total</h4></div>
+    </div>
+    <div class="row">
+        <button class="btn btn-sm m-2" id="ex-all">Expand All</button>
+        <button class="btn btn-sm m-2" id="hd-all">Hide All</button>
     </div>
 
     <!-- for each account -->
     {% for account in rows.items %}
     <div class="row account">
-        <div  class="col-12"> 
+        <div  class="col-md-12"> 
             <strong>I</strong>
             <i id="a-{{forloop.counter}}-row" class="fa fa-minus-circle" aria-hidden="true"></i>
             <strong>{{account.1.group_dict.items.0.1.items.0.10}} - ({{account.0}})</strong>
@@ -23,7 +27,7 @@
 
         <!--for each group -->
         {% for group in account.1.group_dict.items %}
-        <div id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp-show" class="col-12">
+        <div id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp-show" class="col-md-12">
             {{forloop.counter}}.
             <i id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp" class="fa fa-plus-circle" aria-hidden="true"></i>
              {{group.0}}
@@ -32,23 +36,24 @@
         <!-- for each item in group -->
         <div id="a-{{forloop.parentloop.counter}}-g-{{forloop.counter}}-items"class="row hidden">
         {% for item in group.1.items %}
-            <div class="col-3 offset-md-2"> <p>{{item.13}}<br><strong>{{item.12|default_if_none:""}}</strong></p></div>
-            <div class="col-2">${{item.14|default_if_none:""|floatformat:2|intcomma}}</div>
-            <div class="col-2">3 x 4 months</div>
-            <div class="col-2">{{item.15|default_if_none:""|floatformat:0}}</div>
-            <div class="col-1">${{item.16|default_if_none:""|floatformat:2|intcomma}}</div>
+            <div class="col-md-3 offset-md-2"> <p>{{item.13}}<br><strong>{{item.12|default_if_none:""}}</strong></p></div>
+            <div class="col-md-2">${{item.14|default_if_none:""|floatformat:2|intcomma}}</div>
+            <div class="col-md-2">???</div>
+            <div class="col-md-2">{{item.15|default_if_none:""|floatformat:0}}</div>
+            <div class="col-md-1">${{item.16|default_if_none:""|floatformat:2|intcomma}}</div>
+            <hr class="col-md-11" hr>
         {% endfor %}
         </div>
         <!-- endfor -->
 
         <!-- group total -->
-        <div id="a-{{forloop.parentloop.counter}}-grp"class="col-1 offset-md-11 cat-total">$ {{group.1.total|floatformat:2|intcomma}}</div>
+        <div id="a-{{forloop.parentloop.counter}}-grp"class="col-md-1 offset-md-11 cat-total">$ {{group.1.total|floatformat:2|intcomma}}</div>
         {% endfor %}
 
 
 
         <!-- account total -->
-        <div class="col-1 offset-md-11 account-total">$ {{account.1.a_total|floatformat:2|intcomma}}</div>
+        <div class="col-md-1 offset-md-11 account-total">$ {{account.1.a_total|floatformat:2|intcomma}}</div>
 
     </div>
     {% empty %}
@@ -58,7 +63,7 @@
     {% endfor %}
     <!-- endfor -->
     <div class="row account">
-        <div class="col-1 offset-md-11 t-total">
+        <div class="col-md-1 offset-md-11 t-total">
             ${{total|floatformat:2|intcomma}}
         </div>
     </div>
