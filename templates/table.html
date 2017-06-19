@@ -2,6 +2,7 @@
 {% load humanize %}
 {% load staticfiles %}
 {% block index %}
+
 <div class="container-fluid" style="width: 80%">
     <div class="row py-3">
         <div class="col-md-2 col-sm-2"><h4>Expense Account</h4></div>
@@ -22,6 +23,7 @@
         <div  class="col-md-12"> 
             <strong>I</strong>
             <i id="a-{{forloop.counter}}-row" class="fa fa-minus-circle" aria-hidden="true"></i>
+
             <strong>{{account.1.group_dict.items.0.1.items.0.10}} - ({{account.0}})</strong>
         </div>
 

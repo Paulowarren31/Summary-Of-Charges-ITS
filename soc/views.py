@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from forms import MainForm
-
+from decorators import user_has_permission
 from . import database
 
 import requests
@@ -13,17 +13,21 @@ import cx_Oracle #oracle DB lib
 
 # Should this go somewhere else?
 
+#python decouple
+
 try:
   #try and open DB password file mounted by openshift
   with open('/usr/src/app/myapp/local/oracle/password', 'rb') as f:
     db_pass = f.read()
   connection_string = 'paulowar/'+db_pass+'@pinntst.dsc.umich.edu:1521/pinndev.world'
 except:
+  connection_string = 'paulowar/Pw6517nP@pinntst.dsc.umich.edu:1521/pinndev.world'
   print 'error reading DB secret'
 
 
 # index view
 @login_required(login_url='/accounts/login')
+@user_has_permission
 def index(request):
   res = {}
 
@@ -52,7 +56,7 @@ def index(request):
   return render(request, 'index.html', res)
 
 # table view
-@login_required(login_url='/accounts/login')
+#@login_required(login_url='/accounts/login')
 def table(request):
 
   form = MainForm()
@@ -77,9 +81,15 @@ def table(request):
         split = id_range.split('-')
         begin = split[0]
         end = split[1]
+
+        print begin, end
+
         query += "deptid between :b and :e and fiscal_yr=:fy" 
+        print fiscal_yr
+
         rows = c.execute(query, {'b': begin, 'e': end, 'fy': fiscal_yr}).fetchall()
         print rows
+
       else:
         query += "deptid=:d and fiscal_yr=:fy" 
         rows = c.execute(query, {'d': d_id, 'fy': fiscal_yr}).fetchall()
@@ -88,14 +98,22 @@ def table(request):
       # sorted by account ID and then by the group name within each account ID
       sort = sorted(rows, cmp=comp)
 
+      previous_acc = sort[0][9] # first account id
+      for row in sort:
+        if row[9] != previous_acc:
+          #new account
+        else:
 
-      #dictionary that maps account #s to a list of items that belong to that 
-      #account
+
+
+
+      #dictionary that maps account #s to a list of items that belong to that #account
       account_dict = {}
 
       for row in rows:
         # row[9] is the account #
         if row[9] in account_dict:
+
           account_dict[row[9]].append(row)
         else:
           account_dict[row[9]] = [row]
@@ -105,10 +123,13 @@ def table(request):
       final = {}
       total = 0
 
+
+
       for account in accounts:
         #dictionary that maps group names to a list of items that belongs to 
         #that group
         group_dict = {}
+
         account_total = 0
         acc_items = account[1] 
 
@@ -129,17 +150,18 @@ def table(request):
 
         total += account_total
         acc_id = account[0]
+
         final[acc_id] = {'a_total': account_total, 'group_dict': group_dict}
 
 
       return render(request, 'table.html', {'rows': final, 'total': total})
 
 def comp(a, b):
-  a_id = int(a[9])
+  a_id = int(a[9]) #account ids
   b_id = int(b[9])
 
   if a_id == b_id:
-    a_grp = a[11]
+    a_grp = a[11] #group names
     b_grp = b[11]
 
     if a_grp < b_grp:

@@ -2,14 +2,14 @@ from django.db import models
 
 # Create your models here.
 
-#
+
 #class ExternalModel(models.Model):
-#
 #  class Meta:
 #    managed = False
 #    abstract = True
 #
 #class Report(ExternalModel):
+#  
 #  fiscal_yr = models.TextField(db_column='fiscal_yr', max_length=4)
 #  calendar_yr = models.TextField(db_column='calendar_yr', max_length=4)
 #  month = models.TextField(db_column='month', max_length=2)
