@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'debug_toolbar',
-    'welcome',
+    'soc',
     'djangosaml2',
     'health_check',
     'health_check.db',

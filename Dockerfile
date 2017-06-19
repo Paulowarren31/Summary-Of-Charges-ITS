@@ -8,7 +8,7 @@ COPY instantclient/* /tmp/
 
 RUN \
     apt-get update && mkdir -p /opt/oracle && \
-    apt-get -y install unzip && apt-get -y install libaio1 && \
+    apt-get -y install unzip libaio1 xmlsec1 python-dev && \
     unzip "/tmp/instantclient*.zip" -d /opt/oracle && \
     ln -s $ORACLE_HOME/libclntsh.so.12.1 $ORACLE_HOME/libclntsh.so && \
     pip install cx_Oracle && \
@@ -16,11 +16,9 @@ RUN \
 
 RUN mkdir /code
 
-
 WORKDIR /code
-ADD requirements.txt /code/
 
-RUN apt-get update && apt-get -y install xmlsec1 python-dev
+ADD requirements.txt /code/
 
 RUN pip install --upgrade pip && \
       pip install -r requirements.txt
