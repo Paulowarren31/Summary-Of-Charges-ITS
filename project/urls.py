@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from soc.views import index, profile, table, launch
+from soc.views import index, table
 
 
 urlpatterns = [
