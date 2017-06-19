@@ -15,7 +15,7 @@ def user_has_permission(function):
 
     c = cx_Oracle.connect(connection_string).cursor()
     query = 'select * from um_authorized_dept_users where uniqname=:u'
-    result = c.execute(query, {'u': request.user.username})
+    result = c.execute(query, {'u': request.user.username}).fetchall()
 
     print result
 
