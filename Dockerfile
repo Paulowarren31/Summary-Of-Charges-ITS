@@ -11,7 +11,6 @@ RUN \
     apt-get -y install unzip libaio1 xmlsec1 python-dev && \
     unzip "/tmp/instantclient*.zip" -d /opt/oracle && \
     ln -s $ORACLE_HOME/libclntsh.so.12.1 $ORACLE_HOME/libclntsh.so && \
-    pip install cx_Oracle && \
     pip install --upgrade pip
 
 RUN mkdir /code
