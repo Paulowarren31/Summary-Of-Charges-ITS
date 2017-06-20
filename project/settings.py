@@ -101,8 +101,8 @@ DATABASES = {
       #'PASSWORD': 'Pw6517nP',
       #'schemas': ['PAULOWAR', 'PINN_CUSTOM'],
       #'options':{
-          'user_returning_into': False,
-        },
+      #    'user_returning_into': False,
+      #  },
       'ENGINE': 'django.db.backends.sqlite3',
       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
       }
