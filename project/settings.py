@@ -100,11 +100,29 @@ DATABASES = {
       #'USER': 'paulowar',
       #'PASSWORD': 'Pw6517nP',
       #'schemas': ['PAULOWAR', 'PINN_CUSTOM'],
+      #'options':{
+          'user_returning_into': False,
+        },
       'ENGINE': 'django.db.backends.sqlite3',
       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
       }
     }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+        }
+    },
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

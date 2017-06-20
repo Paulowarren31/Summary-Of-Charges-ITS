@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from forms import MainForm
 from decorators import user_has_permission
+from models import um_ecomm_dept_units_rept
 from . import database
 
 import requests
@@ -27,6 +28,7 @@ except:
 
 # index view
 @login_required(login_url='/accounts/login')
+# uniqname must be in the pinnacle authorized users table
 @user_has_permission
 def index(request):
   res = {}
@@ -72,6 +74,8 @@ def table(request):
       id_range = cd.get('dept_id_range')
       d_id = cd.get('dept_id')
       fiscal_yr = cd.get('fiscal_yr')
+      unit = id_range
+      dateRange = 'Fiscal Year ' + fiscal_yr
 
       c = cx_Oracle.connect(connection_string).cursor()
 
@@ -96,6 +100,7 @@ def table(request):
 
       # currently not being used, but this is how they should be sorted.
       # sorted by account ID and then by the group name within each account ID
+      # could probably just do the same thing but through SQL, not sure which is faster
       sort = sorted(rows, cmp=comp)
 
       #previous_acc = sort[0][9] # first account id
@@ -103,8 +108,6 @@ def table(request):
       #  if row[9] != previous_acc:
       #    #new account
       #  else:
-
-
 
 
       #dictionary that maps account #s to a list of items that belong to that #account
@@ -153,8 +156,10 @@ def table(request):
 
         final[acc_id] = {'a_total': account_total, 'group_dict': group_dict}
 
+      
 
-      return render(request, 'table.html', {'rows': final, 'total': total})
+      return render(request, 'table.html', {'rows': final, 'total': total, 
+        'unit': unit, 'dateRange': dateRange})
 
 def comp(a, b):
   a_id = int(a[9]) #account ids
