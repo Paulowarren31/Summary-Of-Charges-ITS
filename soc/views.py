@@ -5,26 +5,17 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from forms import MainForm
 from decorators import user_has_permission
-from models import um_ecomm_dept_units_rept
+#from models import um_ecomm_dept_units_rept
+
 from . import database
+from django.conf import settings
 
 import requests
 import base64
 import cx_Oracle #oracle DB lib
 
-# Should this go somewhere else?
 
-#python decouple
-
-try:
-  #try and open DB password file mounted by openshift
-  with open('/usr/src/app/myapp/local/oracle/password', 'rb') as f:
-    db_pass = f.read()
-  connection_string = 'paulowar/'+db_pass+'@pinntst.dsc.umich.edu:1521/pinndev.world'
-except:
-  connection_string = 'paulowar/Pw6517nP@pinntst.dsc.umich.edu:1521/pinndev.world'
-  print 'error reading DB secret'
-
+connection_string = 'paulowar/'+settings.DB_PASSWORD+'@pinntst.dsc.umich.edu:1521/pinndev.world'
 
 # index view
 @login_required(login_url='/accounts/login')

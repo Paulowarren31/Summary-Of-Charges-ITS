@@ -93,6 +93,16 @@ TEMPLATES = [
 
 from . import database
 
+try:
+  #try and open DB password file mounted by openshift
+  with open('/usr/src/app/myapp/local/oracle/password', 'rb') as f:
+    DB_PASSWORD = f.read()
+except:
+  DB_PASSWORD = 'Pw6517nP'
+  print 'error reading DB secret file'
+
+
+
 DATABASES = {
     'default': {
       #'ENGINE': 'django.db.backends.oracle',
