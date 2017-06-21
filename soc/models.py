@@ -30,4 +30,4 @@ class um_ecomm_dept_units_rept(ExternalModel):
   dept_bud_seq_descr = models.CharField(db_column='dept_bud_seq_descr', max_length=30)
 
   class Meta(ExternalModel.Meta):
-    db_table = '"PINN_CUSTOM"."UM_ECOMM_DEPT_UNITS_REPT"'
+    db_table = 'PINN_CUSTOM\".\"UM_ECOMM_DEPT_UNITS_REPT'

@@ -102,6 +102,7 @@ DATABASES = {
       'schemas': ['PAULOWAR', 'PINN_CUSTOM'],
       'options':{
           'user_returning_into': False,
+          'options': '-c search_path=PINN_CUSTOM'
         },
       #'ENGINE': 'django.db.backends.sqlite3',
       #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),

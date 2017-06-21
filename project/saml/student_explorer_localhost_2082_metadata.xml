@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<md:EntityDescriptor xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ns1="urn:oasis:names:tc:SAML:metadata:algsupport" entityID="http://localhost:8000/accounts/metadata/"><md:Extensions><ns1:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#md5" /><ns1:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#ripemd160" /><ns1:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><ns1:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#sha224" /><ns1:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><ns1:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#sha384" /><ns1:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" /><ns1:SigningMethod Algorithm="http,//www.w3.org/2000/09/xmldsig#dsa-sha1" /><ns1:SigningMethod Algorithm="http://www.w3.org/2009/xmldsig11#dsa-sha256" /><ns1:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-md5" /><ns1:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-ripemd160" /><ns1:SigningMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><ns1:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha224" /><ns1:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" /><ns1:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha384" /><ns1:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512" /></md:Extensions><md:SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:KeyDescriptor use="signing"><ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIIENzCCAx+gAwIBAgIJALeLMucdDCHxMA0GCSqGSIb3DQEBCwUAMIGxMQswCQYD
+VQQGEwJVUzERMA8GA1UECAwITWljaGlnYW4xEjAQBgNVBAcMCUFubiBBcmJvcjEf
+MB0GA1UECgwWVW5pdmVyc2l0eSBvZiBNaWNoaWdhbjEgMB4GA1UECwwXSW5mcmFz
+dHJ1Y3R1cmUgU2VydmljZXMxFTATBgNVBAMMDFBhdWxvIFdhcnJlbjEhMB8GCSqG
+SIb3DQEJARYScGF1bG93YXJAdW1pY2guZWR1MB4XDTE3MDUyMjE0NDAzOVoXDTI3
+MDUyMjE0NDAzOVowgbExCzAJBgNVBAYTAlVTMREwDwYDVQQIDAhNaWNoaWdhbjES
+MBAGA1UEBwwJQW5uIEFyYm9yMR8wHQYDVQQKDBZVbml2ZXJzaXR5IG9mIE1pY2hp
+Z2FuMSAwHgYDVQQLDBdJbmZyYXN0cnVjdHVyZSBTZXJ2aWNlczEVMBMGA1UEAwwM
+UGF1bG8gV2FycmVuMSEwHwYJKoZIhvcNAQkBFhJwYXVsb3dhckB1bWljaC5lZHUw
+ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDMsVQjVpLqPcwfLtmpDaqi
+Ii7LIAY+G+Vezss9mtZbwsPL0bNvcDH013sjZhyVbLGceDM5B2OrV/2jHMEMknCp
+ruPkH5uy8ARg4W7KuuifF64liOEMZORQb7M8Gj9BtVEwKVewS+uwf051ycFEGHUW
+gjYLRE3l8YtVoY8GepNvJYaVhUZCu6k6ZNQ6JH2eujX5opavQ0RObtG76WwljEjk
+YR41XW2Nd4DbFtDYokoDAluoAL7LmnpaiFHkXLV3E528WoDF2ck8atjxZ73+vMwI
+JgbuAqzNSR5X2RGYxU4aXbU+GbtVYFN/bjwQs+L4nX7286woZ4ClcLgSd+9hOPQ1
+AgMBAAGjUDBOMB0GA1UdDgQWBBS1R7o+dLDGGqNW0nQb4I2Djgap7zAfBgNVHSME
+GDAWgBS1R7o+dLDGGqNW0nQb4I2Djgap7zAMBgNVHRMEBTADAQH/MA0GCSqGSIb3
+DQEBCwUAA4IBAQCEWSVjzyLJIfdU/5T/MPWehQO5V8/IXGpboQzHmhe0xkVMs57e
+AFAz+Mcwb9cbotYd0410JAWFQuQYg84bVgVyx4kf0nGTbztbOEuMpl55doRxUY/C
+hAG/WV7dm4ogoROkx5PAnXnoGmCoF2I10zRd5urzs0x6wfgU4qqJYZv5mz6ein7j
+sJa6U/KOM6Xtkb9YqnytYYoR7T+CJ+Mf1xKRp58ltwDnezyvfpov42hzZyIqG6CP
+g5VIkWdHLhF0ck4t7JN9dw9FwYaUsVLo06wtBE8X1GIol6jDXULPKC9Jg4xP4Kw8
+Mwf70APF4g11xywywekSC1kFbf9sTjHmopW+
+</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://localhost:8000/accounts/ls/" /><md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://localhost:8000/accounts/ls/post" /><md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat><md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://localhost:8000/accounts/acs/" index="1" /><md:AttributeConsumingService index="1"><md:ServiceName xml:lang="en">Student Explorer</md:ServiceName><md:RequestedAttribute FriendlyName="uid" Name="urn:oid:0.9.2342.19200300.100.1.1" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="true" /><md:RequestedAttribute FriendlyName="eduPersonAffiliation" Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.1" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" isRequired="false" /></md:AttributeConsumingService></md:SPSSODescriptor></md:EntityDescriptor>
