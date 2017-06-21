@@ -18,9 +18,9 @@ import cx_Oracle #oracle DB lib
 connection_string = 'paulowar/'+settings.DB_PASSWORD+'@pinntst.dsc.umich.edu:1521/pinndev.world'
 
 # index view
-@login_required(login_url='/accounts/login')
+#@login_required(login_url='/accounts/login')
 # uniqname must be in the pinnacle authorized users table
-@user_has_permission
+#@user_has_permission
 def index(request):
   res = {}
 
@@ -92,6 +92,7 @@ def table(request):
       # currently not being used, but this is how they should be sorted.
       # sorted by account ID and then by the group name within each account ID
       # could probably just do the same thing but through SQL, not sure which is faster
+
       sort = sorted(rows, cmp=comp)
 
       #previous_acc = sort[0][9] # first account id
@@ -116,7 +117,8 @@ def table(request):
 
       final = {}
       total = 0
-
+      months = []
+      m_count = 0
 
 
       for account in accounts:
@@ -129,6 +131,11 @@ def table(request):
 
         for row in acc_items:
           g_name = row[11] # group name column
+          month = row[2]
+
+          if month not in months:
+            months.append(month)
+            m_count += 1
 
           cost = row[16] # cost column
           if g_name in group_dict:
