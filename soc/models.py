@@ -28,16 +28,16 @@ class um_ecomm_dept_units_rept(ExternalModel):
   amount = models.FloatField()
   dept_bud_seq = models.CharField(db_column='dept_bud_seq', max_length=20)
   dept_bud_seq_descr = models.CharField(db_column='dept_bud_seq_descr', max_length=30)
+
   def __str__(self):
-    return self.fiscal_yr + ' - ' + self.month + ' ACC: ' + self.account
+    return 'ACC: '+ self.account + ' GRP: ' + self.charge_group + ' DESCR: ' + self.description
 
   class Meta(ExternalModel.Meta):
     db_table = 'PINN_CUSTOM\".\"UM_ECOMM_DEPT_UNITS_REPT'
+    ordering = ['account', 'charge_group', 'description']
 
 class DBRouter(object):
   def db_for_read(self, model, **hints):
-    print model._meta.db_table
-
     if model._meta.db_table == 'PINN_CUSTOM"."UM_ECOMM_DEPT_UNITS_REPT':
       return 'oracle'
     return 'default'

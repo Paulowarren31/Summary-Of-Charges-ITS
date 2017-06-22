@@ -63,105 +63,178 @@ def table(request):
     form = MainForm(request.POST)
     
     if form.is_valid():
-      query = "select * from um_ecomm_dept_units_rept where "
-
       cd = form.cleaned_data
-      id_range = cd.get('dept_id_range')
-      d_id = cd.get('dept_id')
+      dept_id = cd.get('dept_id')
       fiscal_yr = cd.get('fiscal_yr')
-      unit = id_range
-      dateRange = 'Fiscal Year ' + fiscal_yr
 
-      c = cx_Oracle.connect(connection_string).cursor()
+      #test = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id).filter(fiscal_yr=fiscal_yr)
 
+      #range
+      test = um_ecomm_dept_units_rept.objects.filter(deptid__lte=925010, deptid__gte=925000).filter(fiscal_yr=fiscal_yr)
 
-      if(id_range):
-        #split dept id range by -
-        split = id_range.split('-')
-        begin = split[0]
-        end = split[1]
+      test = list(test)
 
-        print begin, end
+      account = test[0].account
+      c_grp = test[0].charge_group
+      descr = test[0].description
 
-        query += "deptid between :b and :e and fiscal_yr=:fy" 
-        print fiscal_yr
-
-        rows = c.execute(query, {'b': begin, 'e': end, 'fy': fiscal_yr}).fetchall()
-        print rows
-
-      else:
-        query += "deptid=:d and fiscal_yr=:fy" 
-        rows = c.execute(query, {'d': d_id, 'fy': fiscal_yr}).fetchall()
-
-      # currently not being used, but this is how they should be sorted.
-      # sorted by account ID and then by the group name within each account ID
-      # could probably just do the same thing but through SQL, not sure which is faster
-
-      sort = sorted(rows, cmp=comp)
-
-      #previous_acc = sort[0][9] # first account id
-      #for row in sort:
-      #  if row[9] != previous_acc:
-      #    #new account
-      #  else:
-
-
-      #dictionary that maps account #s to a list of items that belong to that #account
-      account_dict = {}
-
-      for row in rows:
-        # row[9] is the account #
-        if row[9] in account_dict:
-
-          account_dict[row[9]].append(row)
-        else:
-          account_dict[row[9]] = [row]
-
-      accounts = account_dict.iteritems() #convert dictionary to list
-
-      final = {}
-      total = 0
-      months = []
-      m_count = 0
-
-
-      for account in accounts:
-        #dictionary that maps group names to a list of items that belongs to 
-        #that group
-        group_dict = {}
-
-        account_total = 0
-        acc_items = account[1] 
-
-        for row in acc_items:
-          g_name = row[11] # group name column
-          month = row[2]
-
-          if month not in months:
-            months.append(month)
-            m_count += 1
-
-          cost = row[16] # cost column
-          if g_name in group_dict:
-            # each group will have a total and a list of items
-            group_dict[g_name]['items'].append(row)
-            group_dict[g_name]['total'] += float(cost)
-          else:
-            group_dict[g_name] = {'items': [row], 'total': float(cost)}
-
-          # sum account total as well
-          account_total += float(cost)
-
-
-        total += account_total
-        acc_id = account[0]
-
-        final[acc_id] = {'a_total': account_total, 'group_dict': group_dict}
-
+      accounts = {}
       
+      total = 0
 
-      return render(request, 'table.html', {'rows': final, 'total': total, 
-        'unit': unit, 'dateRange': dateRange})
+
+      #python god
+      #TODO
+      #this does not work fully 
+      for t in test:
+
+        total += floatOrZ(t.unit_rate)
+        #if(t.unit_rate is not None or ''):
+        if t.account in accounts:
+
+          if t.charge_group in accounts[t.account]:
+
+            if t.description in accounts[t.account][t.charge_group]:
+
+              accounts[t.account][t.charge_group][t.description]['i'].append(t)
+
+              accounts[t.account][t.charge_group][t.description]['total'] += floatOrZ(t.unit_rate)
+              accounts[t.account][t.charge_group]['total'] += floatOrZ(t.unit_rate)
+              accounts[t.account]['total'] += floatOrZ(t.unit_rate)
+            
+            else: # new description
+              accounts[t.account][t.charge_group][t.description] = {'i': [t], 'total': floatOrZ(t.unit_rate), 'description': t.description}
+
+          else: # new charge group, description
+            accounts[t.account][t.charge_group] = {t.description: {'i': [t], 'total': floatOrZ(t.unit_rate), 'description': t.description, 'rate': t.unit_rate, 'bu': t.quantity},'total': floatOrZ(t.unit_rate), 'cg': t.charge_group}
+
+        else: # new account, charge, group, description
+          accounts[t.account] = {t.charge_group: {t.description: {'i': [t], 'total': floatOrZ(t.unit_rate), 'description': t.description, 'rate': t.unit_rate, 'bu': t.quantity}, 'total': floatOrZ(t.unit_rate), 'cg': t.charge_group}, 'total': floatOrZ(t.unit_rate), 'acc_desc': t.account_desc}
+
+      for account in accounts.iteritems():
+        print account
+
+      return render(request, 'table.html', {'rows': accounts, 'total': total})
+
+
+    #account{
+    #    acc#
+    #    acc_descr
+    #    total
+    #    charge_groups: []
+    #    }
+
+    #charge_group{
+    #    charge_group
+    #    total
+    #    descriptions: []
+    #    }
+
+    #description{
+    #    description
+    #    charge_codes
+    #    rate
+    #    avg_month
+    #    billed_units
+    #    total
+    #    }
+      
+      #query = "select * from um_ecomm_dept_units_rept where "
+
+      #id_range = cd.get('dept_id_range')
+      #d_id = cd.get('dept_id')
+      #fiscal_yr = cd.get('fiscal_yr')
+      #unit = id_range
+      #dateRange = 'Fiscal Year ' + fiscal_yr
+
+      #c = cx_Oracle.connect(connection_string).cursor()
+
+
+      #if(id_range):
+      #  #split dept id range by -
+      #  split = id_range.split('-')
+      #  begin = split[0]
+      #  end = split[1]
+
+      #  print begin, end
+
+      #  query += "deptid between :b and :e and fiscal_yr=:fy" 
+      #  print fiscal_yr
+
+      #  rows = c.execute(query, {'b': begin, 'e': end, 'fy': fiscal_yr}).fetchall()
+      #  print rows
+
+      #else:
+      #  query += "deptid=:d and fiscal_yr=:fy" 
+      #  rows = c.execute(query, {'d': d_id, 'fy': fiscal_yr}).fetchall()
+
+      ## currently not being used, but this is how they should be sorted.
+      ## sorted by account ID and then by the group name within each account ID
+      ## could probably just do the same thing but through SQL, not sure which is faster
+
+      #sort = sorted(rows, cmp=comp)
+
+      ##previous_acc = sort[0][9] # first account id
+      ##for row in sort:
+      ##  if row[9] != previous_acc:
+      ##    #new account
+      ##  else:
+
+
+      ##dictionary that maps account #s to a list of items that belong to that #account
+      #account_dict = {}
+
+      #for row in rows:
+      #  # row[9] is the account #
+      #  if row[9] in account_dict:
+
+      #    account_dict[row[9]].append(row)
+      #  else:
+      #    account_dict[row[9]] = [row]
+
+      #accounts = account_dict.iteritems() #convert dictionary to list
+
+      #final = {}
+      #total = 0
+      #months = []
+      #m_count = 0
+
+
+      #for account in accounts:
+      #  #dictionary that maps group names to a list of items that belongs to 
+      #  #that group
+      #  group_dict = {}
+
+      #  account_total = 0
+      #  acc_items = account[1] 
+
+      #  for row in acc_items:
+      #    g_name = row[11] # group name column
+      #    month = row[2]
+
+      #    if month not in months:
+      #      months.append(month)
+      #      m_count += 1
+
+      #    cost = row[16] # cost column
+      #    if g_name in group_dict:
+      #      # each group will have a total and a list of items
+      #      group_dict[g_name]['items'].append(row)
+      #      group_dict[g_name]['total'] += float(cost)
+      #    else:
+      #      group_dict[g_name] = {'items': [row], 'total': float(cost)}
+
+      #    # sum account total as well
+      #    account_total += float(cost)
+
+
+      #  total += account_total
+      #  acc_id = account[0]
+
+      #  final[acc_id] = {'a_total': account_total, 'group_dict': group_dict}
+
+      #
+
 
 def comp(a, b):
   a_id = int(a[9]) #account ids
@@ -178,5 +251,8 @@ def comp(a, b):
   else:
     return a_id - b_id
 
-
-
+def floatOrZ(string):
+  try:
+    return float(string)
+  except:
+    return 0.0

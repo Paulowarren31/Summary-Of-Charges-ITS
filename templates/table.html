@@ -29,11 +29,12 @@
             <strong>I</strong>
             <i id="a-{{forloop.counter}}-row" class="fa fa-minus-circle" aria-hidden="true"></i>
 
-            <strong>{{account.1.group_dict.items.0.1.items.0.10}} - ({{account.0}})</strong>
+            <strong>{{account.1.account}}({{account.0}})</strong>
         </div>
 
         <!--for each group -->
-        {% for group in account.1.group_dict.items %}
+        {% for group in account.1.items %}
+        {% if group.0 != "account" and group.0 != "a_total" %}
         <div id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp-show" class="col-lg-12">
             {{forloop.counter}}.
             <i id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp" class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -44,18 +45,19 @@
         <div id="a-{{forloop.parentloop.counter}}-g-{{forloop.counter}}-items" class=" col-lg-12 hidden">
             <div class="row">
         {% for item in group.1.items %}
-            <div class="col-lg-4 col-md-5 offset-md-1"> <p>{{item.13}}<br><strong>{{item.12|default_if_none:""}}</strong></p></div>
-            <div class="col-lg-2 col-md-2">${{item.14|default_if_none:""|floatformat:2|intcomma}}</div>
+            <div class="col-lg-4 col-md-5 offset-md-1"> <p>{{item.0}}<br><strong>{{item.1.i.0.charge_code|default_if_none:""}}</strong></p></div>
+            <div class="col-lg-2 col-md-2">${{item.1.i.0.unit_rate|default_if_none:""|floatformat:2|intcomma}}</div>
             <div class="col-lg-2 hidden-md-down">???</div>
-            <div class="col-lg-2 col-md-2">{{item.15|default_if_none:""|floatformat:0}}</div>
-            <div class="col-lg-1 col-md-2">${{item.16|default_if_none:""|floatformat:2|intcomma}}</div>
+            <div class="col-lg-2 col-md-2">{{item.1.i.0.quantity|default_if_none:""|floatformat:0}}</div>
+            <div class="col-lg-1 col-md-2">${{item.1.i.0.amount|default_if_none:""|floatformat:2|intcomma}}</div>
         {% endfor %}
             </div>
         </div>
         <!-- endfor -->
 
         <!-- group total -->
-        <div id="a-{{forloop.parentloop.counter}}-grp"class="col-lg-1 offset-lg-11 col-md-2 offset-md-10 cat-total">$ {{group.1.total|floatformat:2|intcomma}}</div>
+        <div id="a-{{forloop.parentloop.counter}}-grp"class="col-lg-1 offset-lg-11 col-md-2 offset-md-10 cat-total">$ {{group.1.c_total|floatformat:2|intcomma}}</div>
+        {% endif %}
         {% endfor %}
 
 

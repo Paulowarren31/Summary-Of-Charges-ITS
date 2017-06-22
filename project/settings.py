@@ -123,21 +123,22 @@ DATABASES = {
     }
 DATABASE_ROUTERS = ['soc.models.DBRouter']
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-      'console': {
-        'class': 'logging.StreamHandler',
-        },
-      },
-    'loggers': {
-      'django.db.backends': {
-        'level': 'DEBUG',
-        'handlers': ['console'],
-        }
-      },
-    }
+# prints sql statements made to db
+#LOGGING = {
+#    'version': 1,
+#    'disable_existing_loggers': False,
+#    'handlers': {
+#      'console': {
+#        'class': 'logging.StreamHandler',
+#        },
+#      },
+#    'loggers': {
+#      'django.db.backends': {
+#        'level': 'DEBUG',
+#        'handlers': ['console'],
+#        }
+#      },
+#    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
