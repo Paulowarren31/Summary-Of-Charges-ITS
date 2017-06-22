@@ -99,7 +99,7 @@ DATABASES = {
       'NAME': 'pinntst.dsc.umich.edu:1521/pinndev.world',
       'USER': 'paulowar',
       'PASSWORD': 'Pw6517nP',
-      'schemas': ['PAULOWAR', 'PINN_CUSTOM'],
+      'schemas': ['PINN_CUSTOM'],
       'options':{
           'user_returning_into': False,
           'options': '-c search_path=PINN_CUSTOM'
