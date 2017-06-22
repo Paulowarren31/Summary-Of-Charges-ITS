@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from forms import MainForm
 from decorators import user_has_permission
-#from models import um_ecomm_dept_units_rept
+from models import um_ecomm_dept_units_rept
 
 from . import database
 from django.conf import settings
