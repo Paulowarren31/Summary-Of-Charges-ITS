@@ -9,12 +9,12 @@
         <h4><strong>Date Range</strong> {{dateRange}}</h4>
     </div>
     <div class="row py-3">
-        <div class="col-md-2 col-sm-2"><h4>Expense Account</h4></div>
-        <div class="col-md-3 col-sm-5"><h4>Item Description & Item Code</h4></div>
-        <div class="col-md-2 col-sm-2"><h4>Rate</h4></div>
-        <div class="col-md-2 hidden-sm-down"><h4>Average Units</h4></div>
-        <div class="col-md-2 col-sm-2"><h4>Billed Units</h4></div>
-        <div class="col-md-1 col-sm-1"><h4>Total</h4></div>
+        <div class="col-lg-2 col-sm-2"><h4>Expense Account</h4></div>
+        <div class="col-lg-3 col-sm-5"><h4>Item Description & Item Code</h4></div>
+        <div class="col-lg-2 col-sm-2"><h4>Rate</h4></div>
+        <div class="col-lg-2 hidden-md-down"><h4>Average Units</h4></div>
+        <div class="col-lg-2 col-sm-2"><h4>Billed Units</h4></div>
+        <div class="col-lg-1 col-sm-1"><h4>Total</h4></div>
     </div>
     <div class="row">
         <button class="btn btn-sm m-2" id="ex-all">Expand All</button>
@@ -42,12 +42,12 @@
         <!-- for each item in group -->
         <div id="a-{{forloop.parentloop.counter}}-g-{{forloop.counter}}-items"class="row hidden">
         {% for item in group.1.items %}
-            <div class="col-md-3 offset-md-2"> <p>{{item.13}}<br><strong>{{item.12|default_if_none:""}}</strong></p></div>
-            <div class="col-md-2">${{item.14|default_if_none:""|floatformat:2|intcomma}}</div>
-            <div class="col-md-2">???</div>
-            <div class="col-md-2">{{item.15|default_if_none:""|floatformat:0}}</div>
-            <div class="col-md-1">${{item.16|default_if_none:""|floatformat:2|intcomma}}</div>
-            <hr class="col-md-11" style="margin: 0px;">
+            <div class="col-lg-3 offset-md-2"> <p>{{item.13}}<br><strong>{{item.12|default_if_none:""}}</strong></p></div>
+            <div class="col-lg-2 col-md-5">${{item.14|default_if_none:""|floatformat:2|intcomma}}</div>
+            <div class="col-lg-2 hidden-md-down">???</div>
+            <div class="col-lg-2">{{item.15|default_if_none:""|floatformat:0}}</div>
+            <div class="col-lg-1">${{item.16|default_if_none:""|floatformat:2|intcomma}}</div>
+            <hr class="col-lg-11" style="margin: 0px;">
         {% endfor %}
         </div>
         <!-- endfor -->
