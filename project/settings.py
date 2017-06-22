@@ -102,13 +102,12 @@ except:
   print 'error reading DB secret file'
 
 
-
 DATABASES = {
     'oracle': {
       'ENGINE': 'django.db.backends.oracle',
       'NAME': 'pinntst.dsc.umich.edu:1521/pinndev.world',
       'USER': 'paulowar',
-      'PASSWORD': 'Pw6517nP',
+      'PASSWORD': DB_PASSWORD,
       'schemas': ['PINN_CUSTOM'],
       'options':{
         'user_returning_into': False,

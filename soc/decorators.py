@@ -1,16 +1,10 @@
 from django.core.exceptions import PermissionDenied
+from django.conf import settings
 import cx_Oracle
 
 def user_has_permission(function):
+  connection_string = 'paulowar/'+settings.DB_PASSWORD+'@pinntst.dsc.umich.edu:1521/pinndev.world'
   def wrap(request, *args, **kwargs):
-    try:
-      #try and open DB password file mounted by openshift
-      with open('/usr/src/app/myapp/local/oracle/password', 'rb') as f:
-        db_pass = f.read()
-      connection_string = 'paulowar/'+db_pass+'@pinntst.dsc.umich.edu:1521/pinndev.world'
-    except:
-      connection_string = 'paulowar/Pw6517nP@pinntst.dsc.umich.edu:1521/pinndev.world'
-
     print request.user.username
 
     c = cx_Oracle.connect(connection_string).cursor()
