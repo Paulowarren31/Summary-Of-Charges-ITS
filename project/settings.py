@@ -104,35 +104,40 @@ except:
 
 
 DATABASES = {
-    'default': {
-      #'ENGINE': 'django.db.backends.oracle',
-      #'NAME': 'pinntst.dsc.umich.edu:1521/pinndev.world',
-      #'USER': 'paulowar',
-      #'PASSWORD': 'Pw6517nP',
-      #'schemas': ['PAULOWAR', 'PINN_CUSTOM'],
-      #'options':{
-      #    'user_returning_into': False,
-      #  },
+    'oracle': {
+      'ENGINE': 'django.db.backends.oracle',
+      'NAME': 'pinntst.dsc.umich.edu:1521/pinndev.world',
+      'USER': 'paulowar',
+      'PASSWORD': 'Pw6517nP',
+      'schemas': ['PINN_CUSTOM'],
+      'options':{
+        'user_returning_into': False,
+        'options': '-c search_path=PINN_CUSTOM'
+        },
+      },
+    'default':{
       'ENGINE': 'django.db.backends.sqlite3',
       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
       }
+
     }
+DATABASE_ROUTERS = ['soc.models.DBRouter']
 
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
+      'console': {
+        'class': 'logging.StreamHandler',
         },
-    },
+      },
     'loggers': {
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
+      'django.db.backends': {
+        'level': 'DEBUG',
+        'handlers': ['console'],
         }
-    },
-}
+      },
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

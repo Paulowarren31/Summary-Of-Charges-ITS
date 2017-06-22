@@ -22,6 +22,10 @@ connection_string = 'paulowar/'+settings.DB_PASSWORD+'@pinntst.dsc.umich.edu:152
 # uniqname must be in the pinnacle authorized users table
 #@user_has_permission
 def index(request):
+
+  test =  list(um_ecomm_dept_units_rept.objects.filter(month='06').filter(deptid='925010'))
+  print test[0]
+
   res = {}
 
   conn = cx_Oracle.connect(connection_string)
