@@ -98,8 +98,7 @@ try:
   with open('/usr/src/app/myapp/local/oracle/password', 'rb') as f:
     DB_PASSWORD = f.read()
 except:
-  DB_PASSWORD = 'Pw6517nP'
-  print 'error reading DB secret file'
+  DB_PASSWORD = os.environ['O_DB_PASS']
 
 
 DATABASES = {
@@ -120,6 +119,8 @@ DATABASES = {
       }
 
     }
+# all db access is pointed towards sqlite, other than the 1 table we want from
+# pinnacle
 DATABASE_ROUTERS = ['soc.models.DBRouter']
 
 # prints sql statements made to db

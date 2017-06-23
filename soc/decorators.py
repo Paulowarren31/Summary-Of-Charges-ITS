@@ -4,6 +4,7 @@ import cx_Oracle
 
 def user_has_permission(function):
   connection_string = 'paulowar/'+settings.DB_PASSWORD+'@pinntst.dsc.umich.edu:1521/pinndev.world'
+
   def wrap(request, *args, **kwargs):
     print request.user.username
 
@@ -17,6 +18,7 @@ def user_has_permission(function):
       raise PermissionDenied
     else:
       return function(request, *args, **kwargs)
+
   wrap.__doc__ = function.__doc__
   wrap.__name__ = function.__name__
   return wrap

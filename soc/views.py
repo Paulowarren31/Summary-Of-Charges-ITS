@@ -12,48 +12,20 @@ from django.conf import settings
 
 import requests
 import base64
-import cx_Oracle #oracle DB lib
-
-
-connection_string = 'paulowar/'+settings.DB_PASSWORD+'@pinntst.dsc.umich.edu:1521/pinndev.world'
 
 # index view
-#@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login')
 # uniqname must be in the pinnacle authorized users table
-#@user_has_permission
+@user_has_permission
 def index(request):
-
-  test =  list(um_ecomm_dept_units_rept.objects.filter(month='06').filter(deptid='925010'))
-  print test[0]
-
-  res = {}
-
-  conn = cx_Oracle.connect(connection_string)
-  cursor = conn.cursor()
-
-  #select all of the unique dept_grps 
-  query = "select * from um_ecomm_dept_units_rept where ROWID IN ( SELECT MAX(ROWID) FROM um_ecomm_dept_units_rept GROUP BY dept_grp)"
-
-  res['dept_grps'] = cursor.execute(query).fetchall()
-
-  #select all of the unique dept_grp_vp_areas 
-  query = "select * from um_ecomm_dept_units_rept where ROWID IN ( SELECT MAX(ROWID) FROM um_ecomm_dept_units_rept GROUP BY dept_grp_vp_area)"
-
-  res['vp_areas'] = cursor.execute(query).fetchall()
-
-  #select all of the unique dept_bud_seqs
-  query = "select * from um_ecomm_dept_units_rept where ROWID IN ( SELECT MAX(ROWID) FROM um_ecomm_dept_units_rept GROUP BY dept_bud_seq)"
-
-  res['bud_seqs'] = cursor.execute(query).fetchall()
-
-  conn.close()
 
   res['form'] = MainForm()
 
   return render(request, 'index.html', res)
 
 # table view
-#@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login')
+@user_has_permission
 def table(request):
 
   form = MainForm()
@@ -236,20 +208,6 @@ def table(request):
       #
 
 
-def comp(a, b):
-  a_id = int(a[9]) #account ids
-  b_id = int(b[9])
-
-  if a_id == b_id:
-    a_grp = a[11] #group names
-    b_grp = b[11]
-
-    if a_grp < b_grp:
-      return 1
-    else:
-      return -1
-  else:
-    return a_id - b_id
 
 def floatOrZ(string):
   try:
