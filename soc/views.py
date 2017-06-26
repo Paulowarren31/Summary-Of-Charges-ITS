@@ -15,9 +15,11 @@ import base64
 
 # index view
 @login_required(login_url='/accounts/login')
-# uniqname must be in the pinnacle authorized users table
+## uniqname must be in the pinnacle authorized users table
 @user_has_permission
 def index(request):
+
+  res = {}
 
   res['form'] = MainForm()
 
@@ -38,179 +40,111 @@ def table(request):
       cd = form.cleaned_data
       dept_id = cd.get('dept_id')
       fiscal_yr = cd.get('fiscal_yr')
-
-      #test = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id).filter(fiscal_yr=fiscal_yr)
+      dept_range = cd.get('dept_id_range')
 
       #range
-      test = um_ecomm_dept_units_rept.objects.filter(deptid__lte=925010, deptid__gte=925000).filter(fiscal_yr=fiscal_yr)
+      if dept_range:
+        begin = dept_range.split('-')[0]
+        end = dept_range.split('-')[1]
 
-      test = list(test)
+        rows = um_ecomm_dept_units_rept.objects.filter(deptid__lte=begin, deptid__gte=end).filter(fiscal_yr=fiscal_yr)
 
-      account = test[0].account
-      c_grp = test[0].charge_group
-      descr = test[0].description
+      else:
 
-      accounts = {}
+        rows = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id).filter(fiscal_yr=fiscal_yr)
+
+      rows = list(rows)
+
+      accounts, total = handleAccounts(rows)
+
+      for acc in accounts:
+        acc['items'] = handleGroups(acc)
+        for group in acc['items']:
+          group['items'] = handleDescriptions(group)
+
       
-      total = 0
+      return render(request, 'table.html', {'accounts': accounts, 'total': total})
 
 
-      #python god
-      #TODO
-      #this does not work fully 
-      for t in test:
-
-        total += floatOrZ(t.unit_rate)
-        #if(t.unit_rate is not None or ''):
-        if t.account in accounts:
-
-          if t.charge_group in accounts[t.account]:
-
-            if t.description in accounts[t.account][t.charge_group]:
-
-              accounts[t.account][t.charge_group][t.description]['i'].append(t)
-
-              accounts[t.account][t.charge_group][t.description]['total'] += floatOrZ(t.unit_rate)
-              accounts[t.account][t.charge_group]['total'] += floatOrZ(t.unit_rate)
-              accounts[t.account]['total'] += floatOrZ(t.unit_rate)
-            
-            else: # new description
-              accounts[t.account][t.charge_group][t.description] = {'i': [t], 'total': floatOrZ(t.unit_rate), 'description': t.description}
-
-          else: # new charge group, description
-            accounts[t.account][t.charge_group] = {t.description: {'i': [t], 'total': floatOrZ(t.unit_rate), 'description': t.description, 'rate': t.unit_rate, 'bu': t.quantity},'total': floatOrZ(t.unit_rate), 'cg': t.charge_group}
-
-        else: # new account, charge, group, description
-          accounts[t.account] = {t.charge_group: {t.description: {'i': [t], 'total': floatOrZ(t.unit_rate), 'description': t.description, 'rate': t.unit_rate, 'bu': t.quantity}, 'total': floatOrZ(t.unit_rate), 'cg': t.charge_group}, 'total': floatOrZ(t.unit_rate), 'acc_desc': t.account_desc}
-
-      for account in accounts.iteritems():
-        print account
-
-      return render(request, 'table.html', {'rows': accounts, 'total': total})
-
-
-    #account{
-    #    acc#
-    #    acc_descr
-    #    total
-    #    charge_groups: []
-    #    }
-
-    #charge_group{
-    #    charge_group
-    #    total
-    #    descriptions: []
-    #    }
-
-    #description{
-    #    description
-    #    charge_codes
-    #    rate
-    #    avg_month
-    #    billed_units
-    #    total
-    #    }
-      
-      #query = "select * from um_ecomm_dept_units_rept where "
-
-      #id_range = cd.get('dept_id_range')
-      #d_id = cd.get('dept_id')
-      #fiscal_yr = cd.get('fiscal_yr')
-      #unit = id_range
-      #dateRange = 'Fiscal Year ' + fiscal_yr
-
-      #c = cx_Oracle.connect(connection_string).cursor()
-
-
-      #if(id_range):
-      #  #split dept id range by -
-      #  split = id_range.split('-')
-      #  begin = split[0]
-      #  end = split[1]
-
-      #  print begin, end
-
-      #  query += "deptid between :b and :e and fiscal_yr=:fy" 
-      #  print fiscal_yr
-
-      #  rows = c.execute(query, {'b': begin, 'e': end, 'fy': fiscal_yr}).fetchall()
-      #  print rows
-
-      #else:
-      #  query += "deptid=:d and fiscal_yr=:fy" 
-      #  rows = c.execute(query, {'d': d_id, 'fy': fiscal_yr}).fetchall()
-
-      ## currently not being used, but this is how they should be sorted.
-      ## sorted by account ID and then by the group name within each account ID
-      ## could probably just do the same thing but through SQL, not sure which is faster
-
-      #sort = sorted(rows, cmp=comp)
-
-      ##previous_acc = sort[0][9] # first account id
-      ##for row in sort:
-      ##  if row[9] != previous_acc:
-      ##    #new account
-      ##  else:
-
-
-      ##dictionary that maps account #s to a list of items that belong to that #account
-      #account_dict = {}
-
-      #for row in rows:
-      #  # row[9] is the account #
-      #  if row[9] in account_dict:
-
-      #    account_dict[row[9]].append(row)
-      #  else:
-      #    account_dict[row[9]] = [row]
-
-      #accounts = account_dict.iteritems() #convert dictionary to list
-
-      #final = {}
-      #total = 0
-      #months = []
-      #m_count = 0
-
-
-      #for account in accounts:
-      #  #dictionary that maps group names to a list of items that belongs to 
-      #  #that group
-      #  group_dict = {}
-
-      #  account_total = 0
-      #  acc_items = account[1] 
-
-      #  for row in acc_items:
-      #    g_name = row[11] # group name column
-      #    month = row[2]
-
-      #    if month not in months:
-      #      months.append(month)
-      #      m_count += 1
-
-      #    cost = row[16] # cost column
-      #    if g_name in group_dict:
-      #      # each group will have a total and a list of items
-      #      group_dict[g_name]['items'].append(row)
-      #      group_dict[g_name]['total'] += float(cost)
-      #    else:
-      #      group_dict[g_name] = {'items': [row], 'total': float(cost)}
-
-      #    # sum account total as well
-      #    account_total += float(cost)
-
-
-      #  total += account_total
-      #  acc_id = account[0]
-
-      #  final[acc_id] = {'a_total': account_total, 'group_dict': group_dict}
-
-      #
-
-
-
+# tries to convert a string to a float, returns 0 if exception
 def floatOrZ(string):
   try:
     return float(string)
   except:
     return 0.0
+
+#gives back array of items grouped by their account
+def handleAccounts(items):
+  accounts = []
+  t_total = 0
+  p = ''
+  for i in items:
+    t_total += floatOrZ(i.amount)
+    if i.account != p or p == '':
+      a = {'items': [i], 'desc': i.account_desc, 'num': i.account, 'total': floatOrZ(i.amount)}
+      accounts.append(a)
+    else:
+      accounts[-1]['items'].append(i)
+      accounts[-1]['total'] += floatOrZ(i.amount)
+    p = str(i.account)
+
+  return (accounts,t_total)
+
+def handleGroups(account):
+  groups = []
+  g_total = 0
+  c = ''
+  for i in account['items']:
+    if i.charge_group != c or c == '':
+      cg = {'items': [i], 'code': i.charge_code,'grp': i.charge_group, 'total': floatOrZ(i.amount)}
+      groups.append(cg)
+    else:
+      groups[-1]['items'].append(i)
+      groups[-1]['total'] += floatOrZ(i.amount)
+    c = i.charge_group
+
+  return groups
+
+
+def handleDescriptions(group):
+  descs = []
+  d_total = 0
+  d = ''
+
+  for i in group['items']:
+    if i.description != d or d == '':
+      descr = {'items': [i], 'cc': i.charge_code, 'unit_rate': i.unit_rate, 'quantity': floatOrZ(i.quantity), 'total': floatOrZ(i.amount), 'descr': i.description, 'months': [i.month], 'm_count': 1}
+
+      descs.append(descr)
+    else:
+      descs[-1]['items'].append(i)
+      descs[-1]['quantity'] += floatOrZ(i.quantity)
+      descs[-1]['total'] += floatOrZ(i.amount)
+
+      if i.month not in descs[-1]['months']:
+        descs[-1]['m_count'] += 1
+        descs[-1]['months'].append(i.month)
+
+    d = i.description
+
+  for d in descs:
+    d['monthly'] = round(d['quantity'] / d['m_count'], 2)
+
+  return descs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

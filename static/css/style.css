@@ -27,3 +27,6 @@ p{
 i:hover{
     cursor: grab;
 }
+body{
+    font-family: 'Nunito Sans', sans-serif;
+}

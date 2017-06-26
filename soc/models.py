@@ -23,8 +23,11 @@ class um_ecomm_dept_units_rept(ExternalModel):
   charge_group = models.CharField(db_column='charge_group', max_length=50)
   charge_code = models.CharField(db_column='charge_code', max_length=12)
   description = models.CharField(db_column='description', max_length=50)
+  # price per unit
   unit_rate = models.CharField(db_column='unit_rate', max_length=40)
+  # number sold
   quantity = models.FloatField()
+  # $$ made
   amount = models.FloatField()
   dept_bud_seq = models.CharField(db_column='dept_bud_seq', max_length=20)
   dept_bud_seq_descr = models.CharField(db_column='dept_bud_seq_descr', max_length=30)
@@ -36,6 +39,8 @@ class um_ecomm_dept_units_rept(ExternalModel):
     db_table = 'PINN_CUSTOM\".\"UM_ECOMM_DEPT_UNITS_REPT'
     ordering = ['account', 'charge_group', 'description']
 
+#any reads to a DB are send to the sqlite DB, 
+#unless it is um_ecomm_dept_units_rept
 class DBRouter(object):
   def db_for_read(self, model, **hints):
     if model._meta.db_table == 'PINN_CUSTOM"."UM_ECOMM_DEPT_UNITS_REPT':
