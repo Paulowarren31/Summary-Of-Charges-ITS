@@ -14,9 +14,9 @@ import requests
 import base64
 
 # index view
-@login_required(login_url='/accounts/login')
+#@login_required(login_url='/accounts/login')
  #uniqname must be in the pinnacle authorized users table
-@user_has_permission
+#@user_has_permission
 def index(request):
   res = {}
 
@@ -25,8 +25,8 @@ def index(request):
   return render(request, 'index.html', res)
 
 # table view
-@login_required(login_url='/accounts/login')
-@user_has_permission
+#@login_required(login_url='/accounts/login')
+#@user_has_permission
 def table(request):
 
   form = MainForm()
