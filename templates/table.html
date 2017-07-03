@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load money_format %}
 {% load staticfiles %}
 {% block index %}
 <nav class="navbar fixed-top navbar-light bg-faded">
@@ -13,9 +14,10 @@
     </div>
 </nav>
 <div class="container-fluid" style="width: 80% display: none;">
-    <div class="row py-3">
+    <div class="row top-row">
         <h4><strong>Unit/Group:</strong> {{unit}}</h4>
-        <br>
+    </div>
+    <div class="row">
         <h4><strong>Date Range</strong> {{dateRange}}</h4>
     </div>
     <div class="row">
@@ -47,27 +49,28 @@
             <div class="row">
                 {% for item in group.items %}
                 <div class="col-lg-4 col-md-5 offset-md-1"> <p>{{item.descr}}<br><strong>{{item.cc|default_if_none:""}}</strong></p></div>
-                <div class="col-lg-2 col-md-2">${{item.unit_rate|default_if_none:""|floatformat:2|intcomma}}</div>
+                <div class="col-lg-2 col-md-2">{{item.unit_rate|floatformat:2|money}}</div>
                 <div class="col-lg-2 hidden-md-down">{{item.monthly}}</div>
                 <div class="col-lg-1 col-md-2">{{item.quantity|default_if_none:""|floatformat:0}}</div>
-                <div class="col-lg-2 col-md-2">${{item.total|default_if_none:""|floatformat:2|intcomma}}</div>
+                <div class="col-lg-2 col-md-2">{{item.total|floatformat:2|money}}</div>
                 {% endfor %}
             </div>
         </div>
         <!-- endfor -->
 
         <!-- group total -->
-        <div id="a-{{forloop.parentloop.counter}}-grp"class="col-lg-2 offset-lg-10 col-md-2 offset-md-10 cat-total">$ {{group.total|floatformat:2|intcomma}}</div>
+        <div id="a-{{forloop.parentloop.counter}}-grp"class="col-lg-2 offset-lg-10 col-md-2 offset-md-10 cat-total">{{group.total|floatformat:2|money}}</div>
         {% endfor %}
 
 
         <!-- account total -->
-        <div class="col-lg-2 offset-lg-10 col-md-2 offset-md-10 account-total">$ {{account.total|floatformat:2|intcomma}}</div>
+        <div class="col-lg-2 offset-lg-10 col-md-2 offset-md-10 account-total">{{account.total|floatformat:2}}</div>
 
     </div>
     {% empty %}
     <div class="row">
         <h4 class="text-danger"> No records found </h4>
+        <a class=""href="/">Go Back</a>
     </div>
     {% endfor %}
     <!-- endfor -->
