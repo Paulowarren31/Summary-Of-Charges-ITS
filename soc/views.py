@@ -14,11 +14,10 @@ import requests
 import base64
 
 # index view
-@login_required(login_url='/accounts/login')
+#@login_required(login_url='/accounts/login')
 ## uniqname must be in the pinnacle authorized users table
-@user_has_permission
+#@user_has_permission
 def index(request):
-
   res = {}
 
   res['form'] = MainForm()
@@ -26,8 +25,8 @@ def index(request):
   return render(request, 'index.html', res)
 
 # table view
-@login_required(login_url='/accounts/login')
-@user_has_permission
+#@login_required(login_url='/accounts/login')
+#@user_has_permission
 def table(request):
 
   form = MainForm()
@@ -42,6 +41,9 @@ def table(request):
       fiscal_yr = cd.get('fiscal_yr')
       dept_range = cd.get('dept_id_range')
 
+      date_range = 'Fiscal year ' + fiscal_yr
+      unit = ''
+
       #range
       if dept_range:
         begin = dept_range.split('-')[0]
@@ -49,7 +51,11 @@ def table(request):
 
         rows = um_ecomm_dept_units_rept.objects.filter(deptid__lte=begin, deptid__gte=end).filter(fiscal_yr=fiscal_yr)
 
+        unit = 'Dept ids: ' + begin + ' - ' + end
+
       else:
+
+        unit = 'Dept id: ' + dept_id
 
         rows = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id).filter(fiscal_yr=fiscal_yr)
 
@@ -61,10 +67,10 @@ def table(request):
         acc['items'] = handleGroups(acc)
         for group in acc['items']:
           group['items'] = handleDescriptions(group)
-
       
-      return render(request, 'table.html', {'accounts': accounts, 'total': total})
-
+      return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
+    return render(request, 'index.html', {'form': form})
+    
 
 # tries to convert a string to a float, returns 0 if exception
 def floatOrZ(string):

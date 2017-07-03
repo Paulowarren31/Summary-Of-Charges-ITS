@@ -50,7 +50,7 @@ INSTALLED_APPS = (
     'health_check.db',
     'health_check.cache',
     'health_check.storage',
-    'crispy_forms'
+    'crispy_forms',
     )
 
 
@@ -81,6 +81,9 @@ TEMPLATES = [
           'django.contrib.auth.context_processors.auth',
           'django.contrib.messages.context_processors.messages',
           ],
+        'builtins': [
+          'soc.templatetags.money_format'
+          ],
         },
       },
     ]
@@ -97,7 +100,9 @@ try:
   #try and open DB password file mounted by openshift
   with open('/usr/src/app/myapp/local/oracle/password', 'rb') as f:
     DB_PASSWORD = f.read()
+
 except:
+  #if working locally, get it from an env var
   DB_PASSWORD = os.environ['O_DB_PASS']
 
 
@@ -109,16 +114,16 @@ DATABASES = {
       'PASSWORD': DB_PASSWORD,
       'schemas': ['PINN_CUSTOM'],
       'options':{
-        'user_returning_into': False,
-        'options': '-c search_path=PINN_CUSTOM'
+        'user_returning_into': False,# unsure if does anything
+        'options': '-c search_path=PINN_CUSTOM'# unsure if does anything
         },
       },
     'default':{
       'ENGINE': 'django.db.backends.sqlite3',
       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
       }
-
     }
+
 # all db access is pointed towards sqlite, other than the 1 table we want from
 # pinnacle
 DATABASE_ROUTERS = ['soc.models.DBRouter']
@@ -237,6 +242,8 @@ SAML_CONFIG = {
 
     'debug': 1,
     # certificate
+    # TODO change these to openshift secrets, figure out a way to use 
+    # locally too 
     'key_file': path.join(BASEDIR, 'saml/student-explorer-saml.key'),
     'cert_file': path.join(BASEDIR, 'saml/student-explorer-saml.pem'),
     'encryption_keypairs': [{
