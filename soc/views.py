@@ -15,7 +15,7 @@ import base64
 
 # index view
 @login_required(login_url='/accounts/login')
- uniqname must be in the pinnacle authorized users table
+ #uniqname must be in the pinnacle authorized users table
 @user_has_permission
 def index(request):
   res = {}
