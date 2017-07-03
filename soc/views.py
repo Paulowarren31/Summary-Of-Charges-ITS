@@ -15,7 +15,7 @@ import base64
 
 # index view
 @login_required(login_url='/accounts/login')
-# uniqname must be in the pinnacle authorized users table
+ uniqname must be in the pinnacle authorized users table
 @user_has_permission
 def index(request):
   res = {}
@@ -46,12 +46,14 @@ def table(request):
 
       #range
       if dept_range:
-        begin = dept_range.split('-')[0]
-        end = dept_range.split('-')[1]
 
-        rows = um_ecomm_dept_units_rept.objects.filter(deptid__lte=begin, deptid__gte=end).filter(fiscal_yr=fiscal_yr)
+        begin = int(dept_range.split('-')[0])
+        end = int(dept_range.split('-')[1])
 
-        unit = 'Dept ids: ' + begin + ' - ' + end
+        rows = um_ecomm_dept_units_rept.objects.filter(deptid__lte=end, deptid__gte=begin).filter(fiscal_yr=fiscal_yr)
+
+    
+        unit = 'Dept ids: ' + str(begin) + ' - ' + str(end)
 
       else:
 
