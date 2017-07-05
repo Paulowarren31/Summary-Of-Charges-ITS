@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from forms import MainForm
 from decorators import user_has_permission
 from models import um_ecomm_dept_units_rept
+from django.db import models
 
 from . import database
 from django.conf import settings
@@ -18,6 +19,8 @@ import base64
 #uniqname must be in the pinnacle authorized users table
 @user_has_permission
 def index(request):
+
+
   res = {}
 
   res['form'] = MainForm()
@@ -30,11 +33,11 @@ def index(request):
 def table(request):
 
   form = MainForm()
-  # if coming from index 
+  # if coming from index
   if request.method == 'POST':
     # create form obj with post params
     form = MainForm(request.POST)
-    
+
     if form.is_valid():
       cd = form.cleaned_data
       dept_id = cd.get('dept_id')
@@ -52,7 +55,7 @@ def table(request):
 
         rows = um_ecomm_dept_units_rept.objects.filter(deptid__lte=end, deptid__gte=begin).filter(fiscal_yr=fiscal_yr)
 
-    
+
         unit = 'Dept ids: ' + str(begin) + ' - ' + str(end)
 
       else:
@@ -69,10 +72,10 @@ def table(request):
         acc['items'] = handleGroups(acc)
         for group in acc['items']:
           group['items'] = handleDescriptions(group)
-      
+
       return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
     return render(request, 'index.html', {'form': form})
-    
+
 
 # tries to convert a string to a float, returns 0 if exception
 def floatOrZ(string):
@@ -155,4 +158,4 @@ def handleDescriptions(group):
 
 
 
-  
+

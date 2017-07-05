@@ -8,8 +8,8 @@
                 <img src="{% static 'img/head.png' %}" height="30" class="d-inline-block align-top" alt="">
             </a>
 </nav>
-
-<div class="container-fluid">
+<div class="container card top-row">
+    <div class="card-block">
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <form class="pt-3" action="/table/" method="POST">{% csrf_token %}
@@ -220,6 +220,7 @@
         </div>
         </form>
     -->
+    </div>
 </div>
 <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

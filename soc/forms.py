@@ -2,9 +2,26 @@ from django import forms
 from models import um_ecomm_dept_units_rept
 
 class MainForm(forms.Form):
-  dept_id = forms.CharField(max_length=20, required=False)
-  dept_id_range = forms.CharField(max_length=20, required=False)
+  dept_id = forms.CharField(label='Department ID', max_length=20, required=False)
+  dept_id_range = forms.CharField(label='Department IDs', help_text='Separate individual departments with commas, and ranges with dashes (481054, 481060-481065)', widget=forms.Textarea, required=False)
+
+  DEPT_GRPS = list(um_ecomm_dept_units_rept.objects.order_by().values_list('dept_grp', flat=True).distinct())
+  dept_grp_choice = forms.ChoiceField(choices=((x, x.replace('_', ' ').lower()) for x in DEPT_GRPS))
+
+  DEPT_GRP_BUD_SEQ = list(um_ecomm_dept_units_rept.objects.order_by().values_list('dept_bud_seq', flat=True).distinct())
+
+  dept_grp_bud_choice = forms.ChoiceField(choices=((x, x.replace('_', ' ').lower()) for x in DEPT_GRP_BUD_SEQ))
+
+  DEPT_GRP_VP  = list(um_ecomm_dept_units_rept.objects.order_by().values_list('dept_grp_vp_area', flat=True).distinct())
+
+  dept_grp_vp_choice = forms.ChoiceField(choices=((x, x.replace('_', ' ').lower()) for x in DEPT_GRP_VP))
+
   fiscal_yr = forms.ChoiceField(choices=((str(x), x) for x in range(2018,2008, -1)))
+
+  calendar_yr = forms.ChoiceField(choices=((str(x), x) for x in range(2018,2008, -1)))
+
+  single_month = forms.DateField(required=False)
+
 
   def clean(self):
     cleaned_data = super(MainForm, self).clean()
