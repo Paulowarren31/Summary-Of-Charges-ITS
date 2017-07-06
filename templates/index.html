@@ -77,7 +77,6 @@
                         </div>
 
                     </div>
-                    {{ form | crispy }}
                 </div>
             </div>
             <div class="row">
@@ -103,7 +102,6 @@
                 <div class="col-md-6 offset-md-3">
                     <div class="tab-content">
                         <div class="tab-pane active" id="fy" role="tabpanel">
-                            {{ form.non_field_errors }}
                             <div class="fieldWrapper">
                                 {{ form.fiscal_yr.errors }}
                                 <label for="{{ form.fiscal_yr.id_for_label }}">{{ form.fiscal_yr.label }}</label>
@@ -111,11 +109,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="cy" role="tabpanel">
+                            <div class="fieldWrapper">
+                                {{ form.calendar_yr.errors }}
+                                <label for="{{ form.calendar_yr.id_for_label }}">{{ form.calendar_yr.label }}</label>
+                                {{ form.calendar_yr| add_class:"select form-control"}}
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 offset-md-3">
-                    <button class="btn btn-sm blue-bg">Submit</button>
+                    <button class="btn blue-bg">Submit</button>
                 </div>
             </div>
 

@@ -15,9 +15,9 @@ class MainForm(forms.Form):
   dept_grp_bud_choice = forms.ChoiceField(required=False, choices=((x, x.replace('_', ' ').lower()) for x in DEPT_GRP_BUD_SEQ))
   dept_grp_choice = forms.ChoiceField(required=False, choices=((x, x.replace('_', ' ').lower()) for x in DEPT_GRPS))
 
-  fiscal_yr = forms.ChoiceField(choices=((str(x), x) for x in range(2018,2008, -1)))
+  fiscal_yr = forms.ChoiceField(choices=((str(x), x) for x in range(2017,2008, -1)))
 
-  calendar_yr = forms.ChoiceField(choices=((str(x), x) for x in range(2018,2008, -1)))
+  calendar_yr = forms.ChoiceField(choices=((str(x), x) for x in range(2017,2008, -1)))
   single_month = forms.DateField(required=False)
 
 
