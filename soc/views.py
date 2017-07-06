@@ -40,6 +40,9 @@ def table(request):
     if form.is_valid():
       cd = form.cleaned_data
 
+      choice = cd.get('choice')
+      print 'got choice from form: ' + choice
+
       dept_id = cd.get('dept_id')
       dept_range = cd.get('dept_id_range')
 
