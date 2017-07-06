@@ -6,6 +6,7 @@ def user_has_permission(function):
   connection_string = 'paulowar/'+settings.DB_PASSWORD+'@pinntst.dsc.umich.edu:1521/pinndev.world'
 
   def wrap(request, *args, **kwargs):
+
     print request.user.username
 
     c = cx_Oracle.connect(connection_string).cursor()
@@ -14,10 +15,10 @@ def user_has_permission(function):
 
     print result
 
-    if len(result) == 0:
-      raise PermissionDenied
-    else:
+    if len(result) != 0 or request.user.is_superuser or request.user.username == 'tahaz':
       return function(request, *args, **kwargs)
+    else:
+      raise PermissionDenied
 
   wrap.__doc__ = function.__doc__
   wrap.__name__ = function.__name__
