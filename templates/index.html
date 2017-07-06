@@ -20,7 +20,13 @@
                     <a class="nav-link" data-toggle="tab" href="#d_range" role="tab">Dept ID Range</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#d_range" role="tab"></a>
+                    <a class="nav-link" data-toggle="tab" href="#grp_c" role="tab">Dept Group</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#grp_vp" role="tab">VP Area </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#grp_bud" role="tab">Budget Seq</a>
                 </li>
 
             </ul>
@@ -35,18 +41,40 @@
                             {{ form.non_field_errors }}
                             <div class="fieldWrapper">
                                 {{ form.dept_id.errors }}
-                                <label for="{{ form.dept_id.id_for_label }}">Department ID</label>
+                                <label for="{{ form.dept_id.id_for_label }}">{{ form.dept_id.label }}</label>
                                 {{ form.dept_id | add_class:"form-control"}}
                             </div>
                         </div>
                         <div class="tab-pane" id="d_range" role="tabpanel">
                             <div class="fieldWrapper">
                                 {{ form.dept_id_range.errors }}
-                                <label for="{{ form.dept_id_range.id_for_label }}">Department ID</label>
+                                <label for="{{ form.dept_id_range.id_for_label }}">{{ form.dept_id_range.label }}</label>
                                 {{ form.dept_id_range | add_class:"form-control"}}
                                 <small class="text-muted">{{form.dept_id_range.help_text }}</small>
                             </div>
                         </div>
+                        <div class="tab-pane" id="grp_c" role="tabpanel">
+                            <div class="fieldWrapper">
+                                {{ form.dept_grp_choice.errors }}
+                                <label for="{{ form.dept_grp_choice.id_for_label }}">{{ form.dept_grp_choice.label }}</label>
+                                {{ form.dept_grp_choice| add_class:"select form-control"}}
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="grp_vp" role="tabpanel">
+                            <div class="fieldWrapper">
+                                {{ form.dept_grp_vp_choice.errors }}
+                                <label for="{{ form.dept_grp_vp_choice.id_for_label }}">{{ form.dept_grp_vp_choice.label }}</label>
+                                {{ form.dept_grp_vp_choice| add_class:"select form-control"}}
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="grp_bud" role="tabpanel">
+                            <div class="fieldWrapper">
+                                {{ form.dept_grp_bud_choice.errors }}
+                                <label for="{{ form.dept_grp_bud_choice.id_for_label }}">{{ form.dept_grp_bud_choice.label }}</label>
+                                {{ form.dept_grp_bud_choice| add_class:"select form-control"}}
+                            </div>
+                        </div>
+
                     </div>
                     {{ form | crispy }}
                     <button class="btn btn-sm blue-bg">Submit</button>
