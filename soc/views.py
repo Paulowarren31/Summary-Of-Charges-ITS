@@ -115,8 +115,10 @@ def table(request):
       form.save(unit, date_range)
       return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
 
-      else:
-        return render(request, 'index.html', {'form': form})
+    else:
+      return render(request, 'index.html', {'form': form})
+
+  else: #if not POST request
     return render(request, 'index.html', {'form': form})
 
 
