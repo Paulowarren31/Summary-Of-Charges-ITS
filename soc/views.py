@@ -74,7 +74,7 @@ def table(request):
 
           query = query | newQuery #chain our queries but union them
 
-      elif choice1 == 2'':
+      elif choice1 == 2:
 
         unit = 'Dept id: ' + dept_id
         query = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id)
