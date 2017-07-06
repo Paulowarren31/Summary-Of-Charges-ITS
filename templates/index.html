@@ -12,11 +12,11 @@
 <div class="container card top-row">
     <div class="card-block">
         <div class="row">
-            <div class="col-md-8 offset-md-2">
+            <div class="col-md-10 offset-md-1">
                 <h3> Select Department </h3>
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#d_id" role="tab">ID</a>
+                        <a class="nav-link active" data-toggle="tab" href="#d_id" role="tab">Dept ID</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#d_range" role="tab">ID Range</a>
@@ -42,14 +42,12 @@
                             {{ form.non_field_errors }}
                             <div class="fieldWrapper">
                                 {{ form.dept_id.errors }}
-                                <label for="{{ form.dept_id.id_for_label }}">{{ form.dept_id.label }}</label>
                                 {{ form.dept_id | add_class:"form-control"}}
                             </div>
                         </div>
                         <div class="tab-pane" id="d_range" role="tabpanel">
                             <div class="fieldWrapper">
                                 {{ form.dept_id_range.errors }}
-                                <label for="{{ form.dept_id_range.id_for_label }}">{{ form.dept_id_range.label }}</label>
                                 {{ form.dept_id_range | add_class:"form-control"}}
                                 <small class="text-muted">{{form.dept_id_range.help_text }}</small>
                             </div>
@@ -57,21 +55,18 @@
                         <div class="tab-pane" id="grp_c" role="tabpanel">
                             <div class="fieldWrapper">
                                 {{ form.dept_grp_choice.errors }}
-                                <label for="{{ form.dept_grp_choice.id_for_label }}">{{ form.dept_grp_choice.label }}</label>
                                 {{ form.dept_grp_choice| add_class:"select form-control"}}
                             </div>
                         </div>
                         <div class="tab-pane" id="grp_vp" role="tabpanel">
                             <div class="fieldWrapper">
                                 {{ form.dept_grp_vp_choice.errors }}
-                                <label for="{{ form.dept_grp_vp_choice.id_for_label }}">{{ form.dept_grp_vp_choice.label }}</label>
                                 {{ form.dept_grp_vp_choice| add_class:"select form-control"}}
                             </div>
                         </div>
                         <div class="tab-pane" id="grp_bud" role="tabpanel">
                             <div class="fieldWrapper">
                                 {{ form.dept_grp_bud_choice.errors }}
-                                <label for="{{ form.dept_grp_bud_choice.id_for_label }}">{{ form.dept_grp_bud_choice.label }}</label>
                                 {{ form.dept_grp_bud_choice| add_class:"select form-control"}}
                             </div>
                         </div>
@@ -79,15 +74,15 @@
                     </div>
                 </div>
             </div>
-            <div class="row top-row">
-                <div class="col-md-8 offset-md-2">
+            <div class="row pt-3">
+                <div class="col-md-10 offset-md-1">
                     <h3> Select Time Period </h3>
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#fy" role="tab">Fiscal Year</a>
+                            <a class="nav-link active" data-toggle="tab" href="#fiscal_year" role="tab">Fiscal Year</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#cy" role="tab">Calendar Year</a>
+                            <a class="nav-link" data-toggle="tab" href="#cal_yr" role="tab">Calendar Year</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#sm" role="tab">Single Month</a>
@@ -98,22 +93,19 @@
                     </ul>
                 </div>
             </div>
-            <div class="row">
+            <div class="row pt-3">
                 <div class="col-md-6 offset-md-3">
                     <div class="tab-content">
-                        <div class="tab-pane active" id="fy" role="tabpanel">
+                        <div class="tab-pane active" id="fiscal_year" role="tabpanel">
                             <div class="fieldWrapper">
                                 {{ form.fiscal_yr.errors }}
-                                <label for="{{ form.fiscal_yr.id_for_label }}">{{ form.fiscal_yr.label }}</label>
                                 {{ form.fiscal_yr | add_class:"select form-control"}}
                             </div>
                         </div>
                     </div>
                     <div class="tab-content">
-                        <div class="tab-pane" id="cy" role="tabpanel">
-                            <div class="fieldWrapper">
+                        <div class="tab-pane" id="cal_yr" role="tabpanel"> <div class="fieldWrapper">
                                 {{ form.calendar_yr.errors }}
-                                <label for="{{ form.calendar_yr.id_for_label }}">{{ form.calendar_yr.label }}</label>
                                 {{ form.calendar_yr| add_class:"select form-control"}}
                             </div>
                         </div>
@@ -121,9 +113,9 @@
 
                 </div>
             </div>
-            <div class="row">
+            <div class="row pt-3">
                 <div class="col-md-6 offset-md-3">
-                    <button class="btn blue-bg pt-3" style="width: 100%;">Submit</button>
+                    <button class="btn blue-bg" style="width: 100%;">Submit</button>
                 </div>
             </div>
 
