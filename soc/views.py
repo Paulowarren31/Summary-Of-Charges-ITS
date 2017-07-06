@@ -56,8 +56,8 @@ def table(request):
 
       query = um_ecomm_dept_units_rept.objects.none() #start with an empty query
 
-      choice1 = cd.get('choice1')
-      choice2 = cd.get('choice2')
+      choice1 = int(cd.get('choice1'))
+      choice2 = int(cd.get('choice2'))
 
       #range
       if choice1 == 1:
