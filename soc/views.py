@@ -60,7 +60,7 @@ def table(request):
           else:
             newQuery = um_ecomm_dept_units_rept.objects.filter(deptid=int(i))
 
-          query = (query | newQuery).distinct()
+          query = query | newQuery
 
       elif dept_id != '':
 
@@ -71,7 +71,7 @@ def table(request):
 
         query = query.filter(fiscal_yr=fiscal_yr)
 
-      rows = list(query)
+      rows = list(query.distinct())
 
       accounts, total = handleAccounts(rows)
 
@@ -128,6 +128,7 @@ def handleDescriptions(group):
   descs = []
   d_total = 0
   d = ''
+
 
   for i in group['items']:
     if i.description != d or d == '':
