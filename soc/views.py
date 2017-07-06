@@ -39,6 +39,7 @@ def table(request):
 
     if form.is_valid():
       cd = form.cleaned_data
+
       dept_id = cd.get('dept_id')
       dept_range = cd.get('dept_id_range')
 
@@ -111,7 +112,11 @@ def table(request):
         for group in acc['items']:
           group['items'] = handleDescriptions(group)
 
+      form.save(unit, date_range)
       return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
+
+      else:
+        return render(request, 'index.html', {'form': form})
     return render(request, 'index.html', {'form': form})
 
 

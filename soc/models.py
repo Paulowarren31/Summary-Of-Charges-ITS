@@ -39,6 +39,10 @@ class um_ecomm_dept_units_rept(ExternalModel):
     db_table = 'PINN_CUSTOM\".\"UM_ECOMM_DEPT_UNITS_REPT'
     ordering = ['account', 'charge_group', 'description']
 
+class Search(models.Model):
+  dept = models.CharField(max_length=15)
+  time = models.CharField(max_length=15)
+
 #any reads to a DB are send to the sqlite DB, 
 #unless it is um_ecomm_dept_units_rept
 class DBRouter(object):
