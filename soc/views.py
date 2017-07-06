@@ -51,7 +51,7 @@ def table(request):
       if dept_range != '':
         unit = 'Dept ids: ' + dept_range
         ids = dept_range.split(',')
-        gh
+
         for i in ids:
           if '-' in i:
             begin = int(i.split('-')[0])
