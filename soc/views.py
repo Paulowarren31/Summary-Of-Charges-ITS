@@ -40,10 +40,6 @@ def table(request):
     if form.is_valid():
       cd = form.cleaned_data
 
-      choice1 = cd.get('choice1')
-      choice2 = cd.get('choice2')
-      print 'got choice from form: ' + choice1
-      print 'got choice from form: ' + choice2
 
       dept_id = cd.get('dept_id')
       dept_range = cd.get('dept_id_range')
@@ -60,8 +56,11 @@ def table(request):
 
       query = um_ecomm_dept_units_rept.objects.none() #start with an empty query
 
+      choice1 = cd.get('choice1')
+      choice2 = cd.get('choice2')
+
       #range
-      if dept_range != '':
+      if choice1 == 1:
         unit = 'Dept ids: ' + dept_range
         ids = dept_range.split(',')
 
@@ -75,34 +74,34 @@ def table(request):
 
           query = query | newQuery #chain our queries but union them
 
-      elif dept_id != '':
+      elif choice1 == 2'':
 
         unit = 'Dept id: ' + dept_id
         query = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id)
 
-      elif dept_grp_choice != '':
+      elif choice1 == 3:
         unit = 'Dept group: ' + dept_grp_choice
 
         query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp_choice)
 
-      elif dept_grp_vp_choice != '':
+      elif choice1 == 4:
 
         unit = 'Dept group vp area: ' + dept_grp_choice
 
         query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=dept_grp_vp_choice)
 
-      elif dept_grp_bud_choice != '':
+      elif choice1 == 5:
 
         unit = 'Dept group bud seq: ' + dept_grp_bud_choice
 
         query = um_ecomm_dept_units_rept.objects.filter(dept_bud_seq=dept_grp_bud_choice)
 
-      if fiscal_yr != '':
+      if choice2 == 6:
 
         query = query.filter(fiscal_yr=fiscal_yr)
         date_range = 'Fiscal year ' + fiscal_yr
 
-      elif calendar_yr != '':
+      elif choice2 == 7:
 
         date_range = 'Calendar year ' + fiscal_yr
         query = query.filter(calendar_yr=calendar_yr)
