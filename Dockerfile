@@ -26,4 +26,4 @@ EXPOSE 8080
 
 ADD . /code/
 
-CMD python manage.py migrate; ./start.sh
+CMD python manage.py makemigrations; python manage.py migrate; ./start.sh
