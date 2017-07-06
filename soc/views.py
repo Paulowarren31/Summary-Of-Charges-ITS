@@ -20,7 +20,6 @@ import base64
 @user_has_permission
 def index(request):
 
-
   res = {}
 
   res['form'] = MainForm()
@@ -46,25 +45,33 @@ def table(request):
 
       date_range = 'Fiscal year ' + fiscal_yr
       unit = ''
+      query = um_ecomm_dept_units_rept.objects.none()
 
       #range
-      if dept_range:
+      if dept_range != '':
+        unit = 'Dept ids: ' + dept_range
+        ids = dept_range.split(',')
+        gh
+        for i in ids:
+          if '-' in i:
+            begin = int(i.split('-')[0])
+            end = int(i.split('-')[1])
+            newQuery = um_ecomm_dept_units_rept.objects.filter(deptid__lte=end, deptid__gte=begin)
+          else:
+            newQuery = um_ecomm_dept_units_rept.objects.filter(deptid=int(i))
 
-        begin = int(dept_range.split('-')[0])
-        end = int(dept_range.split('-')[1])
+          query = (query | newQuery).distinct()
 
-        rows = um_ecomm_dept_units_rept.objects.filter(deptid__lte=end, deptid__gte=begin).filter(fiscal_yr=fiscal_yr)
-
-
-        unit = 'Dept ids: ' + str(begin) + ' - ' + str(end)
-
-      else:
+      elif dept_id != '':
 
         unit = 'Dept id: ' + dept_id
+        query = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id)
 
-        rows = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id).filter(fiscal_yr=fiscal_yr)
+      if fiscal_yr != '':
 
-      rows = list(rows)
+        query = query.filter(fiscal_yr=fiscal_yr)
+
+      rows = list(query)
 
       accounts, total = handleAccounts(rows)
 
@@ -139,8 +146,7 @@ def handleDescriptions(group):
     d = i.description
 
   for d in descs:
-    d['monthly'] = round(d['quantity'] / d['m_count'], 2)
-
+    d['monthly'] = round(d['quantity'] / d['m_count'], 2) 
   return descs
 
 
