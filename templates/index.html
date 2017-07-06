@@ -34,7 +34,8 @@
             </div>
         </div>
 
-        <form class="pt-3" action="/table/" method="POST">{% csrf_token %}
+        <form id="main-form" class="pt-3" action="/table/" method="POST">{% csrf_token %}
+            <input type="hidden" name="choice" id="choice" value="" />
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <div class="tab-content">
@@ -102,15 +103,12 @@
                                 {{ form.fiscal_yr | add_class:"select form-control"}}
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-content">
                         <div class="tab-pane" id="cal_yr" role="tabpanel"> <div class="fieldWrapper">
                                 {{ form.calendar_yr.errors }}
                                 {{ form.calendar_yr| add_class:"select form-control"}}
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="row pt-3">
