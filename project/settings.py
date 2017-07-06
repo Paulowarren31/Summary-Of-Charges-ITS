@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'health_check.cache',
     'health_check.storage',
     'crispy_forms',
+    'widget_tweaks',
     )
 
 
