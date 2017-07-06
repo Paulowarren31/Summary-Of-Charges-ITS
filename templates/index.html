@@ -16,26 +16,27 @@
                 <h3> Select Department </h3>
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#d_id" role="tab">Dept ID</a>
+                        <a id="1" class="nav-link active" data-toggle="tab" href="#d_id" role="tab">Dept ID</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#d_range" role="tab">ID Range</a>
+                        <a id="2" class="nav-link" data-toggle="tab" href="#d_range" role="tab">ID Range</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#grp_c" role="tab">Group</a>
+                        <a id="3" class="nav-link" data-toggle="tab" href="#grp_c" role="tab">Group</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#grp_vp" role="tab">VP Area </a>
+                        <a id="4" class="nav-link" data-toggle="tab" href="#grp_vp" role="tab">VP Area </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#grp_bud" role="tab">Budget Seq</a>
+                        <a id="5" class="nav-link" data-toggle="tab" href="#grp_bud" role="tab">Budget Seq</a>
                     </li>
                 </ul>
             </div>
         </div>
 
         <form id="main-form" class="pt-3" action="/table/" method="POST">{% csrf_token %}
-            <input type="hidden" name="choice" id="choice" value="" />
+            <input type="hidden" name="choice1" id="choice1" value="" />
+            <input type="hidden" name="choice2" id="choice2" value="" />
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <div class="tab-content">
@@ -80,16 +81,16 @@
                     <h3> Select Time Period </h3>
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#fiscal_year" role="tab">Fiscal Year</a>
+                            <a id="6" class="nav-link active" data-toggle="tab" href="#fiscal_year" role="tab">Fiscal Year</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#cal_yr" role="tab">Calendar Year</a>
+                            <a id="7" class="nav-link" data-toggle="tab" href="#cal_yr" role="tab">Calendar Year</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#sm" role="tab">Single Month</a>
+                            <a id="8" class="nav-link" data-toggle="tab" href="#sm" role="tab">Single Month</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#mr" role="tab">Month Range</a>
+                            <a id="9" class="nav-link" data-toggle="tab" href="#mr" role="tab">Month Range</a>
                         </li>
                     </ul>
                 </div>

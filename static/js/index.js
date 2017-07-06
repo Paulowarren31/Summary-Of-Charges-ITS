@@ -1,8 +1,12 @@
 $(function(){
   $('#main-form').submit( () => {
-    $('a[class="nav-link active"]')
+    choices = $('a[class="nav-link active"]')
 
-    $('#choice').val('1')
+    choice1 = $(choices[0]).attr('id')
+    choice2 = $(choices[1]).attr('id')
+
+    $('#choice1').val(choice1)
+    $('#choice2').val(choice2)
     return true
   })
 })    

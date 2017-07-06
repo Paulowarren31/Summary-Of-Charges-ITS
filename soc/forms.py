@@ -20,7 +20,8 @@ class MainForm(forms.Form):
   calendar_yr = forms.ChoiceField(choices=((str(x), x) for x in range(2017,2008, -1)))
   single_month = forms.DateField(required=False)
 
-  choice = forms.CharField(max_length=1)
+  choice1 = forms.CharField(max_length=1)
+  choice2 = forms.CharField(max_length=1)
 
   def save(self, dept, time):
     search = Search(dept=dept, time=time)
