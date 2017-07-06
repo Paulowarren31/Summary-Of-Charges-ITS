@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load widget_tweaks %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 {% block index %}
@@ -18,7 +19,7 @@
                     <div class="fieldWrapper">
                         {{ form.dept_id.errors }}
                         <label for="{{ form.dept_id.id_for_label }}">Department ID</label>
-                        {{ form.dept_id }}
+                        {{ form.dept_id | add_class:"form-control"}}
                     </div>
                     {{form|crispy}}
                     <button class="btn btn-sm blue-bg">Submit</button>

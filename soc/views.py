@@ -112,7 +112,7 @@ def table(request):
         for group in acc['items']:
           group['items'] = handleDescriptions(group)
 
-      form.save(unit, date_range)
+      form.save(unit, date_range) # save what they searched for
 
       return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
 
