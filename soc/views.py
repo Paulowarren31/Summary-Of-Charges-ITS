@@ -59,6 +59,10 @@ def table(request):
       choice1 = int(cd.get('choice1'))
       choice2 = int(cd.get('choice2'))
 
+
+      print choice1
+      print choice2
+
       #range
       if choice1 == 1:
         unit = 'Dept ids: ' + dept_range

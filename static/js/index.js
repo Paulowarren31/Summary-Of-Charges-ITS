@@ -2,11 +2,11 @@ $(function(){
   $('#main-form').submit( () => {
     choices = $('a[class="nav-link active"]')
 
-    choice1 = $(choices[0]).attr('id')
-    choice2 = $(choices[1]).attr('id')
+    d_choice = $(choices[0]).attr('id')
+    t_choice = $(choices[1]).attr('id')
 
-    $('#choice1').val(choice1)
-    $('#choice2').val(choice2)
+    $('#d_choice_id').val(d_choice)
+    $('#t_choice_id').val(t_choice)
     return true
   })
 })    
