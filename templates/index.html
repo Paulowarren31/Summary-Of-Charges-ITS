@@ -12,30 +12,31 @@
 <div class="container card top-row">
     <div class="card-block">
         <div class="row">
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#d_id" role="tab">Dept ID</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#d_range" role="tab">Dept ID Range</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#grp_c" role="tab">Dept Group</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#grp_vp" role="tab">VP Area </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#grp_bud" role="tab">Budget Seq</a>
-                </li>
-
-            </ul>
+            <div class="col-md-8 offset-md-2">
+                <h3> Select Department </h3>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#d_id" role="tab">ID</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#d_range" role="tab">ID Range</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#grp_c" role="tab">Group</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#grp_vp" role="tab">VP Area </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#grp_bud" role="tab">Budget Seq</a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <form class="pt-3" action="/table/" method="POST">{% csrf_token %}
-                    <h3> Select Department </h3>
+        <form class="pt-3" action="/table/" method="POST">{% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
                     <div class="tab-content">
                         <div class="tab-pane active" id="d_id" role="tabpanel">
                             {{ form.non_field_errors }}
@@ -77,10 +78,49 @@
 
                     </div>
                     {{ form | crispy }}
-                    <button class="btn btn-sm blue-bg">Submit</button>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <h3> Select Time Period </h3>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#fy" role="tab">Fiscal Year</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#cy" role="tab">Calendar Year</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#sm" role="tab">Single Month</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#mr" role="tab">Month Range</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="fy" role="tabpanel">
+                            {{ form.non_field_errors }}
+                            <div class="fieldWrapper">
+                                {{ form.fiscal_yr.errors }}
+                                <label for="{{ form.fiscal_yr.id_for_label }}">{{ form.fiscal_yr.label }}</label>
+                                {{ form.fiscal_yr | add_class:"select form-control"}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <button class="btn btn-sm blue-bg">Submit</button>
+                </div>
+            </div>
+
+
+        </form>
 
         <!--
             <form action="/table/" method="post" class="pt-2">
