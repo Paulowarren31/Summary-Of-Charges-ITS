@@ -113,6 +113,7 @@ def table(request):
           group['items'] = handleDescriptions(group)
 
       form.save(unit, date_range)
+
       return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
 
     else:

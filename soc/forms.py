@@ -22,8 +22,8 @@ class MainForm(forms.Form):
 
 
   def save(self, dept, time):
-    save = Search.objects.create(dept=dept, time=time)
-    save.save()
+    search = Search(dept=dept, time=time)
+    search.save()
 
   def clean(self):
     cleaned_data = super(MainForm, self).clean()
