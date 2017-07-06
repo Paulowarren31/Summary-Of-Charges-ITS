@@ -12,16 +12,23 @@
 <div class="container card top-row">
     <div class="card-block">
         <div class="row">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#d_id" role="tab">Dept ID</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#d_range" role="tab">Dept ID Range</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#d_range" role="tab"></a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="row">
             <div class="col-md-6 offset-md-3">
                 <form class="pt-3" action="/table/" method="POST">{% csrf_token %}
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#d_id" role="tab">Dept ID</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#d_range" role="tab">Dept ID Range</a>
-                        </li>
-                    </ul>
                     <h3> Select Department </h3>
                     <div class="tab-content">
                         <div class="tab-pane active" id="d_id" role="tabpanel">
@@ -41,6 +48,7 @@
                             </div>
                         </div>
                     </div>
+                    {{ form | crispy }}
                     <button class="btn btn-sm blue-bg">Submit</button>
                 </form>
             </div>
