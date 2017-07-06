@@ -63,8 +63,15 @@ def table(request):
       print choice1
       print choice2
 
-      #range
       if choice1 == 1:
+        print 'c2'
+
+        unit = 'Dept id: ' + dept_id
+        query = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id)
+
+      #range
+      if choice1 == 2:
+        print 'c1'
         unit = 'Dept ids: ' + dept_range
         ids = dept_range.split(',')
 
@@ -78,12 +85,10 @@ def table(request):
 
           query = query | newQuery #chain our queries but union them
 
-      elif choice1 == 2:
-
-        unit = 'Dept id: ' + dept_id
-        query = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id)
-
+      
       elif choice1 == 3:
+        print 'c3'
+
         unit = 'Dept group: ' + dept_grp_choice
 
         query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp_choice)
