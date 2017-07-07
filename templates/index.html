@@ -104,13 +104,13 @@
                                 {{ form.fiscal_yr | add_class:"select form-control"}}
                             </div>
                         </div>
-                        <div class="tab-pane" id="cal_yr" role="tabpanel"> 
+                        <div class="tab-pane" id="cal_yr" role="tabpanel">
                             <div class="fieldWrapper">
                                 {{ form.calendar_yr.errors }}
                                 {{ form.calendar_yr| add_class:"select form-control"}}
                             </div>
                         </div>
-                        <div class="tab-pane" id="sm" role="tabpanel"> 
+                        <div class="tab-pane" id="sm" role="tabpanel">
                             <div class="fieldWrapper">
                                 <div class="row">
                                     <div class="col-xs-6">
@@ -122,13 +122,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="mr" role="tabpanel"> 
+                        <div class="tab-pane" id="mr" role="tabpanel">
                             <div class="fieldWrapper">
-                                NOT DONE
+                                {{ form.range_begin_m| add_class:"select form-control"}}
+                                {{ form.range_begin_y| add_class:"select form-control"}}
+                                <br>
+                                TO
+                                <br>
+                                {{ form.range_end_m| add_class:"select form-control"}}
+                                {{ form.range_end_y| add_class:"select form-control"}}
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
