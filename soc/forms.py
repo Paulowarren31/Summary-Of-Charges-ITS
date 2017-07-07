@@ -26,16 +26,3 @@ class MainForm(forms.Form):
   def save(self, dept, time):
     search = Search(dept=dept, time=time)
     search.save()
-
-  def clean(self):
-    cleaned_data = super(MainForm, self).clean()
-
-    dept_id = cleaned_data.get('dept_id')
-    dept_id_range = cleaned_data.get('dept_id_range')
-
-    if dept_id and dept_id_range:
-      raise forms.ValidationError("You may only use one type of dept select")
-
-
-    # if something:
-
