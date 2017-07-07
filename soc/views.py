@@ -117,9 +117,13 @@ def table(request):
         month = cd.get('single_month_m')
         year = cd.get('single_month_y')
 
-        date_range = month + ' ' + year
+        print 'single month'
+        print month
+        print year
 
-        query = query.filter(calendar_yr=year, month=month)
+        date_range = month + ' / ' + year
+
+        query = query.filter(calendar_yr=year).filter(month=month)
 
       elif choice2 == 9:
         b_month = cd.get('range_begin_m')
