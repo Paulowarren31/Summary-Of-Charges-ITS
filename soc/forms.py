@@ -1,5 +1,6 @@
 from django import forms
 from models import um_ecomm_dept_units_rept, Search
+from django.utils.dates import MONTHS
 
 class MainForm(forms.Form):
   dept_id = forms.CharField(label='Department ID', max_length=20, required=False)
@@ -16,9 +17,16 @@ class MainForm(forms.Form):
   dept_grp_choice = forms.ChoiceField(required=False, choices=((x, x.replace('_', ' ').lower()) for x in DEPT_GRPS))
 
   fiscal_yr = forms.ChoiceField(choices=((str(x), x) for x in range(2017,2008, -1)))
-
   calendar_yr = forms.ChoiceField(choices=((str(x), x) for x in range(2017,2008, -1)))
-  single_month = forms.DateField(required=False)
+
+  single_month_m = forms.ChoiceField(choices=MONTHS.items())
+  single_month_y = forms.ChoiceField(choices=((str(x), x) for x in range(2017,2008, -1)))
+
+  range_begin_m = forms.ChoiceField(choices=MONTHS.items())
+  range_begin_y = forms.ChoiceField(choices=((str(x), x) for x in range(2017,2008, -1)))
+  
+  range_end_m = forms.ChoiceField(choices=MONTHS.items())
+  range_end_y = forms.ChoiceField(choices=((str(x), x) for x in range(2017,2008, -1)))
 
   d_choice = forms.CharField(max_length=1)
   t_choice = forms.CharField(max_length=1)

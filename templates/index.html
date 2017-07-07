@@ -112,7 +112,14 @@
                         </div>
                         <div class="tab-pane" id="sm" role="tabpanel"> 
                             <div class="fieldWrapper">
-                                NOT DONE
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        {{ form.single_month_m| add_class:"select form-control"}}
+                                    </div>
+                                    <div class="col-xs-6">
+                                        {{ form.single_month_y| add_class:"select form-control"}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="mr" role="tabpanel"> 
