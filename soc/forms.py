@@ -22,6 +22,7 @@ class MainForm(forms.Form):
   single_month_m = forms.ChoiceField(choices=MONTHS.items())
   single_month_y = forms.ChoiceField(choices=((str(x), x) for x in range(2017,2008, -1)))
 
+
   range_begin_m = forms.ChoiceField(choices=MONTHS.items())
   range_begin_y = forms.ChoiceField(choices=((str(x), x) for x in range(2017,2008, -1)))
   

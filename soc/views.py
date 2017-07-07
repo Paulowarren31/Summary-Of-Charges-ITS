@@ -15,9 +15,9 @@ import requests
 import base64
 
 # index view
-#@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login')
 #uniqname must be in the pinnacle authorized users table
-#@user_has_permission
+@user_has_permission
 def index(request):
 
   res = {}
@@ -27,8 +27,8 @@ def index(request):
   return render(request, 'index.html', res)
 
 # table view
-#@login_required(login_url='/accounts/login')
-#@user_has_permission
+@login_required(login_url='/accounts/login')
+@user_has_permission
 def table(request):
 
   form = MainForm()
@@ -41,15 +41,9 @@ def table(request):
       cd = form.cleaned_data
 
 
-      dept_id = cd.get('dept_id')
-      dept_range = cd.get('dept_id_range')
 
-      dept_grp_vp_choice = cd.get('dept_grp_vp_choice')
-      dept_grp_bud_choice = cd.get('dept_grp_bud_choice')
-      dept_grp_choice = cd.get('dept_grp_choice')
 
-      fiscal_yr = cd.get('fiscal_yr')
-      calendar_yr = cd.get('calendar_yr')
+
     
       date_range = ''
       unit = ''
@@ -64,14 +58,14 @@ def table(request):
       print choice2
 
       if choice1 == 1:
-        print 'c2'
+        dept_id = cd.get('dept_id')
 
         unit = 'Dept id: ' + dept_id
         query = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id)
 
       #range
-      if choice1 == 2:
-        print 'c1'
+      elif choice1 == 2:
+        dept_range = cd.get('dept_id_range')
         unit = 'Dept ids: ' + dept_range
         ids = dept_range.split(',')
 
@@ -87,34 +81,58 @@ def table(request):
 
       
       elif choice1 == 3:
-        print 'c3'
+        dept_grp_choice = cd.get('dept_grp_choice')
 
         unit = 'Dept group: ' + dept_grp_choice
 
         query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp_choice)
 
       elif choice1 == 4:
+        dept_grp_vp_choice = cd.get('dept_grp_vp_choice')
 
         unit = 'Dept group vp area: ' + dept_grp_choice
 
         query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=dept_grp_vp_choice)
 
       elif choice1 == 5:
+        dept_grp_bud_choice = cd.get('dept_grp_bud_choice')
 
         unit = 'Dept group bud seq: ' + dept_grp_bud_choice
 
         query = um_ecomm_dept_units_rept.objects.filter(dept_bud_seq=dept_grp_bud_choice)
 
       if choice2 == 6:
+        fiscal_yr = cd.get('fiscal_yr')
 
         query = query.filter(fiscal_yr=fiscal_yr)
         date_range = 'Fiscal year ' + fiscal_yr
 
       elif choice2 == 7:
+        calendar_yr = cd.get('calendar_yr')
 
         date_range = 'Calendar year ' + fiscal_yr
         query = query.filter(calendar_yr=calendar_yr)
 
+      elif choice2 == 8:
+        month = cd.get('single_month_m')
+        year = cd.get('single_month_y')
+
+        date_range = month + ' ' + year
+
+        query = query.filter(calendar_yr=year, month=month)
+
+      elif choice2 == 9:
+        b_month = cd.get('range_begin_m')
+        b_year = cd.get('range_begin_y')
+
+        e_month = cd.get('range_end_m')
+        e_year = cd.get('range_end_y')
+
+        date_range = b_month + ' ' + b_year + ' to ' + e_month + ' ' + e_year
+
+        b_query = query.filter(calendar_yr__gte=b_year, month__gte=b_month)
+        e_query = query.filter(calendar_yr__lte=e_year, month__lte=e_month)
+        query = b_query.intersection(e_query)
 
       rows = list(query.distinct())
 
