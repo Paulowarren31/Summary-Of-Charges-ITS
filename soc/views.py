@@ -123,7 +123,7 @@ def table(request):
 
         date_range = month + ' / ' + year
 
-        query = query.filter(calendar_yr=year).filter(month=month)
+        query = query.filter(calendar_yr=year).filter(month=int(month))
 
       elif choice2 == 9:
         b_month = cd.get('range_begin_m')

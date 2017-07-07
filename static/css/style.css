@@ -43,3 +43,7 @@ body{
 .big-padding-top{
     padding-top: 6rem;
 }
+
+a.nav-link{
+    color: #00274c;
+}
