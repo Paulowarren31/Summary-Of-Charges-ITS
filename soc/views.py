@@ -54,14 +54,15 @@ def table(request):
       choice2 = int(cd.get('t_choice'))
 
 
-      print choice1
-      print choice2
-
       if choice1 == 1:
         dept_id = cd.get('dept_id')
 
         unit = 'Dept id: ' + dept_id
         query = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id)
+
+        query2 = query.filter(calendar_yr='2014').filter(month='1'))
+        print 'trying debug query'
+        print list(query2)
 
       #range
       elif choice1 == 2:
@@ -90,7 +91,7 @@ def table(request):
       elif choice1 == 4:
         dept_grp_vp_choice = cd.get('dept_grp_vp_choice')
 
-        unit = 'Dept group vp area: ' + dept_grp_choice
+        unit = 'Dept group vp area: ' + dept_grp_vp_choice
 
         query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=dept_grp_vp_choice)
 
