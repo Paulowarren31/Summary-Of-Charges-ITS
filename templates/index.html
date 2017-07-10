@@ -37,8 +37,27 @@
         <form id="main-form" class="pt-3" action="/table/" method="POST">{% csrf_token %}
             <input type="hidden" name="d_choice" id="d_choice_id" value="" />
             <input type="hidden" name="t_choice" id="t_choice_id" value="" />
+
             <div class="row">
-                <div class="col-md-6 offset-md-3">
+                <div class="col-xs-12 col-md-6">
+                    <h3> Select Department </h3>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a id="1" class="nav-link active" data-toggle="tab" href="#d_id" role="tab">Dept ID</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="2" class="nav-link" data-toggle="tab" href="#d_range" role="tab">ID Range</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="3" class="nav-link" data-toggle="tab" href="#grp_c" role="tab">Group</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="4" class="nav-link" data-toggle="tab" href="#grp_vp" role="tab">VP Area </a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="5" class="nav-link" data-toggle="tab" href="#grp_bud" role="tab">Budget Seq</a>
+                        </li>
+                    </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="d_id" role="tabpanel">
                             {{ form.non_field_errors }}
@@ -75,9 +94,7 @@
 
                     </div>
                 </div>
-            </div>
-            <div class="row pt-3">
-                <div class="col-md-12">
+                <div class="col-xs-12 col-md-6">
                     <h3> Select Time Period </h3>
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
@@ -93,10 +110,7 @@
                             <a id="9" class="nav-link" data-toggle="tab" href="#mr" role="tab">Month Range</a>
                         </li>
                     </ul>
-                </div>
-            </div>
-            <div class="row pt-3">
-                <div class="col-md-6 offset-md-3">
+
                     <div class="tab-content">
                         <div class="tab-pane active" id="fiscal_year" role="tabpanel">
                             <div class="fieldWrapper">
@@ -134,11 +148,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row pt-3">
-                <div class="col-md-6 offset-md-3">
-                    <button class="btn blue-bg" style="width: 100%;">Submit</button>
                 </div>
             </div>
         </form>
