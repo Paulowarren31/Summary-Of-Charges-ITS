@@ -60,7 +60,7 @@ def table(request):
         unit = 'Dept id: ' + dept_id
         query = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id)
 
-        query2 = query.filter(calendar_yr='2015').filter(month='01')
+        query2 = query.filter(calendar_yr='2015').filter(month='1')
         print 'trying debug query'
         print list(query2)
 
