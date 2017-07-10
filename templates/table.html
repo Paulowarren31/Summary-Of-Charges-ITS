@@ -12,9 +12,7 @@
         <div class="col-lg-1 col-md-2"><h4>Billed Units</h4></div>
         <div class="col-lg-2 col-md-2"><h4>Total</h4></div>
     </div>
-</nav>
-<div class="container-fluid" style="width: 80% display: none;">
-    <div class="row top-row">
+    <div class="row ">
         <h4><strong>Unit/Group:</strong> {{unit}}</h4>
     </div>
     <div class="row">
@@ -25,6 +23,10 @@
         <button class="btn btn-sm m-2" id="hd-all">Hide All</button>
     </div>
 
+
+</nav>
+<div class="container-fluid" style="width: 80% display: none;">
+    <div class="top-row"></div>
     <!-- for each account -->
     {% for account in accounts %}
     <div class="row account">
@@ -81,41 +83,41 @@
     </div>
 </div>
 
-<!-- debug table 
-<table class="table table-bordered table-responsive">
+<!-- debug table
+    <table class="table table-bordered table-responsive">
     <thead class="thead">
-        <tr>
-            <th>Expense Account</th>
-            <th>Item Description & code</th>
-            <th>Rate</th>
-            <th>Avg Monthly Units Billed</th>
-            <th>Billed Units</th>
-            <th>Item Total</th>
-            <th>Item Group Total</th>
-            <th>Account Total</th>
-        </tr>
+    <tr>
+    <th>Expense Account</th>
+    <th>Item Description & code</th>
+    <th>Rate</th>
+    <th>Avg Monthly Units Billed</th>
+    <th>Billed Units</th>
+    <th>Item Total</th>
+    <th>Item Group Total</th>
+    <th>Account Total</th>
+    </tr>
     </thead>
     <tbody>
-        {% for acc in accounts %}
-        <tr>
-            <td>{{acc.num}} - {{acc.total}}</td>
-        </tr>
+    {% for acc in accounts %}
+    <tr>
+    <td>{{acc.num}} - {{acc.total}}</td>
+    </tr>
 
-        {% for cg in acc.items %}
-        <tr>
-            <td>{{cg.grp}} - {{cg.total}}</td>
-        </tr>
-        <tr>
-            {% for d in cg.items %}
-            <td>{{d.descr}}</td>
-            <td>{{d.total}}</td>
-            <td>{{d.m_count}}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-        {% endfor %}
+    {% for cg in acc.items %}
+    <tr>
+    <td>{{cg.grp}} - {{cg.total}}</td>
+    </tr>
+    <tr>
+    {% for d in cg.items %}
+    <td>{{d.descr}}</td>
+    <td>{{d.total}}</td>
+    <td>{{d.m_count}}</td>
+    {% endfor %}
+    </tr>
+    {% endfor %}
+    {% endfor %}
     </tbody>
-</table>
+    </table>
 -->
 
 <script src="{% static 'js/table.js' %}"></script>
