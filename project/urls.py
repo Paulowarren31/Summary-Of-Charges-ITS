@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^accounts/', include('djangosaml2.urls')),
     url(r'^$', index),
     url(r'^table/', table),
-    url(r'^dept_grps/$', departments)
+    url(r'^dept_grps/$', departments),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ht/$', include('health_check.urls')),
 ]
