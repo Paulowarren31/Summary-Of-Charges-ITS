@@ -14,10 +14,9 @@ $(function(){
     categories.toggleClass('hidden')
 
     //when toggling off, we wanna also hide the items
-    /*
     if(categories.hasClass('hidden')){
       //get all items belonging to the categories above
-      items = $('[id^=a-'+acc+'][id$=items]')
+      items = $('[id^=item-'+acc+'-]')
       items.addClass('hidden')
     }
 
@@ -48,11 +47,13 @@ $(function(){
   $('#ex-all').on('click', function(e){
     all = $('[id^=item]')
     $(all).removeClass('hidden')
+    handleToggles('fa-plus-circle')
   })
 
   $('#hd-all').on('click', function(e){
     all = $('[id^=item]')
     $(all).addClass('hidden')
+    handleToggles('fa-minus-circle')
   })
 
   $('#btn-back').on('click', e => {
@@ -60,3 +61,12 @@ $(function(){
   })
 
 })
+
+function handleToggles(cls1){
+  toggles = $('[id$=drop]')
+  toggles.each((idx, item) => {
+    if($(item).hasClass(cls1)){
+      $(item).toggleClass('fa-plus-circle fa-minus-circle')
+    }
+  })
+}
