@@ -234,7 +234,7 @@ def departments(request):
   if request.method == 'GET':
     dept_grp = request.GET.get('dept_grp', '')
     query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp)
-    response = list(query.values_list('dept_grp', 'dept_grp_descr').distinct())
+    response = list(query.values_list('dept_descr', 'deptid').distinct())
   
     print response
 
