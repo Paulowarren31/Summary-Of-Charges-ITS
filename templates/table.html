@@ -20,7 +20,7 @@
     <table class="table table-striped">
         <thead>
             <th>Account</th>
-            <th>Description & Code</th>
+            <th colspan="2" >Description & Code</th>
             <th>Rate</th>
             <th>Avg monthly Billed</th>
             <th>Billed Units</th>
@@ -67,9 +67,10 @@
             {% for item in group.items %}
             <tr>
                 <td></td>
-                <td>{{item.descr}}<strong> - {{item.cc|default_if_none:""}}</strong></td>
+                <td colspan="2">{{item.descr}}<strong> - {{item.cc|default_if_none:""}}</strong></td>
                 <td>{{item.unit_rate|floatformat:2|money}}</td>
-                <td>{{item.monthly}}</td>
+                <td class="hidden-md-down">{{item.monthly}}</td>
+                <td class="hidden-lg-up"</td>
                 <td>{{item.quantity|default_if_none:""|floatformat:0}}</td>
                 <td>{{item.total|floatformat:2|money}}</td>
             </tr>
