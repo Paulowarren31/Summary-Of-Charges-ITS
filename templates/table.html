@@ -3,32 +3,32 @@
 {% load money_format %}
 {% load staticfiles %}
 {% block index %}
-<nav class="navbar fixed-top navbar-light bg-faded">
-    <div class="row">
-        <div class="col-sm-2">
-            <button class="btn btn-sm" id="btn-back">Back</button>
+<table class="table ">
+    <nav class="navbar fixed-top navbar-light bg-faded">
+        <div class="row">
+            <div class="col-sm-2">
+                <button class="btn btn-sm" id="btn-back">Back</button>
+            </div>
         </div>
-    </div>
-    <div class="row ">
-        <div class="col-md-6">
-            <h4>{{unit}}</h4>
+        <div class="row ">
+            <div class="col-md-6">
+                <h4>{{unit}}</h4>
+            </div>
+            <div class="col-md-6">
+                <h4>{{dateRange}}</h4>
+            </div>
         </div>
-        <div class="col-md-6">
-            <h4>{{dateRange}}</h4>
+        <div class="row">
+            <div class="col-sm-2">
+                <button class="btn btn-sm m-2" id="ex-all">Expand All</button>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-sm m-2" id="hd-all">Hide All</button>
+            </div>
+            <div class="col-sm-1 offset-sm-7">
+                <button class="btn btn-sm float-right t-total" id="download-btn"> Download .xls </button>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">
-            <button class="btn btn-sm m-2" id="ex-all">Expand All</button>
-        </div>
-        <div class="col-sm-2">
-            <button class="btn btn-sm m-2" id="hd-all">Hide All</button>
-        </div>
-        <div class="col-sm-1 offset-sm-7">
-            <button class="btn btn-sm float-right t-total" id="download-btn"> Download .xls </button>
-        </div>
-    </div>
-    <table class="table table-striped">
         <thead>
             <th>Account</th>
             <th colspan="2" >Description & Code</th>
@@ -37,10 +37,8 @@
             <th>Billed Units</th>
             <th>Total</th>
         </thead>
-    </table>
-</nav>
-<div class="container-fluid top">
-    <table class="table ">
+    </nav>
+    <div class="container-fluid top">
         <tbody>
             <!-- for each account -->
             {% for account in accounts %}
@@ -105,8 +103,8 @@
                     ${{total|floatformat:2|intcomma}}
                 </td>
             </tr>
-    </table>
-</div>
+    </div>
+</table>
 
 <!-- debug table
     <table class="table table-bordered table-responsive">
