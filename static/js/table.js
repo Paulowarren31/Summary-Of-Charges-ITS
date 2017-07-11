@@ -51,4 +51,8 @@ $(function(){
     $(all).addClass('hidden')
   })
 
+  $('#btn-back').on('click', e => {
+    window.history.back()
+  })
+
 })
