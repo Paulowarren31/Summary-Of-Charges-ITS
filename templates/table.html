@@ -17,14 +17,16 @@
         <button class="btn btn-sm m-2" id="hd-all">Hide All</button>
         <button class="btn float-right t-total" id="download-btn"> Download .xls </button>
     </div>
-    <div class="row">
-        <div class="col-lg-2 col-md-2"><h4>Expense Account</h4></div>
-        <div class="col-lg-2 col-md-4"><h4>Item Description & Item Code</h4></div>
-        <div class="col-lg-2 col-md-2"><h4>Rate</h4></div>
-        <div class="col-lg-2 hidden-md-down"><h4>Average Units</h4></div>
-        <div class="col-lg-2 col-md-2"><h4>Billed Units</h4></div>
-        <div class="col-lg-2 col-md-2"><h4>Account Total</h4></div>
-    </div>
+    <table class="table table-striped">
+        <thead>
+            <th>Account</th>
+            <th>Description & Code</th>
+            <th>Rate</th>
+            <th>Avg monthly Billed</th>
+            <th>Billed Units</th>
+            <th>Total</th>
+        </thead>
+    </table>
 </nav>
 <div class="container-fluid" style="width: 80% display: none;">
     <div class="top-row"></div>
