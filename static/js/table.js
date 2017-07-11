@@ -23,7 +23,6 @@ $(function(){
 
     //toggle triangle icon
     //$('#acc-i-'+acc_pk).toggleClass('fa-caret-down fa-caret-up')
-    */
   })
 
   categories = $('[id^=item][id$=drop]')
