@@ -161,7 +161,6 @@ def table(request):
   else: #if not POST request
     return render(request, 'index.html', {'form': form})
 
-
 # tries to convert a string to a float, returns 0 if exception
 def floatOrZ(string):
   try:
@@ -230,6 +229,15 @@ def handleDescriptions(group):
 
 
 
+def departments(request):
+
+  if request.method == 'GET':
+
+    dept_grp = request.GET.get('dept_grp', '')
+    query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp)
+    response = list(query.order_by().values_list('dept_grp', 'dept_grp_descr', flat=True).distinct())
+  
+    print response
 
 
 
