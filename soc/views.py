@@ -111,7 +111,7 @@ def table(request):
       elif choice2 == 7:
         calendar_yr = cd.get('calendar_yr')
 
-        date_range = 'Calendar year ' + fiscal_yr
+        date_range = 'Calendar year ' + calendar_yr
         query = query.filter(calendar_yr=calendar_yr)
 
       elif choice2 == 8:
