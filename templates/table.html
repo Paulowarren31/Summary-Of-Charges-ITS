@@ -19,11 +19,11 @@
     </div>
     <div class="row">
         <div class="col-lg-2 col-md-2"><h4>Expense Account</h4></div>
-        <div class="col-lg-3 col-md-4"><h4>Item Description & Item Code</h4></div>
+        <div class="col-lg-2 col-md-4"><h4>Item Description & Item Code</h4></div>
         <div class="col-lg-2 col-md-2"><h4>Rate</h4></div>
         <div class="col-lg-2 hidden-md-down"><h4>Average Units</h4></div>
-        <div class="col-lg-1 col-md-2"><h4>Billed Units</h4></div>
-        <div class="col-lg-2 col-md-2"><h4>Total</h4></div>
+        <div class="col-lg-2 col-md-2"><h4>Billed Units</h4></div>
+        <div class="col-lg-2 col-md-2"><h4>Account Total</h4></div>
     </div>
 </nav>
 <div class="container-fluid" style="width: 80% display: none;">
@@ -40,9 +40,9 @@
                     <strong>{{account.desc}}  ({{account.num}})</strong>
                 </td>
                 <td colspan="7"></td>
-                <td>
+                <td class="account-total">
                     <!-- account total -->
-                    <div class="account-total">{{account.total|floatformat:2|money}}</div>
+                    {{account.total|floatformat:2|money}}
                 </td>
             </tr>
 
@@ -55,24 +55,21 @@
                     <i id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp" class="fa fa-plus-circle" aria-hidden="true"></i>
                     {{group.grp}}
                 </td>
-                <td colspan="6"></td>
-                <td>
+                <td colspan="7"></td>
+                <td class="cat-total">
                     <!-- group total -->
-                    <div class="cat-total">{{group.total|floatformat:2|money}}</div>
+                    {{group.total|floatformat:2|money}}
                 </td>
-                <td></td>
             </tr>
             <!-- for each item in group -->
             {% for item in group.items %}
             <tr>
                 <td></td>
-                <td>{{item.descr}}</td>
-                <td><strong>{{item.cc|default_if_none:""}}</strong></td>
+                <td>{{item.descr}}<strong> - {{item.cc|default_if_none:""}}</strong></td>
                 <td>{{item.unit_rate|floatformat:2|money}}</td>
                 <td>{{item.monthly}}</td>
                 <td>{{item.quantity|default_if_none:""|floatformat:0}}</td>
                 <td>{{item.total|floatformat:2|money}}</td>
-                <td colspan="2"></td>
             </tr>
             {% endfor %}
             <!-- endfor items-->
@@ -91,10 +88,8 @@
             <tr>
                 <td> Total ITCom Charges </td>
                 <td colspan="7"></td>
-                <td>
-                    <div class="t-total">
-                        ${{total|floatformat:2|intcomma}}
-                    </div>
+                <td class="t-total">
+                    ${{total|floatformat:2|intcomma}}
                 </td>
             </tr>
     </table>
