@@ -28,8 +28,7 @@
         </thead>
     </table>
 </nav>
-<div class="container-fluid" style="width: 80% display: none;">
-    <div class="top-row"></div>
+<div class="container-fluid top">
     <table class="table table-striped">
         <tbody>
             <!-- for each account -->
@@ -41,7 +40,7 @@
 
                     <strong>{{account.desc}}  ({{account.num}})</strong>
                 </td>
-                <td colspan="7"></td>
+                <td colspan="6"></td>
                 <td class="account-total">
                     <!-- account total -->
                     {{account.total|floatformat:2|money}}
@@ -57,7 +56,7 @@
                     <i id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp" class="fa fa-plus-circle" aria-hidden="true"></i>
                     {{group.grp}}
                 </td>
-                <td colspan="7"></td>
+                <td colspan="6"></td>
                 <td class="cat-total">
                     <!-- group total -->
                     {{group.total|floatformat:2|money}}
@@ -90,7 +89,7 @@
             <!-- endfor account -->
             <tr>
                 <td> Total ITCom Charges </td>
-                <td colspan="7"></td>
+                <td colspan="6"></td>
                 <td class="t-total">
                     ${{total|floatformat:2|intcomma}}
                 </td>
