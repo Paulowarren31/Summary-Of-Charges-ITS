@@ -4,6 +4,12 @@
 .account{
     background-color: #eff0f1;
 }
+.account-row{
+    background-color: #ececc5;
+}
+.item-row{
+    background-color: #f1f1f1;
+}
 .account-total{
     background-color: #587abc;
     color: white;

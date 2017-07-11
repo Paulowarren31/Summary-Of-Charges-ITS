@@ -28,6 +28,14 @@
             <button class="btn btn-sm float-right t-total" id="download-btn"> Download .xls </button>
         </div>
     </div>
+    <div class="row">
+        <div class="col">Account</div>
+        <div class="col">Description</div>
+        <div class="col">Rate</div>
+        <div class="col">Avg monthly Billed</div>
+        <div class="col">Billed Units</div>
+        <div class="col">Total</div>
+    </div>               
 </nav>
 <div class="container-fluid top">
     <table class="table">
@@ -45,10 +53,10 @@
         <tbody>
             <!-- for each account -->
             {% for account in accounts %}
-            <tr>
+            <tr class="account-row">
                 <td>
                     <strong>I</strong>
-                    <i id="a-{{forloop.counter}}-row" class="fa fa-minus-circle" aria-hidden="true"></i>
+                    <i id="group-{{forloop.counter}}-drop" class="fa fa-minus-circle" aria-hidden="true"></i>
 
                     <strong>{{account.desc}}  ({{account.num}})</strong>
                 </td>
@@ -65,7 +73,7 @@
 
                 <td>
                     {{forloop.counter}}.
-                    <i id="a-{{forloop.parentloop.counter}}-{{forloop.counter}}-grp" class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <i id="item-{{forloop.parentloop.counter}}-{{forloop.counter}}-drop" class="fa fa-plus-circle" aria-hidden="true"></i>
                     {{group.grp}}
                 </td>
                 <td colspan="4"></td>
@@ -76,7 +84,7 @@
             </tr>
             <!-- for each item in group -->
             {% for item in group.items %}
-            <tr>
+            <tr id="item-{{forloop.parentloop.parentloop.counter}}-{{forloop.parentloop.counter}}" class="item-row">
                 <td></td>
                 <td >{{item.descr}}<strong> - {{item.cc|default_if_none:""}}</strong></td>
                 <td>{{item.unit_rate|floatformat:2|money}}</td>
