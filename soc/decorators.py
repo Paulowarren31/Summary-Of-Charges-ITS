@@ -15,7 +15,7 @@ def user_has_permission(function):
 
     print result
 
-    if len(result) != 0 or request.user.is_superuser or request.user.username == 'tahaz':
+    if len(result) != 0 or request.user.is_superuser or request.user.username == 'rutag':
       return function(request, *args, **kwargs)
     else:
       raise PermissionDenied
