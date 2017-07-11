@@ -1,5 +1,6 @@
 $(function(){
-  accounts = $('[id^=a][id$=row]')
+  account_icons = $('[id^=group][id$=drop]')
+
   accounts.on('click', function(e){
     icon = e.target
     $(icon).toggleClass('fa-minus-circle fa-plus-circle')
@@ -8,11 +9,12 @@ $(function(){
     console.log(acc)
 
     //get all the categories associated with the account
-    categories = $("[id^=a-"+acc+"][id$=grp-show]")
+    categories = $("[id=item-"+acc+"]")
 
     categories.toggleClass('hidden')
 
     //when toggling off, we wanna also hide the items
+    /*
     if(categories.hasClass('hidden')){
       //get all items belonging to the categories above
       items = $('[id^=a-'+acc+'][id$=items]')
@@ -22,9 +24,10 @@ $(function(){
 
     //toggle triangle icon
     //$('#acc-i-'+acc_pk).toggleClass('fa-caret-down fa-caret-up')
+    */
   })
 
-  categories = $('[id^=a][id$=grp]')
+  categories = $('[id^=item][id$=drop]')
 
   //on category click, show all items under that category
   categories.on('click', function(e){
@@ -32,22 +35,23 @@ $(function(){
 
     acc = e.target.id.split('-')[1]
     grp = e.target.id.split('-')[2]
+
     console.log(acc, grp)
 
-    elt = '#a-'+acc+'-g-'+grp+'-items'
+    elt = 'item-'+acc+'-'+grp
 
-    $(elt).toggleClass('hidden')
+    $('[id='+elt+']').toggleClass('hidden')
 
   })
 
 
   $('#ex-all').on('click', function(e){
-    all = $('[id^=a]')
+    all = $('[id^=item]')
     $(all).removeClass('hidden')
   })
 
   $('#hd-all').on('click', function(e){
-    all = $('[id^=a]')
+    all = $('[id^=item]')
     $(all).addClass('hidden')
   })
 

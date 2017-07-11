@@ -69,7 +69,7 @@
 
             <!--for each group -->
             {% for group in account.items %}
-            <tr>
+            <tr id="item-{{forloop.parentloop.counter}}">
 
                 <td>
                     {{forloop.counter}}.
@@ -84,7 +84,7 @@
             </tr>
             <!-- for each item in group -->
             {% for item in group.items %}
-            <tr id="item-{{forloop.parentloop.parentloop.counter}}-{{forloop.parentloop.counter}}" class="item-row">
+            <tr id="item-{{forloop.parentloop.parentloop.counter}}-{{forloop.parentloop.counter}}" class="item-row hidden">
                 <td></td>
                 <td >{{item.descr}}<strong> - {{item.cc|default_if_none:""}}</strong></td>
                 <td>{{item.unit_rate|floatformat:2|money}}</td>
