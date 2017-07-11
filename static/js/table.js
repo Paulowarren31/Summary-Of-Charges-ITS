@@ -50,7 +50,7 @@ $(function(){
   })
 
   $('#hd-all').on('click', function(e){
-    all = $('[id^=item]')
+    all = $('[id^=item]').not('[id$=drop]')
     $(all).addClass('hidden')
     handleToggles('fa-minus-circle')
   })
