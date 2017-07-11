@@ -1,7 +1,7 @@
 $(function(){
   account_icons = $('[id^=group][id$=drop]')
 
-  accounts.on('click', function(e){
+  account_icons.on('click', function(e){
     icon = e.target
     $(icon).toggleClass('fa-minus-circle fa-plus-circle')
 
