@@ -21,6 +21,10 @@
     background-color: #00274c;
     color: white;
 }
+.select{
+    background: #ffffff;
+}
+
 p{
     margin-bottom: 0 !important;
 }
