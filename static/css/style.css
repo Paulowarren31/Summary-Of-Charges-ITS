@@ -24,6 +24,9 @@
 .select{
     background: #ffffff;
 }
+.bold{
+    font-weight: bold;
+}
 
 p{
     margin-bottom: 0 !important;
