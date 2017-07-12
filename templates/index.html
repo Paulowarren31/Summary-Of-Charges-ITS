@@ -63,11 +63,8 @@
                         <div class="fieldWrapper">
                             {{ form.dept_id_range.errors }}
 
-                            <br>
 
-                            {{ form.dept_id_range | add_class:"form-control-sm"}}
-                            <br>
-                            <small class="text-muted">{{form.dept_id_range.help_text }}</small>
+                            {{ form.dept_id_range | add_class:"form-control-sm ml-4"}}
                         </div>
 
                     </div>
@@ -94,14 +91,22 @@
                             <input id="d_grp_vp" name="date_radio" type="radio" class="custom-control-input">
                             <span class="custom-control-indicator"></span>
                         </label>
-                        <div class="fieldWrapper">
-                            {{ form.range_begin_m| add_class:"select form-control-sm"}}
-                            {{ form.range_begin_y| add_class:"select form-control-sm"}}
-                            <div>
-                            TO
+                        <div class="d-flex flex-row">
+                            <div class="p-2">
+                                {{ form.range_begin_m| add_class:"select form-control-sm"}}
                             </div>
-                            {{ form.range_end_m| add_class:"select form-control-sm"}}
-                            {{ form.range_end_y| add_class:"select form-control-sm"}}
+                            <div class="p-2">
+                                {{ form.range_begin_y| add_class:"select form-control-sm"}}
+                            </div>
+                            <div class="p-2">
+                                TO
+                            </div>
+                            <div class="p-2">
+                                {{ form.range_end_m| add_class:"select form-control-sm"}}
+                            </div>
+                            <div class="p-2">
+                                {{ form.range_end_y| add_class:"select form-control-sm"}}
+                            </div>
                         </div>
 
                     </div>
