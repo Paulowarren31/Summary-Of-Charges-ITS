@@ -34,7 +34,7 @@ i:hover{
 }
 body{
     font-family: 'Nunito Sans', sans-serif;
-    background: #d8d8dc;
+    background: #efefef;
 }
 
 .blue-bg{
@@ -43,7 +43,7 @@ body{
 }
 
 .top{
-    padding-top: 12rem;
+    padding-top: 4rem;
 }
 
 .big-padding-top{

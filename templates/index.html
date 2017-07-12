@@ -15,45 +15,87 @@
 
             <input type="hidden" name="d_choice" id="d_choice_id" value="" />
             <input type="hidden" name="t_choice" id="t_choice_id" value="" />
-            <div class="row">
-                <div class="col-md-6 col-xs-12">
+
+            <input type="hidden" name="fiscal_yr" id="f_yr_in" value="" />
+            <input type="hidden" name="calendar_yr" id="c_yr_in" value="" />
+
+            <div class="row top">
+                <div class="col-md-6 col-xs-12 pl-3">
                     <h3> Unit Grouping </h3>
-                    <div class="row">
-                        <input id="d_grp_vp" name="unit_radio" type="radio" class="custom-control-input">
+                    <div class="row pl-3">
+                        <label class="custom-control custom-radio pl-3">
+                            <input id="d_grp_vp" name="unit_radio" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                        <br>
                         {{ form.non_field_errors }}
                         <div class="fieldWrapper">
                             {{ form.dept_grp_vp_choice.errors }}
 
                             <label for="{{form.dept_grp_vp_choice.id_for_label}}">{{form.dept_grp_vp_choice.label}}</label>
 
-                            {{ form.dept_grp_vp_choice| add_class:"select form-control"}}
+                            {{ form.dept_grp_vp_choice| add_class:"select form-control-sm"}}
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <input id="d_grp_vp" name="unit_radio" type="radio" class="custom-control-input">
+                    <div class="row pl-3">
+                        <label class="custom-control custom-radio pl-3">
+                            <input id="d_grp_vp" name="unit_radio" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                        <br>
                         <div class="fieldWrapper">
                             {{ form.dept_grp_choice.errors }}
 
                             <label for="{{form.dept_grp_choice.id_for_label}}">{{form.dept_grp_choice.label}}</label>
 
-                            {{ form.dept_grp_choice| add_class:"select form-control"}}
+                            {{ form.dept_grp_choice| add_class:"select form-control-sm"}}
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <input id="d_grp_vp" name="unit_radio" type="radio" class="custom-control-input">
+                    <div class="row pl-3">
+                        <label class="custom-control custom-radio pl-3">
+                            <input id="d_grp_vp" name="unit_radio" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                        <br>
                         <div class="fieldWrapper">
                             {{ form.dept_id_range.errors }}
 
                             <label for="{{form.dept_id_range.id_for_label}}">{{form.dept_id_range.label}}</label>
 
-                            {{ form.dept_id_range | add_class:"form-control"}}
+                            {{ form.dept_id_range | add_class:"form-control-sm"}}
                             <small class="text-muted">{{form.dept_id_range.help_text }}</small>
                         </div>
 
                     </div>
+                    <h3 class="top"> Date Range </h3>
+                    <div class="row pl-3">
+                        <label class="custom-control custom-radio pl-3">
+                            <input id="d_grp_vp" name="date_radio" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                        Fiscal Year
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        Calendar Year
+                        <select class="form-control form-control-sm">
+                            <option>2016</option>
+                        </select>
 
+                    </div>
+                    <div class="row pl-3">
+                        <label class="custom-control custom-radio pl-3">
+                            <input id="d_grp_vp" name="date_radio" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </div>
+                    <hr>
+                    <div class="row pl-3">
+                        <input class="btn btn-lg blue-bg pt-3" style="width:100%;" type="submit" value="Generate Report">
+                    </div>
                 </div>
                 <div class="col-md-6 col-xs-12">
                     tree
@@ -61,126 +103,120 @@
             </div>
 
             <!--
-            <div class="row">
+                <div class="row">
                 <div class="col-sm-12 col-md-6">
-                    <h3> Select Department </h3>
+                <h3> Select Department </h3>
 
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a id="1" class="nav-link active" data-toggle="tab" href="#d_id" role="tab">Dept ID</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="2" class="nav-link" data-toggle="tab" href="#d_range" role="tab">ID Range</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="3" class="nav-link" data-toggle="tab" href="#grp_c" role="tab">Group</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="4" class="nav-link" data-toggle="tab" href="#grp_vp" role="tab">VP Area </a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="5" class="nav-link" data-toggle="tab" href="#grp_bud" role="tab">Budget Seq</a>
-                        </li>
-                    </ul>
+                <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                <a id="1" class="nav-link active" data-toggle="tab" href="#d_id" role="tab">Dept ID</a>
+                </li>
+                <li class="nav-item">
+                <a id="2" class="nav-link" data-toggle="tab" href="#d_range" role="tab">ID Range</a>
+                </li>
+                <li class="nav-item">
+                <a id="3" class="nav-link" data-toggle="tab" href="#grp_c" role="tab">Group</a>
+                </li>
+                <li class="nav-item">
+                <a id="4" class="nav-link" data-toggle="tab" href="#grp_vp" role="tab">VP Area </a>
+                </li>
+                <li class="nav-item">
+                <a id="5" class="nav-link" data-toggle="tab" href="#grp_bud" role="tab">Budget Seq</a>
+                </li>
+                </ul>
 
-                    <div class="tab-content pt-3">
-                        <div class="tab-pane active" id="d_id" role="tabpanel">
-                            {{ form.non_field_errors }}
-                            <div class="fieldWrapper">
-                                {{ form.dept_id.errors }}
-                                {{ form.dept_id | add_class:"form-control"}}
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="d_range" role="tabpanel">
-                            <div class="fieldWrapper">
-                                {{ form.dept_id_range.errors }}
-                                {{ form.dept_id_range | add_class:"form-control"}}
-                                <small class="text-muted">{{form.dept_id_range.help_text }}</small>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="grp_c" role="tabpanel">
-                            <div class="fieldWrapper">
-                                {{ form.dept_grp_choice.errors }}
-                                {{ form.dept_grp_choice| add_class:"select form-control"}}
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="grp_vp" role="tabpanel">
-                            <div class="fieldWrapper">
-                                {{ form.dept_grp_vp_choice.errors }}
-                                {{ form.dept_grp_vp_choice| add_class:"select form-control"}}
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="grp_bud" role="tabpanel">
-                            <div class="fieldWrapper">
-                                {{ form.dept_grp_bud_choice.errors }}
-                                {{ form.dept_grp_bud_choice| add_class:"select form-control"}}
-                            </div>
-                        </div>
+                <div class="tab-content pt-3">
+                <div class="tab-pane active" id="d_id" role="tabpanel">
+                {{ form.non_field_errors }}
+                <div class="fieldWrapper">
+                {{ form.dept_id.errors }}
+                {{ form.dept_id | add_class:"form-control"}}
+                </div>
+                </div>
+                <div class="tab-pane" id="d_range" role="tabpanel">
+                <div class="fieldWrapper">
+                {{ form.dept_id_range.errors }}
+                {{ form.dept_id_range | add_class:"form-control"}}
+                <small class="text-muted">{{form.dept_id_range.help_text }}</small>
+                </div>
+                </div>
+                <div class="tab-pane" id="grp_c" role="tabpanel">
+                <div class="fieldWrapper">
+                {{ form.dept_grp_choice.errors }}
+                {{ form.dept_grp_choice| add_class:"select form-control"}}
+                </div>
+                </div>
+                <div class="tab-pane" id="grp_vp" role="tabpanel">
+                <div class="fieldWrapper">
+                {{ form.dept_grp_vp_choice.errors }}
+                {{ form.dept_grp_vp_choice| add_class:"select form-control"}}
+                </div>
+                </div>
+                <div class="tab-pane" id="grp_bud" role="tabpanel">
+                <div class="fieldWrapper">
+                {{ form.dept_grp_bud_choice.errors }}
+                {{ form.dept_grp_bud_choice| add_class:"select form-control"}}
+                </div>
+                </div>
 
-                    </div>
+                </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
-                    <h3> Select Time Period </h3>
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a id="6" class="nav-link active" data-toggle="tab" href="#fiscal_year" role="tab">Fiscal Year</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="7" class="nav-link" data-toggle="tab" href="#cal_yr" role="tab">Calendar Year</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="8" class="nav-link" data-toggle="tab" href="#sm" role="tab">Single Month</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="9" class="nav-link" data-toggle="tab" href="#mr" role="tab">Month Range</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content pt-3">
-                        <div class="tab-pane active" id="fiscal_year" role="tabpanel">
-                            <div class="fieldWrapper">
-                                {{ form.fiscal_yr.errors }}
-                                {{ form.fiscal_yr | add_class:"select form-control"}}
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="cal_yr" role="tabpanel">
-                            <div class="fieldWrapper">
-                                {{ form.calendar_yr.errors }}
-                                {{ form.calendar_yr| add_class:"select form-control"}}
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="sm" role="tabpanel">
-                            <div class="fieldWrapper">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        {{ form.single_month_m| add_class:"select form-control"}}
-                                    </div>
-                                    <div class="col-xs-6">
-                                        {{ form.single_month_y| add_class:"select form-control"}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="mr" role="tabpanel">
-                            <div class="fieldWrapper">
-                                {{ form.range_begin_m| add_class:"select form-control"}}
-                                {{ form.range_begin_y| add_class:"select form-control"}}
-                                <br>
-                                TO
-                                <br>
-                                {{ form.range_end_m| add_class:"select form-control"}}
-                                {{ form.range_end_y| add_class:"select form-control"}}
-                            </div>
-                        </div>
-                    </div>
+                <h3> Select Time Period </h3>
+                <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                <a id="6" class="nav-link active" data-toggle="tab" href="#fiscal_year" role="tab">Fiscal Year</a>
+                </li>
+                <li class="nav-item">
+                <a id="7" class="nav-link" data-toggle="tab" href="#cal_yr" role="tab">Calendar Year</a>
+                </li>
+                <li class="nav-item">
+                <a id="8" class="nav-link" data-toggle="tab" href="#sm" role="tab">Single Month</a>
+                </li>
+                <li class="nav-item">
+                <a id="9" class="nav-link" data-toggle="tab" href="#mr" role="tab">Month Range</a>
+                </li>
+                </ul>
+                <div class="tab-content pt-3">
+                <div class="tab-pane active" id="fiscal_year" role="tabpanel">
+                <div class="fieldWrapper">
+                {{ form.fiscal_yr.errors }}
+                {{ form.fiscal_yr | add_class:"select form-control"}}
                 </div>
-            </div>
+                </div>
+                <div class="tab-pane" id="cal_yr" role="tabpanel">
+                <div class="fieldWrapper">
+                {{ form.calendar_yr.errors }}
+                {{ form.calendar_yr| add_class:"select form-control"}}
+                </div>
+                </div>
+                <div class="tab-pane" id="sm" role="tabpanel">
+                <div class="fieldWrapper">
+                <div class="row">
+                <div class="col-xs-6">
+                {{ form.single_month_m| add_class:"select form-control"}}
+                </div>
+                <div class="col-xs-6">
+                {{ form.single_month_y| add_class:"select form-control"}}
+                </div>
+                </div>
+                </div>
+                </div>
+                <div class="tab-pane" id="mr" role="tabpanel">
+                <div class="fieldWrapper">
+                {{ form.range_begin_m| add_class:"select form-control"}}
+                {{ form.range_begin_y| add_class:"select form-control"}}
+                <br>
+                TO
+                <br>
+                {{ form.range_end_m| add_class:"select form-control"}}
+                {{ form.range_end_y| add_class:"select form-control"}}
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
             -->
-            <div class="row pt-3">
-                <div class="col-sm-6 offset-sm-3">
-                    <input class="btn btn-lg blue-bg" style="width:100%;" type="submit" value="Generate Report">
-                </div>
-            </div>
-
         </form>
         <!--
             <form action="/table/" method="post" class="pt-2">
