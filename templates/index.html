@@ -10,12 +10,57 @@
     </a>
 </nav>
 <div class="container card top-row">
-    <div class="pb-3 text-center">
-
+    <div class="pb-3 ">
         <form id="main-form" class="pt-3" action="/table/" method="POST">{% csrf_token %}
+
             <input type="hidden" name="d_choice" id="d_choice_id" value="" />
             <input type="hidden" name="t_choice" id="t_choice_id" value="" />
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <h3> Unit Grouping </h3>
+                    <div class="row">
+                        <input id="d_grp_vp" name="unit_radio" type="radio" class="custom-control-input">
+                        {{ form.non_field_errors }}
+                        <div class="fieldWrapper">
+                            {{ form.dept_grp_vp_choice.errors }}
 
+                            <label for="{{form.dept_grp_vp_choice.id_for_label}}">{{form.dept_grp_vp_choice.label}}</label>
+
+                            {{ form.dept_grp_vp_choice| add_class:"select form-control"}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <input id="d_grp_vp" name="unit_radio" type="radio" class="custom-control-input">
+                        <div class="fieldWrapper">
+                            {{ form.dept_grp_choice.errors }}
+
+                            <label for="{{form.dept_grp_choice.id_for_label}}">{{form.dept_grp_choice.label}}</label>
+
+                            {{ form.dept_grp_choice| add_class:"select form-control"}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <input id="d_grp_vp" name="unit_radio" type="radio" class="custom-control-input">
+                        <div class="fieldWrapper">
+                            {{ form.dept_id_range.errors }}
+
+                            <label for="{{form.dept_id_range.id_for_label}}">{{form.dept_id_range.label}}</label>
+
+                            {{ form.dept_id_range | add_class:"form-control"}}
+                            <small class="text-muted">{{form.dept_id_range.help_text }}</small>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    tree
+                </div>
+            </div>
+
+            <!--
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <h3> Select Department </h3>
@@ -129,13 +174,14 @@
                     </div>
                 </div>
             </div>
+            -->
             <div class="row pt-3">
                 <div class="col-sm-6 offset-sm-3">
-                    <input class="btn blue-bg" style="width:100%;" type="submit" value="Search">
+                    <input class="btn btn-lg blue-bg" style="width:100%;" type="submit" value="Generate Report">
                 </div>
             </div>
-        </form>
 
+        </form>
         <!--
             <form action="/table/" method="post" class="pt-2">
             {% csrf_token %}

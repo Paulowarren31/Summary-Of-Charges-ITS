@@ -103,6 +103,7 @@ try:
     DB_PASSWORD = f.read()
 
 except:
+  print 'working locally'
   #if working locally, get it from an env var
   DB_PASSWORD = os.environ['O_DB_PASS']
 
