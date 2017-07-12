@@ -40,7 +40,7 @@
                     <hr>
                     <div class="row pl-3">
                         <label class="custom-control custom-radio pl-3">
-                            <input id="d_grp_vp" name="unit_radio" type="radio" class="custom-control-input">
+                            <input id="d_grp_vp" name="unit_radio" type="radio" class="custom-control-input" selected>
                             <span class="custom-control-indicator"></span>
                         </label>
                         <div class="fieldWrapper">
@@ -88,15 +88,27 @@
                         </select>
 
                     </div>
+                    <hr>
                     <div class="row pl-3">
                         <label class="custom-control custom-radio pl-3">
                             <input id="d_grp_vp" name="date_radio" type="radio" class="custom-control-input">
                             <span class="custom-control-indicator"></span>
                         </label>
+                        <div class="fieldWrapper">
+                            {{ form.range_begin_m| add_class:"select form-control-sm"}}
+                            {{ form.range_begin_y| add_class:"select form-control-sm"}}
+                            <div>
+                            TO
+                            </div>
+                            {{ form.range_end_m| add_class:"select form-control-sm"}}
+                            {{ form.range_end_y| add_class:"select form-control-sm"}}
+                        </div>
+
                     </div>
                     <hr>
                     <div class="row pl-3">
                         <input class="btn btn-lg blue-bg pt-3" style="width:100%;" type="submit" value="Generate Report">
+
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12">
