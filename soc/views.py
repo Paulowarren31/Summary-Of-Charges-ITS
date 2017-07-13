@@ -14,12 +14,13 @@ from django.conf import settings
 import requests
 import base64
 
+
+
 # index view
-#@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login')
 #uniqname must be in the pinnacle authorized users table
-#@user_has_permission
+@user_has_permission
 def index(request):
-  print 'index'
   res = {}
 
   res['form'] = MainForm()
@@ -27,8 +28,8 @@ def index(request):
   return render(request, 'index.html', res)
 
 # table view
-#@login_required(login_url='/accounts/login')
-#@user_has_permission
+@login_required(login_url='/accounts/login')
+@user_has_permission
 def table(request):
 
   form = MainForm()
@@ -48,19 +49,22 @@ def table(request):
       choice2 = int(cd.get('t_choice'))
 
 
-      if choice1 == 1:
-        dept_id = cd.get('dept_id')
+      
+      #if choice1 == 1:
+      #  dept_id = cd.get('dept_id')
 
-        unit = 'Dept id: ' + dept_id
-        query = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id)
+      #  unit = 'Dept id: ' + dept_id
+      #  query = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id)
 
-        query2 = query.filter(calendar_yr='2015').filter(month='1')
-        print 'trying debug query'
-        print list(query2)
+      #  query2 = query.filter(calendar_yr='2015').filter(month='1')
+      #  print 'trying debug query'
+      #  print list(query2)
 
       #range
-      elif choice1 == 2:
+      elif choice1 == 1:
+
         dept_range = cd.get('dept_id_range')
+
         unit = 'Dept ids: ' + dept_range
         ids = dept_range.split(',')
 
@@ -75,59 +79,69 @@ def table(request):
           query = query | newQuery #chain our queries but union them
 
       
-      elif choice1 == 3:
+      elif choice1 == 2:
         dept_grp_choice = cd.get('dept_grp_choice')
 
         unit = 'Dept group: ' + dept_grp_choice
 
         query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp_choice)
 
-      elif choice1 == 4:
+      elif choice1 == 3:
         dept_grp_vp_choice = cd.get('dept_grp_vp_choice')
 
         unit = 'Dept group vp area: ' + dept_grp_vp_choice
 
         query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=dept_grp_vp_choice)
 
-      elif choice1 == 5:
-        dept_grp_bud_choice = cd.get('dept_grp_bud_choice')
 
-        unit = 'Dept group bud seq: ' + dept_grp_bud_choice
+      #elif choice1 == 5:
+      #  dept_grp_bud_choice = cd.get('dept_grp_bud_choice')
 
-        query = um_ecomm_dept_units_rept.objects.filter(dept_bud_seq=dept_grp_bud_choice)
+      #  unit = 'Dept group bud seq: ' + dept_grp_bud_choice
 
-      if choice2 == 6:
+      #  query = um_ecomm_dept_units_rept.objects.filter(dept_bud_seq=dept_grp_bud_choice)
+
+
+      if choice2 == 1:
         fiscal_yr = cd.get('fiscal_yr')
 
         query = query.filter(fiscal_yr=fiscal_yr)
         date_range = 'Fiscal year ' + fiscal_yr
 
-      elif choice2 == 7:
+      elif choice2 == 2:
         calendar_yr = cd.get('calendar_yr')
 
         date_range = 'Calendar year ' + calendar_yr
         query = query.filter(calendar_yr=calendar_yr)
 
-      elif choice2 == 8:
-        month = cd.get('single_month_m')
-        year = cd.get('single_month_y')
+      #elif choice2 == 8:
+      #  month = cd.get('single_month_m')
+      #  year = cd.get('single_month_y')
 
-        print 'single month'
-        print month
-        print year
+      #  print 'single month'
+      #  print month
+      #  print year
 
-        date_range = month + ' / ' + year
+      #  date_range = month + ' / ' + year
 
-        if len(month) == 1:
-          month = month.zfill(2)
+      #  if len(month) == 1:
+      #    month = month.zfill(2)
 
-        query = query.filter(calendar_yr=year).filter(month=month)
+      #  query = query.filter(calendar_yr=year).filter(month=month)
 
-      elif choice2 == 9:
+      elif choice2 == 3:
         b_month = cd.get('range_begin_m')
+
+        if len(b_month) == 1:
+          b_month = b_month.zfill(2)
+
         b_year = cd.get('range_begin_y')
 
         e_month = cd.get('range_end_m')
+
+        if len(e_month) == 1:
+          e_month = e_month.zfill(2)
+
         e_year = cd.get('range_end_y')
 
         date_range = b_month + ' ' + b_year + ' to ' + e_month + ' ' + e_year

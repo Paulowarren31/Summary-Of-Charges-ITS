@@ -1,13 +1,26 @@
 $(function(){
   $('#main-form').submit( () => {
 
-    choices = $('a[class="nav-link active"]')
+    unit = $('input[name=unit_radio]:checked').attr('id')
+    $('#d_choice_id').val(unit)
 
-    d_choice = $(choices[0]).attr('id')
-    t_choice = $(choices[1]).attr('id')
 
-    $('#d_choice_id').val(d_choice)
-    $('#t_choice_id').val(t_choice)
+    date = $('input[name=date_radio]:checked').attr('id')
+
+    if(date == 'date-switch'){
+      if($('input[name=fc_choice]:checked').length == 1){
+        //cal yr
+        $('#t_choice_id').val(2)
+      }
+      else{
+        $('#t_choice_id').val(1)
+        //f yr
+      }
+    }
+    else{
+      $('#t_choice_id').val(3)
+    }
+
     return true
 
   })
