@@ -39,12 +39,6 @@ def table(request):
 
     if form.is_valid():
       cd = form.cleaned_data
-
-
-
-
-
-    
       date_range = ''
       unit = ''
 

@@ -34,9 +34,6 @@ class MainForm(forms.Form):
   d_choice = forms.CharField(max_length=1)
   t_choice = forms.CharField(max_length=1)
 
-  def clean(self):
-    # logic for checking validness
-
   def save(self, dept, time):
     search = Search(dept=dept, time=time)
     search.save()
