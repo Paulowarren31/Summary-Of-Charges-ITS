@@ -39,6 +39,8 @@ def table(request):
     form = MainForm(request.POST)
 
     if form.is_valid():
+      print 'clean form'
+
       cd = form.cleaned_data
       date_range = ''
       unit = ''
@@ -48,6 +50,8 @@ def table(request):
       choice1 = int(cd.get('d_choice'))
       choice2 = int(cd.get('t_choice'))
 
+      print choice1
+      print choice2
 
       
       #if choice1 == 1:
