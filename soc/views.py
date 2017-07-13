@@ -61,8 +61,7 @@ def table(request):
       #  print list(query2)
 
       #range
-      elif choice1 == 1:
-
+      if choice1 == 1:
         dept_range = cd.get('dept_id_range')
 
         unit = 'Dept ids: ' + dept_range
