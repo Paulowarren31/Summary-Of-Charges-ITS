@@ -30,14 +30,16 @@ $(function(){
   })
   $('#date-switch').on('click', e => {
 
-    if($('#fy-tag').hasClass('bold')){
-      $('#fy-tag').removeClass('bold')
+
+    if($('input[name=fc_choice]:checked').length == 1){
       $('#c-tag').addClass('bold')
+      $('#fy-tag').removeClass('bold')
     }
     else{
-      $('#c-tag').removeClass('bold')
       $('#fy-tag').addClass('bold')
+      $('#c-tag').removeClass('bold')
     }
+
   })
 
 })    
