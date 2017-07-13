@@ -30,7 +30,6 @@ $(function(){
   })
   $('#date-switch').on('click', e => {
 
-
     if($('input[name=fc_choice]:checked').length == 1){
       $('#c-tag').addClass('bold')
       $('#fy-tag').removeClass('bold')
