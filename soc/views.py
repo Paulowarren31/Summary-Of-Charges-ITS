@@ -32,9 +32,11 @@ def index(request):
 @user_has_permission
 def table(request):
 
+  print 'table'
   form = MainForm()
   # if coming from index
   if request.method == 'POST':
+    print 'post'
     # create form obj with post params
     form = MainForm(request.POST)
 
@@ -167,6 +169,7 @@ def table(request):
       return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
 
     else:
+      print form.errors
       return render(request, 'index.html', {'form': form})
 
   else: #if not POST request
