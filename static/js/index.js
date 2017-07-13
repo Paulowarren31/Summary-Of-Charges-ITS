@@ -28,7 +28,7 @@ $(function(){
     return true
 
   })
-  $('#date-switch').on('click', e => {
+  $('#date-slide').on('click', e => {
 
     if($('input[name=fc_choice]:checked').length == 1){
       $('#c-tag').addClass('bold')
