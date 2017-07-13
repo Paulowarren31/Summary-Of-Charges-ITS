@@ -59,12 +59,13 @@
                             <span class="custom-control-indicator"></span>
                         </label>
 
-                        <label for="{{form.dept_id_range.id_for_label}}">{{form.dept_id_range.label}}</label>
                         <div class="fieldWrapper">
                             {{ form.dept_id_range.errors }}
 
+                        <label for="{{form.dept_id_range.id_for_label}}">{{form.dept_id_range.label}}</label>
+                        <br>
 
-                            {{ form.dept_id_range | add_class:"form-control-sm ml-4"}}
+                            {{ form.dept_id_range | add_class:"form-control-sm"}}
                         </div>
 
                     </div>

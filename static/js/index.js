@@ -8,11 +8,14 @@ $(function(){
     date = $('input[name=date_radio]:checked').attr('id')
 
     if(date == 'date-switch'){
+      year = $('#year').val()
       if($('input[name=fc_choice]:checked').length == 1){
         //cal yr
+        $('#c_yr_in').val(year)
         $('#t_choice_id').val(2)
       }
       else{
+        $('#f_yr_in').val(year)
         $('#t_choice_id').val(1)
         //f yr
       }
@@ -20,6 +23,7 @@ $(function(){
     else{
       $('#t_choice_id').val(3)
     }
+
 
     return true
 
