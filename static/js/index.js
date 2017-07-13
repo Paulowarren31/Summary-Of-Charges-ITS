@@ -31,12 +31,12 @@ $(function(){
   $('#date-slide').on('click', e => {
 
     if($('input[name=fc_choice]:checked').length == 1){
-      $('#c-tag').addClass('bold')
-      $('#fy-tag').removeClass('bold')
-    }
-    else{
       $('#fy-tag').addClass('bold')
       $('#c-tag').removeClass('bold')
+    }
+    else{
+      $('#c-tag').addClass('bold')
+      $('#fy-tag').removeClass('bold')
     }
 
   })
