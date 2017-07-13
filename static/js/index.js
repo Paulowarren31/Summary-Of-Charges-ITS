@@ -7,17 +7,18 @@ $(function(){
 
     date = $('input[name=date_radio]:checked').attr('id')
 
-    if(date == 'date-switch'){
+    if(date == 'whole-year'){
       year = $('#year').val()
       if($('input[name=fc_choice]:checked').length == 1){
-        //f yr
-        $('#f_yr_in').val(year)
-        $('#t_choice_id').val(1)
-      }
-      else{
         //cal yr
         $('#c_yr_in').val(year)
         $('#t_choice_id').val(2)
+      }
+      else{
+        //f yr
+
+        $('#f_yr_in').val(year)
+        $('#t_choice_id').val(1)
       }
     }
     else{
