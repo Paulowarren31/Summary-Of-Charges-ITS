@@ -65,7 +65,9 @@ $(function(){
     $.post(url, data, depts => {
 
 
-      depts.forEach(dept => {
+      console.log(depts)
+
+      depts.list.forEach(dept => {
 
         let tr = $("<tr></tr>").text("<td>"+dept[0]+"</td><td>"+dept[1]+"</td>")
 
