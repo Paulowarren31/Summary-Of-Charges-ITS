@@ -39,7 +39,18 @@ $(function(){
   })
 
 
+
   $('#submit-dept-btn').on('click', e => {
+    let csrftoken = getCookie('csrftoken')
+
+    $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
+
     console.log(getCookie('csrftoken'))
 
     let url = 'https://django-example-paulo-test.openshift.dsc.umich.edu/dept_id'
@@ -49,7 +60,6 @@ $(function(){
 
     let data = {
       dept_ids: dept_ids,
-      csrftoken: getCookie('csrftoken')
     }
 
     $.post(url, data, res => {
@@ -76,3 +86,14 @@ function getCookie(name) {
   }
   return cookieValue;
 }
+function csrfSafeMethod(method) {
+  // these HTTP methods do not require CSRF protection
+  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+
+
+
+
+
+
