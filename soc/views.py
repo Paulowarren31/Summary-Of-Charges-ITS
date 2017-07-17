@@ -38,7 +38,7 @@ def dept_info(request):
 
     dept_ids = '123123'
 
-    query = um_ecomm_dept_units_rept.objects.values_list('deptid','dept_descr').(get(deptid=dept_ids)
+    query = um_ecomm_dept_units_rept.objects.values_list('deptid','dept_descr').get(deptid=dept_ids)
 
     listmen = list(query)
     print listmen
