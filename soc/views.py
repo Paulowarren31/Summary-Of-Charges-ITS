@@ -32,11 +32,9 @@ def index(request):
 @user_has_permission
 def dept_info(request):
   if request.method == 'POST':
-    print request.body
-    print request.body.dept_ids
-    print request.body['dept_ids']
 
-    dept_ids = '123123'
+    dept_ids =  request.POST.dict()['dept_ids']
+    print dept_ids
 
     query = um_ecomm_dept_units_rept.objects.values_list('deptid','dept_descr').get(deptid=dept_ids)
 
