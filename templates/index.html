@@ -18,14 +18,14 @@
             <input type="hidden" name="fiscal_yr" id="f_yr_in" value="" />
             <input type="hidden" name="calendar_yr" id="c_yr_in" value="" />
 
-            <div class="row index-top">
+            <div class="row index-top pb-4">
                 <div class="col-md-6 col-xs-12 pl-3">
                     <h3> Department IDs</h3>
                     {{ form.non_field_errors }}
                     {{ form.dept_id_range.errors }}
                     {{ form.dept_id_range | add_class:"form-control"}}
                     <table class="table table-bordered mt-3">
-                        <thead class="thead-inverse">
+                        <thead class="thead-blue">
                             <tr>
                                 <th>Department ID</th>
                                 <th>Department Name</th>

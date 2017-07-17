@@ -139,3 +139,8 @@ input:checked + .slider:before {
 .custom-control-input:checked~.custom-control-indicator{
     background-color:#8a8080;
 }
+
+.thead-blue{
+    color: white;
+    background-color: #546d88;
+}
