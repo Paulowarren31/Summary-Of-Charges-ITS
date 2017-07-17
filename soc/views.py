@@ -32,7 +32,9 @@ def index(request):
 @user_has_permission
 def dept_info(request):
   if request.method == 'POST':
-    print request.POST
+    print request.body
+    print request.body.dept_ids
+    print request.body['dept_ids']
     return JsonResponse({'test': 'test'})
 
 # table view
