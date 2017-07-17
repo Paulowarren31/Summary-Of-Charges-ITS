@@ -69,8 +69,7 @@ $(function(){
 
       depts.list.forEach(dept => {
 
-        let tr = $("<tr></tr>").text("<td>"+dept[0]+"</td><td>"+dept[1]+"</td>")
-
+        let tr = $("<tr></tr>").html("<td>"+dept[0]+"</td><td>"+dept[1]+"</td>")
         $('#dept_ids_table').append(tr)
 
       })
