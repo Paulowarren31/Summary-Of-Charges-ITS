@@ -36,7 +36,7 @@ def dept_info(request):
     dept_ids =  request.POST.dict()['dept_ids']
     print dept_ids
 
-    query = um_ecomm_dept_units_rept.objects.values_list('deptid','dept_descr').get(deptid=dept_ids)
+    query = um_ecomm_dept_units_rept.objects.order_by().values_list('deptid','dept_descr').filter(deptid=dept_ids).distinct()
 
     listmen = list(query)
     print listmen
