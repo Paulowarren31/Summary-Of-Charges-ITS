@@ -13,7 +13,6 @@
     <div class="pb-3 ">
         <form id="main-form" class="pt-3" action="/table/" method="POST">{% csrf_token %}
 
-            <input type="hidden" name="d_choice" id="d_choice_id" value="" />
             <input type="hidden" name="t_choice" id="t_choice_id" value="" />
 
             <input type="hidden" name="fiscal_yr" id="f_yr_in" value="" />
@@ -24,18 +23,13 @@
                     <h3> Department IDs</h3>
                     {{ form.non_field_errors }}
                     <div class="row pl-3">
-                        <div class="fieldWrapper">
                             {{ form.dept_id_range.errors }}
 
-                            <label for="{{form.dept_id_range.id_for_label}}">{{form.dept_id_range.label}}</label>
-                            <br>
-
-                            {{ form.dept_id_range | add_class:"form-control-sm"}}
-                        </div>
+                            {{ form.dept_id_range | add_class:"form-control"}}
                     </div>
                     <div class="row">
-                        <table class="table table-striped table-inverse">
-                            <thead>
+                        <table class="table table-bordered m-3">
+                            <thead class="thead-inverse">
                                 <tr>
                                     <th>Department ID</th>
                                     <th>Department Name</th>
@@ -49,10 +43,9 @@
                             </tbody>
                         </table>
                     </div>
-                    <h3 class="top"> Date Range </h3>
+                    <h3 class="pt-5"> Date Range </h3>
                     <div class="row pl-3">
                         <label class="custom-control custom-radio pl-3">
-
                             <input id="whole-year" name="date_radio" type="radio" class="custom-control-input" checked>
                             <span class="custom-control-indicator"></span>
 
@@ -82,7 +75,6 @@
                             <option value="2006">2006</option>
                             <option value="2005">2005</option>
                         </select>
-
                     </div>
                     <hr>
                     <div class="row pl-3">
@@ -116,6 +108,8 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12">
+                    <h3>Deparement ID Look Up</h3>
+                    
                 </div>
             </div>
 

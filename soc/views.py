@@ -49,10 +49,8 @@ def table(request):
 
       query = um_ecomm_dept_units_rept.objects.none() #start with an empty query
 
-      choice1 = int(cd.get('d_choice'))
       choice2 = int(cd.get('t_choice'))
 
-      print choice1
       print choice2
 
       
@@ -66,46 +64,20 @@ def table(request):
       #  print 'trying debug query'
       #  print list(query2)
 
-      #range
-      if choice1 == 1:
-        dept_range = cd.get('dept_id_range')
+      dept_range = cd.get('dept_id_range')
 
-        unit = 'Dept ids: ' + dept_range
-        ids = dept_range.split(',')
+      unit = 'Dept ids: ' + dept_range
+      ids = dept_range.split(',')
 
-        for i in ids:
-          if '-' in i:
-            begin = int(i.split('-')[0])
-            end = int(i.split('-')[1])
-            newQuery = um_ecomm_dept_units_rept.objects.filter(deptid__lte=end, deptid__gte=begin)
-          else:
-            newQuery = um_ecomm_dept_units_rept.objects.filter(deptid=int(i))
+      for i in ids:
+        if '-' in i:
+          begin = int(i.split('-')[0])
+          end = int(i.split('-')[1])
+          newQuery = um_ecomm_dept_units_rept.objects.filter(deptid__lte=end, deptid__gte=begin)
+        else:
+          newQuery = um_ecomm_dept_units_rept.objects.filter(deptid=int(i))
 
-          query = query | newQuery #chain our queries but union them
-
-      
-      elif choice1 == 2:
-        dept_grp_choice = cd.get('dept_grp_choice')
-
-        unit = 'Dept group: ' + dept_grp_choice
-
-        query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp_choice)
-
-      elif choice1 == 3:
-        dept_grp_vp_choice = cd.get('dept_grp_vp_choice')
-
-        unit = 'Dept group vp area: ' + dept_grp_vp_choice
-
-        query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=dept_grp_vp_choice)
-
-
-      #elif choice1 == 5:
-      #  dept_grp_bud_choice = cd.get('dept_grp_bud_choice')
-
-      #  unit = 'Dept group bud seq: ' + dept_grp_bud_choice
-
-      #  query = um_ecomm_dept_units_rept.objects.filter(dept_bud_seq=dept_grp_bud_choice)
-
+        query = query | newQuery #chain our queries but union them
 
       if choice2 == 1:
         fiscal_yr = cd.get('fiscal_yr')

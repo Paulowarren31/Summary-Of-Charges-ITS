@@ -1,9 +1,6 @@
 $(function(){
   $('#main-form').submit( () => {
 
-    unit = $('input[name=unit_radio]:checked').attr('id')
-    $('#d_choice_id').val(unit)
-
 
     date = $('input[name=date_radio]:checked').attr('id')
 
