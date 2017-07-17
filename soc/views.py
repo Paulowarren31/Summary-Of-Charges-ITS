@@ -38,10 +38,9 @@ def dept_info(request):
 
     query = um_ecomm_dept_units_rept.objects.order_by().values_list('deptid','dept_descr').filter(deptid=dept_ids).distinct()
 
-    listmen = list(query)
-    print listmen
+    dept_list = list(query)
 
-    return JsonResponse({'test': 'test'})
+    return JsonResponse({'list': dept_list})
 
 # table view
 @login_required(login_url='/accounts/login')
