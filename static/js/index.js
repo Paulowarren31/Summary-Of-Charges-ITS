@@ -62,8 +62,19 @@ $(function(){
       dept_ids: dept_ids,
     }
 
-    $.post(url, data, res => {
-      console.log(res)
+    $.post(url, data, depts => {
+
+
+      depts.forEach(dept => {
+
+        let tr = $("<tr></tr>").text("<td>"+dept[0]+"</td><td>"+dept[1]+"</td>")
+
+        $('#dept_ids_table').append(tr)
+
+      })
+
+      $('#id_dept_id_range').val('') //clear the box
+
     })
 
   })
