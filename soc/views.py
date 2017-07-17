@@ -35,6 +35,14 @@ def dept_info(request):
     print request.body
     print request.body.dept_ids
     print request.body['dept_ids']
+
+    dept_ids = '123123'
+
+    query = um_ecomm_dept_units_rept.objects.values_list('deptid','dept_descr').(get(deptid=dept_ids)
+
+    listmen = list(query)
+    print listmen
+
     return JsonResponse({'test': 'test'})
 
 # table view
