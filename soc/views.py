@@ -36,6 +36,10 @@ def dept_info(request):
     dept_ids =  request.POST.dict()['dept_ids']
     print dept_ids
 
+    if '-' in dept_ids:
+      query = um_ecomm_dept_units_rept.objects.order_by().values_list('deptid','dept_descr').filter(deptid=dept_ids).distinct()
+
+
     query = um_ecomm_dept_units_rept.objects.order_by().values_list('deptid','dept_descr').filter(deptid=dept_ids).distinct()
 
     dept_list = list(query)
