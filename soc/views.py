@@ -7,6 +7,7 @@ from forms import MainForm
 from decorators import user_has_permission
 from models import um_ecomm_dept_units_rept
 from django.db import models
+from django.http import JsonResponse
 
 from . import database
 from django.conf import settings
@@ -26,6 +27,13 @@ def index(request):
   res['form'] = MainForm()
 
   return render(request, 'index.html', res)
+
+@login_required(login_url='/accounts/login')
+@user_has_permission
+def dept_info(request):
+  if request.method == 'POST':
+    print request.POST
+    return JsonResponse({'test': 'test'})
 
 # table view
 @login_required(login_url='/accounts/login')

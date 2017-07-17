@@ -19,9 +19,12 @@
             <input type="hidden" name="calendar_yr" id="c_yr_in" value="" />
 
             <div class="row index-top pb-4">
-                <div class="col-md-6 col-xs-12 pl-3">
+                <div class="col-md-6 col-xs-12 pl-3 col-md-border">
                     <h3> Department IDs</h3>
-                    {{ form.non_field_errors }}
+                    <div class="d-flex">
+                        {{ form.non_field_errors }}
+                        <button class="btn blue-bg" id="submit-dept-btn"> + </button>
+                    </div>
                     {{ form.dept_id_range.errors }}
                     {{ form.dept_id_range | add_class:"form-control"}}
                     <table class="table table-bordered mt-3">
@@ -105,7 +108,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6 col-xs-12 col-md-border">
                     <h3>Department ID Look Up</h3>
 
                 </div>
