@@ -70,8 +70,8 @@ a.nav-link{
 .switch {
     position: relative;
     display: inline-block;
-    width: 30px;
-    height: 18px;
+    width: 27px;
+    height: 14px;
     margin-top: .25rem;
     margin-left: 5px;
     margin-right: 10px;
@@ -89,7 +89,7 @@ a.nav-link{
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #2196F3;
+    background-color: #bac0c3;
     -webkit-transition: .4s;
     transition: .4s;
 
@@ -98,18 +98,18 @@ a.nav-link{
 .slider:before {
     position: absolute;
     content: "";
-    height: 18px;
-    width: 18px;
+    height: 14px;
+    width: 14px;
     left: 0px;
     bottom: 0px;
-    background-color: white;
+    background-color: black;
     -webkit-transition: .4s;
     transition: .4s;
 
 }
 
 input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #bac0c3;
 
 }
 

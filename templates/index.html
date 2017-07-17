@@ -22,27 +22,22 @@
                 <div class="col-md-6 col-xs-12 pl-3">
                     <h3> Department IDs</h3>
                     {{ form.non_field_errors }}
-                    <div class="row pl-3">
-                            {{ form.dept_id_range.errors }}
-
-                            {{ form.dept_id_range | add_class:"form-control"}}
-                    </div>
-                    <div class="row">
-                        <table class="table table-bordered m-3">
-                            <thead class="thead-inverse">
-                                <tr>
-                                    <th>Department ID</th>
-                                    <th>Department Name</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>123123123</td>
-                                    <td>Dept Name</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    {{ form.dept_id_range.errors }}
+                    {{ form.dept_id_range | add_class:"form-control"}}
+                    <table class="table table-bordered mt-3">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Department ID</th>
+                                <th>Department Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>123123123</td>
+                                <td>Dept Name</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <h3 class="pt-5"> Date Range </h3>
                     <div class="row pl-3">
                         <label class="custom-control custom-radio pl-3">
@@ -56,7 +51,7 @@
 
                         <label class="switch">
                             <input name="fc_choice" type="checkbox">
-                            <span id="date-slide" class="slider round"></span>
+                            <span style="background-color: #9c9898;" id="date-slide" class="slider round"></span>
                         </label>
                         <div id="c-tag">
                             Calendar Year
@@ -102,14 +97,14 @@
 
                     </div>
                     <hr>
-                    <div class="row pl-3">
-                        <input class="btn btn-lg blue-bg pt-3" style="width:100%;" type="submit" value="Generate Report">
+                    <div class="d-flex pl-3">
+                        <input class="btn blue-bg pt-3" style="width:100%; background-color: #9c9898;" type="submit" value="Generate Report">
 
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12">
-                    <h3>Deparement ID Look Up</h3>
-                    
+                    <h3>Department ID Look Up</h3>
+
                 </div>
             </div>
 
