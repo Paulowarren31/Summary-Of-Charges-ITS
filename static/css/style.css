@@ -135,3 +135,7 @@ input:checked + .slider:before {
     border-radius: 50%;
 
 }
+
+.custom-control-input:checked~.custom-control-indicator{
+    background-color:#8a8080;
+}
