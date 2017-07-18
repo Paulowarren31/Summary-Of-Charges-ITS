@@ -234,7 +234,7 @@ def departments(request):
 # gives back a queryset given a string of dept ids separated by - and ,
 def handleDeptQuery(dept_str):
   query = um_ecomm_dept_units_rept.objects.none() #start with an empty query
-  ids = dept_range.split(',')
+  ids = dept_str.split(',')
 
   for i in ids:
     if '-' in i:
