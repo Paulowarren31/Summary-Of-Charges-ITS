@@ -36,13 +36,11 @@ def dept_info(request):
     dept_ids =  request.POST.dict()['dept_ids']
     print dept_ids
 
-    if '-' in dept_ids:
-      query = um_ecomm_dept_units_rept.objects.order_by().values_list('deptid','dept_descr').filter(deptid=dept_ids).distinct()
-
-
-    query = um_ecomm_dept_units_rept.objects.order_by().values_list('deptid','dept_descr').filter(deptid=dept_ids).distinct()
+    query = handleDeptQuery(dept_ids).order_by().values_list('deptid','dept_descr').distinct()
 
     dept_list = list(query)
+
+    print dept_list
 
     return JsonResponse({'list': dept_list})
 
@@ -66,8 +64,6 @@ def table(request):
       date_range = ''
       unit = ''
 
-      query = um_ecomm_dept_units_rept.objects.none() #start with an empty query
-
       choice2 = int(cd.get('t_choice'))
 
       print choice2
@@ -86,17 +82,8 @@ def table(request):
       dept_range = cd.get('dept_id_range')
 
       unit = 'Dept ids: ' + dept_range
-      ids = dept_range.split(',')
 
-      for i in ids:
-        if '-' in i:
-          begin = int(i.split('-')[0])
-          end = int(i.split('-')[1])
-          newQuery = um_ecomm_dept_units_rept.objects.filter(deptid__lte=end, deptid__gte=begin)
-        else:
-          newQuery = um_ecomm_dept_units_rept.objects.filter(deptid=int(i))
-
-        query = query | newQuery #chain our queries but union them
+      query = handleDeptQuery(dept_range)
 
       if choice2 == 1:
         fiscal_yr = cd.get('fiscal_yr')
@@ -242,6 +229,26 @@ def departments(request):
     response = list(query.values_list('dept_descr', 'deptid').distinct())
   
     print response
+
+
+# gives back a queryset given a string of dept ids separated by - and ,
+def handleDeptQuery(dept_str):
+  query = um_ecomm_dept_units_rept.objects.none() #start with an empty query
+  ids = dept_range.split(',')
+
+  for i in ids:
+    if '-' in i:
+      begin = int(i.split('-')[0])
+      end = int(i.split('-')[1])
+      newQuery = um_ecomm_dept_units_rept.objects.filter(deptid__lte=end, deptid__gte=begin)
+    else:
+      newQuery = um_ecomm_dept_units_rept.objects.filter(deptid=int(i))
+
+    query = query | newQuery #chain our queries but union them
+
+  return query 
+
+
 
 
 

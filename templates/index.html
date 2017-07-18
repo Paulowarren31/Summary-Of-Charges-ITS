@@ -14,6 +14,7 @@
         <form id="main-form" class="pt-3" action="/table/" method="POST">{% csrf_token %}
 
             <input type="hidden" name="t_choice" id="t_choice_id" value="" />
+            <input type="hidden" name="dept_id_range" id="t_choice_id" value="" />
 
             <input type="hidden" name="fiscal_yr" id="f_yr_in" value="" />
             <input type="hidden" name="calendar_yr" id="c_yr_in" value="" />
@@ -24,6 +25,7 @@
                     <div class="d-flex">
                         {{ form.non_field_errors }}
                         {{ form.dept_id_range.errors }}
+                        <input type="text" id="id_dept_id_range" placeholder="type individual ids or a range of ids" class="form-control" maxlength="20">
                         {{ form.dept_id_range | add_class:"form-control"}}
                         <button class="btn blue-bg" type="button" id="submit-dept-btn"> + </button>
                     </div>
