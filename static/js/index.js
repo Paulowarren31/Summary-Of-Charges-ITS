@@ -42,17 +42,21 @@ $(function(){
 
   $('#submit-dept-btn').on('click', e => {
     let dept_ids = $('#id_dept_id_range').val()
-    let prev = $('#dept_id_range_actual').val()
+    deptUpdate(dept_ids, () => {
+      let prev = $('#dept_id_range_actual').val()
 
-    if(prev.length > 0){
-      $('#dept_id_range_actual').val( prev + ',' + dept_ids)
-    }
-    else{
+      if(prev.length > 0){
+        $('#dept_id_range_actual').val( prev + ',' + dept_ids)
+      }
+      else{
 
-      $('#dept_id_range_actual').val(dept_ids)
-    }
+        $('#dept_id_range_actual').val(dept_ids)
+      }
 
-    deptUpdate(dept_ids)
+
+
+
+    })
   })
 
   deptUpdate($('#dept_id_range_actual').val())
@@ -80,7 +84,7 @@ function csrfSafeMethod(method) {
   return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
-function deptUpdate(dept_ids){
+function deptUpdate(dept_ids, callback){
   let csrftoken = getCookie('csrftoken')
 
   //required for django
@@ -114,6 +118,7 @@ function deptUpdate(dept_ids){
 
     $('#id_dept_id_range').val('') //clear the box
 
+    if(depts.length > 0) callback()
 
   })
 }
