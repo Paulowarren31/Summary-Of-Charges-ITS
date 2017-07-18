@@ -50,3 +50,7 @@ class DBRouter(object):
     if model._meta.db_table == 'PINN_CUSTOM"."UM_ECOMM_DEPT_UNITS_REPT':
       return 'oracle'
     return 'default'
+
+  def db_for_write(model, **hints):
+    return 'default'
+
