@@ -114,7 +114,7 @@ function deptUpdate(dept_ids){
     $('#id_dept_id_range').val('') //clear the box
 
 
-  }
+  })
 }
 
 
