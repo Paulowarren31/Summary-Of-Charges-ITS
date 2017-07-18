@@ -42,6 +42,7 @@ $(function(){
 
   $('#submit-dept-btn').on('click', e => {
     let dept_ids = $('#id_dept_id_range').val()
+    let prev = $('#dept_id_range_actual').val()
 
     if(prev.length > 0){
       $('#dept_id_range_actual').val( prev + ',' + dept_ids)
