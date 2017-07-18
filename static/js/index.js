@@ -41,56 +41,23 @@ $(function(){
 
 
   $('#submit-dept-btn').on('click', e => {
-    let csrftoken = getCookie('csrftoken')
-
-    //required for django
-    $.ajaxSetup({
-      beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-          xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-      }
-    });
-
-
-    let url = 'https://django-example-paulo-test.openshift.dsc.umich.edu/dept_id'
     let dept_ids = $('#id_dept_id_range').val()
-
-    prev = $('#dept_id_range_actual').val()
 
     if(prev.length > 0){
       $('#dept_id_range_actual').val( prev + ',' + dept_ids)
     }
     else{
-    
+
       $('#dept_id_range_actual').val(dept_ids)
     }
 
-    console.log(dept_ids)
-
-    let data = {
-      dept_ids: dept_ids,
-    }
-
-    $.post(url, data, depts => {
-
-      console.log(depts)
-
-      depts.list.forEach(dept => {
-
-        let tr = $("<tr></tr>").html("<td>"+dept[0]+"</td><td>"+dept[1]+"</td>")
-        $('#dept_ids_table').append(tr)
-
-      })
-
-      $('#id_dept_id_range').val('') //clear the box
-
-    })
-
+    deptUpdate(dept_ids)
   })
 
+  deptUpdate($('#dept_id_range_actual').val())
 
 })
+
 
 function getCookie(name) {
   var cookieValue = null;
@@ -112,6 +79,42 @@ function csrfSafeMethod(method) {
   return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
+function deptUpdate(dept_ids){
+  let csrftoken = getCookie('csrftoken')
+
+  //required for django
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      }
+    }
+  });
+
+
+  let url = 'https://django-example-paulo-test.openshift.dsc.umich.edu/dept_id'
+
+  console.log(dept_ids)
+
+  let data = {
+    dept_ids: dept_ids,
+  }
+
+  $.post(url, data, depts => {
+
+    console.log(depts)
+
+    depts.list.forEach(dept => {
+
+      let tr = $("<tr></tr>").html("<td>"+dept[0]+"</td><td>"+dept[1]+"</td>")
+      $('#dept_ids_table').append(tr)
+
+    })
+
+    $('#id_dept_id_range').val('') //clear the box
+
+
+  }
 
 
 
