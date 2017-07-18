@@ -51,6 +51,6 @@ class DBRouter(object):
       return 'oracle'
     return 'default'
 
-  def db_for_write(model, **hints):
+  def db_for_write(self, model, **hints):
     return 'default'
 
