@@ -23,11 +23,17 @@ import base64
 @user_has_permission
 def index(request):
   res = {}
-
   res['form'] = MainForm()
 
-  return render(request, 'index.html', res)
+  query = um_ecomm_dept_units_rept.objects.order_by().values_list('dept_grp_vp_area','dept_grp_vp_area_descr').distinct()
 
+  print list(query)
+  
+
+
+  #get all unique vp groups
+
+  return render(request, 'index.html', res) 
 @login_required(login_url='/accounts/login')
 @user_has_permission
 def dept_info(request):
