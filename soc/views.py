@@ -43,6 +43,7 @@ def index(request):
 
     #  dept_grp = list(dept_grp)
     #  dept_grp.append(list(query)) #dept_grp[2] is list of depts for a dept_grp
+  print vp_groups
 
   res['d'] = vp_groups
 
