@@ -34,11 +34,13 @@ def index(request):
     #get all dept_grps from each vp_group
     query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=vp[0]).order_by().values_list('dept_grp','dept_grp_descr').distinct()
 
+    vp = list(vp)
     vp.append(list(query)) # vp[2] is now the list of dept_grps associated with that thing
 
     for dept_grp in vp[2]:
       query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp[0]).order_by().values_list('deptid','dept_descr').distinct()
 
+      dept_grp = list(dept_grp)
       dept_grp.append(list(query)) #dept_grp[2] is list of depts for a dept_grp
 
   res['d'] = vp_groups
