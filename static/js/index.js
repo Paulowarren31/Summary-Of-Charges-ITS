@@ -104,9 +104,8 @@ function deptUpdate(dept_ids){
     })
 
     $('#id_dept_id_range').val('') //clear the box
-    console.log(depts)
 
-    if(depts.length > 0){
+    if(depts.list.length > 0){
       let prev = $('#dept_id_range_actual').val()
 
       if(prev.length > 0){
