@@ -111,13 +111,15 @@ function deptUpdate(dept_ids, callback){
       return a[0] - b[0]
     })
 
+    var tr = ''
+
     if(depts.list.length > 3){
-      let tr = $("<tr></tr>").html("<td>"+depts.list[0][0]+" - "
+      tr = $("<tr></tr>").html("<td>"+depts.list[0][0]+" - "
               + depts.list[depts.list.length - 1][0] + 
-      "</td><td>"+depts.list[0][1]+"</td>")
+      "</td><td> RANGE </td>")
     }
     else{
-      let tr = $("<tr></tr>").html("<td>"+depts.list[0][0]+"</td><td>"+depts.list[0][1]+"</td>")
+      tr = $("<tr></tr>").html("<td>"+depts.list[0][0]+"</td><td>"+depts.list[0][1]+"</td>")
     }
 
     $('#dept_ids_table').append(tr)
