@@ -30,12 +30,15 @@ def index(request):
 
   vp_groups =  list(query)
 
+  final_groups = []
+
   for vp in vp_groups:
     #get all dept_grps from each vp_group
     query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=vp[0]).order_by().values_list('dept_grp','dept_grp_descr').distinct()
 
     vp = list(vp)
     vp.append(list(query)) # vp[2] is now the list of dept_grps associated with that thing
+    final_groups.append(vp)
 
 
     #for dept_grp in vp[2]:
@@ -43,9 +46,9 @@ def index(request):
 
     #  dept_grp = list(dept_grp)
     #  dept_grp.append(list(query)) #dept_grp[2] is list of depts for a dept_grp
-  print vp_groups
+  print final_groups
 
-  res['d'] = vp_groups
+  res['d'] = final_groups
 
   return render(request, 'index.html', res) 
 @login_required(login_url='/accounts/login')

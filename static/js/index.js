@@ -56,7 +56,8 @@ $(function(){
     })
   })
 
-  deptUpdate($('#dept_id_range_actual').val(), () => {})
+  if($('#dept_id_range_actual').val().length > 0)
+    deptUpdate($('#dept_id_range_actual').val(), () => {});
 
 })
 
