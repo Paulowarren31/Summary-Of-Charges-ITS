@@ -7,13 +7,11 @@ def user_has_permission(function):
 
   def wrap(request, *args, **kwargs):
 
-    print request.user.username
+    print request.user.username + ' loggin in'
 
     c = cx_Oracle.connect(connection_string).cursor()
     query = 'select * from um_authorized_dept_users where uniqname=:u'
     result = c.execute(query, {'u': request.user.username}).fetchall()
-
-    print result
 
     if len(result) != 0 or request.user.is_superuser or request.user.username == 'rutag':
       return function(request, *args, **kwargs)

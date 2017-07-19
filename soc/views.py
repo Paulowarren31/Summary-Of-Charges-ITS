@@ -25,13 +25,18 @@ def index(request):
   res = {}
   res['form'] = MainForm()
 
+  #get all unique vp groups
   query = um_ecomm_dept_units_rept.objects.order_by().values_list('dept_grp_vp_area','dept_grp_vp_area_descr').distinct()
 
-  print list(query)
-  
+  vp_groups =  list(query)
 
+  for vp in vp_groups:
+    #get all dept_grps from each vp_group
+    query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=vp[0]).order_by().values_list('dept_grp','dept_grp_descr').distinct()
 
-  #get all unique vp groups
+    dept_grps = list(query)
+    print dept_grps
+
 
   return render(request, 'index.html', res) 
 @login_required(login_url='/accounts/login')
