@@ -67,6 +67,11 @@ a.nav-link{
     color: #00274c;
 }
 
+.tree-div{
+    overflow-y: scroll;
+    height: 600px;
+}
+
 .switch {
     position: relative;
     display: inline-block;
@@ -144,6 +149,10 @@ input:checked + .slider:before {
 .thead-blue{
     color: white;
     background-color: #546d88;
+}
+
+.left-col{
+    height:500px;
 }
 
 @media (min-width: 992px) {
