@@ -166,6 +166,8 @@ def table(request):
 
       form.save(unit, date_range) # save what they searched for
 
+      print accounts
+
       return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
 
     else:
