@@ -25,37 +25,8 @@ def index(request):
   res = {}
   res['form'] = MainForm()
 
-  #get all unique vp groups
-  query = um_ecomm_dept_units_rept.objects.order_by().values_list('dept_grp_vp_area','dept_grp_vp_area_descr').distinct()
-
-  vp_groups =  list(query)
-
-  final_groups = []
-
-  for vp in vp_groups:
-    #get all dept_grps from each vp_group
-    query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=vp[0]).order_by().values_list('dept_grp','dept_grp_descr').distinct()
-
-    vp = list(vp)
-    vp.append(list(query)) # vp[2] is now the list of dept_grps associated with that thing
-    final_groups.append(vp)
-
-
-    for dept_grp in vp[2]:
-      query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp[0]).order_by().values_list('deptid','dept_descr').distinct()
-
-      dept_grp = list(dept_grp)
-      dept_grp.append(list(query)) #dept_grp[2] is list of depts for a dept_grp
-
-  res['d'] = final_groups
-
-  content = render(request, 'index.html', res) 
-  with open('/code/test.html', 'w') as s_file:
-    s_file.write(str(content))
-    print 'saved PogChamp'
-
-
   return render(request, 'index.html', res) 
+
 @login_required(login_url='/accounts/login')
 @user_has_permission
 def dept_info(request):
