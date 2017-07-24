@@ -29,16 +29,16 @@
                         <button class="btn blue-bg" type="button" id="submit-dept-btn"> + </button>
                     </div>
                     <div class="left-col">
-                    <table class="table table-bordered mt-3">
-                        <thead class="thead-blue">
-                            <tr>
-                                <th>Department ID</th>
-                                <th>Department Name</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dept_ids_table">
-                        </tbody>
-                    </table>
+                        <table class="table table-bordered mt-3">
+                            <thead class="thead-blue">
+                                <tr>
+                                    <th>Department ID</th>
+                                    <th>Department Name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dept_ids_table">
+                            </tbody>
+                        </table>
                     </div>
                     <h3 class="pt-5"> Date Range </h3>
                     <div class="d-flex align-items-center pl-3">
@@ -112,17 +112,38 @@
                 <div class="col-md-6 col-xs-12 col-md-border">
                     <h3>Department ID Look Up</h3>
                     <input class="form-control mb-3" id="tree-input" aria-describedby="emailHelp" placeholder="Search by department">
+                    {% include  "templates/tree.html" %}
+
+                    <!--
                     <div class="tree-div">
                         {% for vp in d %}
-                        <p class="bold">
-                        <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
-                        {{vp.0}} - {{vp.1}}
-                        </p>
-                        {% for grp in vp.2 %}
-                        <p class="pl-2"> {{grp.0}} - {{grp.1}} </p>
-                        {% endfor %}
+                        <div id="vp-{{vp.0}}">
+                            <p class="bold">
+                            <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
+                            {{vp.1}}
+                            <i class="fa fa-plus-circle" id="add-vp-{{vp.0}}"></i>
+                            </p>
+
+                            {% for grp in vp.2 %}
+                            <div id="vp-{{vp.0}}-grp-{{grp.0}}">
+                                <p class="pl-2">
+                                <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
+                                {{grp.0}} - {{grp.1}}
+                                <i class="fa fa-plus-circle" id="add-grp-{{grp.0}}"></i>
+                                </p>
+                                {% for dept in grp.2 %}
+                                <div id="vp-{{vp.0}}-grp-{{grp.0}}-dept-{{dept.0}}">
+                                    <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
+                                    <small class="pl-4"> {{dept.0}} - {{dept.1}} </small>
+                                    <i class="fa fa-plus-circle" id="add-d-{{dept.0}}"></i>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
                         {% endfor %}
                     </div>
+                    -->
                 </div>
             </div>
 
