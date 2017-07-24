@@ -20,12 +20,13 @@
             <input type="hidden" name="calendar_yr" id="c_yr_in" value="" />
 
             <div class="row index-top pb-4">
-                <div class="col-md-6 col-xs-12 pl-3 col-md-border d-flex" style="height: 900px;">
+                <div class="col-md-6 col-xs-12 pl-3 col-md-border d-flex" style="height: 900px; flex-direction: column;">
                     <h3>Department Look Up</h3>
                     <input class="form-control mb-3" id="tree-input" aria-describedby="emailHelp" placeholder="Search by department">
-                        {% include "tree.html" %} 
-
                         <!--
+                        {% include "tree.html" %} 
+                        -->
+
                         <div class="tree-div">
                         {% for vp in d %}
                         <div id="vp-{{vp.0}}">
@@ -44,7 +45,6 @@
                         </p>
                         {% for dept in grp.2 %}
                         <div id="vp-{{vp.0}}-grp-{{grp.0}}-dept-{{dept.0}}">
-                        <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
                         <small class="pl-4"> {{dept.0}} - {{dept.1}} </small>
                         <i class="fa fa-plus-circle" id="add-d-{{dept.0}}-{{dept.1}}"></i>
                         </div>
@@ -54,7 +54,6 @@
                         </div>
                         {% endfor %}
                         </div>
-                        -->
                 </div>
                 <div class="col-md-6 col-xs-12 col-md-border">
                     <h3> Department IDs</h3>
@@ -68,7 +67,7 @@
                         <table class="table table-bordered mt-3">
                             <thead class="thead-blue">
                                 <tr>
-                                    <th>Department ID</th>
+                                    <th style="width: 30%">Department ID</th>
                                     <th>Department Name</th>
                                 </tr>
                             </thead>
