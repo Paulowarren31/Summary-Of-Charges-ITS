@@ -41,12 +41,18 @@ def index(request):
     final_groups.append(vp)
 
 
-    #for dept_grp in vp[2]:
-    #  query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp[0]).order_by().values_list('deptid','dept_descr').distinct()
+    for dept_grp in vp[2]:
+      query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp[0]).order_by().values_list('deptid','dept_descr').distinct()
 
-    #  dept_grp = list(dept_grp)
-    #  dept_grp.append(list(query)) #dept_grp[2] is list of depts for a dept_grp
-  #print final_groups 
+      dept_grp = list(dept_grp)
+      dept_grp.append(list(query)) #dept_grp[2] is list of depts for a dept_grp
+
+  content = render(request, 'index.html', res) 
+  with open('/code/test.html', 'w') as s_file:
+    s_file.write(content)
+    print 'saved PogChamp'
+
+
   res['d'] = final_groups
 
   return render(request, 'index.html', res) 

@@ -26,4 +26,6 @@ EXPOSE 8080
 
 ADD . /code/
 
+CMD touch /code/test.html
+
 CMD python manage.py makemigrations; python manage.py migrate; ./start.sh
