@@ -128,11 +128,11 @@ def table(request):
 
         date_range = b_month + ' ' + b_year + ' to ' + e_month + ' ' + e_year
 
-        b_query = query.filter(calendar_yr__gte=b_year, month__gte=b_month)
-        e_query = query.filter(calendar_yr__lte=e_year, month__lte=e_month)
+        b_query = query.filter(calendar_yr__gte=b_year, month__gte=b_month).distinct()
+        e_query = query.filter(calendar_yr__lte=e_year, month__lte=e_month).distinct()
         query = b_query.intersection(e_query)
 
-      rows = list(query.distinct())
+      rows = list(query)
 
       accounts, total = handleAccounts(rows)
 
