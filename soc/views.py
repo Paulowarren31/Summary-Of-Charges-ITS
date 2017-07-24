@@ -244,7 +244,13 @@ def handleDeptQuery(dept_str):
       newQuery = um_ecomm_dept_units_rept.objects.filter(deptid__lte=end, deptid__gte=begin)
     elif '.' in i:
       scope = i.split('.')[0]
-      print scope
+      val = i.split('.')[1]
+      if scope == 'd':
+        newQuery = um_ecomm_dept_units_rept.objects.filter(deptid=int(val))
+      elif scope == 'g':
+        newQuery = um_ecomm_dept_units_rept.objects.filter(dept_grp=val)
+      elif scope == 'v':
+        newQuery = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=val)
     else:
       newQuery = um_ecomm_dept_units_rept.objects.filter(deptid=int(i))
 

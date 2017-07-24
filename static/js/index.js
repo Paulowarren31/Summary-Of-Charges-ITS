@@ -159,10 +159,10 @@ function updateActual(string){
   let prev = $('#dept_id_range_actual').val()
 
   if(prev.length > 0){
-    $('#dept_id_range_actual').val( prev + ',' + dept_ids)
+    $('#dept_id_range_actual').val( prev + ',' + string)
   }
   else{
-    $('#dept_id_range_actual').val(dept_ids)
+    $('#dept_id_range_actual').val(string)
   }
 }
 
