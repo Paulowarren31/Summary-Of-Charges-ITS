@@ -63,16 +63,16 @@ $(function(){
 
     if(scope == 'd'){
       tr = $("<tr></tr>").html("<td>"+val+"</td><td>"+name+"</td>")
-      val = 'd.'+val
+      val = 'd.'+ val
     }
     else if(scope == 'grp'){
       tr = $("<tr></tr>").html("<td>"+val+"</td><td>"+name+"</td>")
-      val = 'g.'+val
+      val = 'g.'+ val
 
     }
     else if(scope == 'vp'){
-      tr = $("<tr></tr>").html("<td>"+val+"</td><td>"+name"</td>")
-      val = 'v.'+val
+      tr = $("<tr></tr>").html("<td>"+val+"</td><td>"+name+"</td>")
+      val = 'v.'+ val
     }
 
  
