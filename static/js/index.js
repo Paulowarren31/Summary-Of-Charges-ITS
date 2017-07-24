@@ -81,22 +81,6 @@ $(function(){
 
   })
 
-  $('#tree-input').on('change paste keyup', e => {
-    val = $('#tree-input').val()
-    console.log(val)
-
-    $('.tree-div [id^=vp]').each(() => {
-      if ($(this).text().search(val) > -1) {
-        $(this).show();
-
-      }
-      else {
-        $(this).hide();
-
-      }
-    })
-  })
-
 
 })
 
