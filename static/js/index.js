@@ -75,7 +75,8 @@ $(function(){
       val = 'v.'+val
     }
 
-    $('#dept_ids_table').append(tr)
+ 
+   $('#dept_ids_table').append(tr)
     updateActual(val)
 
   })

@@ -23,7 +23,9 @@
                 <div class="col-md-6 col-xs-12 pl-3 col-md-border">
                     <h3>Department Look Up</h3>
                     <input class="form-control mb-3" id="tree-input" aria-describedby="emailHelp" placeholder="Search by department">
+                        {% include "tree.html" %} 
 
+                        <!--
                         <div class="tree-div">
                         {% for vp in d %}
                         <div id="vp-{{vp.0}}">
@@ -52,6 +54,7 @@
                         </div>
                         {% endfor %}
                         </div>
+                        -->
                 </div>
                 <div class="col-md-6 col-xs-12 col-md-border">
                     <h3> Department IDs</h3>
