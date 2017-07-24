@@ -66,19 +66,35 @@ $(function(){
       val = 'd.'+ val
     }
     else if(scope == 'grp'){
-      tr = $("<tr></tr>").html("<td>"+val+"</td><td>"+name+"</td>")
+      tr = $("<tr></tr>").html("<td>Dept Grp</td><td>"+name+"</td>")
       val = 'g.'+ val
 
     }
     else if(scope == 'vp'){
-      tr = $("<tr></tr>").html("<td>"+val+"</td><td>"+name+"</td>")
+      tr = $("<tr></tr>").html("<td>VP Grp</td><td>"+name+"</td>")
       val = 'v.'+ val
     }
 
- 
-   $('#dept_ids_table').append(tr)
+
+    $('#dept_ids_table').append(tr)
     updateActual(val)
 
+  })
+
+  $('#tree-input').on('change paste keyup', e => {
+    val = $('#tree-input').val()
+    console.log(val)
+
+    $('.tree-div [id^=vp]').each(() => {
+      if ($(this).text().search(val) > -1) {
+        $(this).show();
+
+      }
+      else {
+        $(this).hide();
+
+      }
+    })
   })
 
 
