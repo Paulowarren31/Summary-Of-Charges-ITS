@@ -27,7 +27,6 @@ $(function(){
   })
 
   $('#date-slide').on('click', e => {
-
     if($('input[name=fc_choice]:checked').length == 1){
       $('#fy-tag').addClass('bold')
       $('#c-tag').removeClass('bold')
@@ -44,20 +43,42 @@ $(function(){
     let dept_ids = $('#id_dept_id_range').val()
 
     deptUpdate(dept_ids, () => {
-      let prev = $('#dept_id_range_actual').val()
-
-      if(prev.length > 0){
-        $('#dept_id_range_actual').val( prev + ',' + dept_ids)
-      }
-      else{
-        $('#dept_id_range_actual').val(dept_ids)
-      }
-
+      updateActual(dept_ids)
     })
   })
 
   if($('#dept_id_range_actual').val().length > 0)
     deptUpdate($('#dept_id_range_actual').val(), () => {});
+
+
+  $('[id^=add]').on('click', e => {
+    split = e.target.id.split('-')
+    scope = split[1]
+    val = split[2]
+
+    console.log(scope, val)
+
+    var tr = ''
+
+    if(scope == 'd'){
+      tr = $("<tr></tr>").html("<td>"+val+"</td><td>Department</td>")
+      val = 'd.'+val
+    }
+    else if(scope == 'grp'){
+      tr = $("<tr></tr>").html("<td>"+val+"</td><td>Dept Group</td>")
+      val = 'g.'+val
+
+    }
+    else if(scope == 'vp'){
+      tr = $("<tr></tr>").html("<td>"+val+"</td><td>VP Group</td>")
+      val = 'v.'+val
+    }
+
+    $('#dept_ids_table').append(tr)
+    updateActual(val)
+
+  })
+
 
 })
 
@@ -115,8 +136,8 @@ function deptUpdate(dept_ids, callback){
 
     if(depts.list.length > 3){
       tr = $("<tr></tr>").html("<td>"+depts.list[0][0]+" - "
-              + depts.list[depts.list.length - 1][0] + 
-      "</td><td> RANGE </td>")
+        + depts.list[depts.list.length - 1][0] +
+        "</td><td> RANGE </td>")
     }
     else{
       tr = $("<tr></tr>").html("<td>"+depts.list[0][0]+"</td><td>"+depts.list[0][1]+"</td>")
@@ -133,6 +154,17 @@ function deptUpdate(dept_ids, callback){
 
 
 
+
+function updateActual(string){
+  let prev = $('#dept_id_range_actual').val()
+
+  if(prev.length > 0){
+    $('#dept_id_range_actual').val( prev + ',' + dept_ids)
+  }
+  else{
+    $('#dept_id_range_actual').val(dept_ids)
+  }
+}
 
 
 

@@ -21,6 +21,42 @@
 
             <div class="row index-top pb-4">
                 <div class="col-md-6 col-xs-12 pl-3 col-md-border">
+                    <h3>Department Look Up</h3>
+                    <input class="form-control mb-3" id="tree-input" aria-describedby="emailHelp" placeholder="Search by department">
+                    {% include  "tree.html" %}
+
+                    <!--
+                        <div class="tree-div">
+                        {% for vp in d %}
+                        <div id="vp-{{vp.0}}">
+                        <p class="bold">
+                        <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
+                        {{vp.1}}
+                        <i class="fa fa-plus-circle" id="add-vp-{{vp.0}}"></i>
+                        </p>
+
+                        {% for grp in vp.2 %}
+                        <div id="vp-{{vp.0}}-grp-{{grp.0}}">
+                        <p class="pl-2">
+                        <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
+                        {{grp.0}} - {{grp.1}}
+                        <i class="fa fa-plus-circle" id="add-grp-{{grp.0}}"></i>
+                        </p>
+                        {% for dept in grp.2 %}
+                        <div id="vp-{{vp.0}}-grp-{{grp.0}}-dept-{{dept.0}}">
+                        <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
+                        <small class="pl-4"> {{dept.0}} - {{dept.1}} </small>
+                        <i class="fa fa-plus-circle" id="add-d-{{dept.0}}"></i>
+                        </div>
+                        {% endfor %}
+                        </div>
+                        {% endfor %}
+                        </div>
+                        {% endfor %}
+                        </div>
+                    -->
+                </div>
+                <div class="col-md-6 col-xs-12 col-md-border">
                     <h3> Department IDs</h3>
                     <div class="d-flex">
                         {{ form.non_field_errors }}
@@ -108,42 +144,6 @@
                         <input class="btn blue-bg" style="width:100%; background-color: #546d88;" type="submit" value="Generate Report">
 
                     </div>
-                </div>
-                <div class="col-md-6 col-xs-12 col-md-border">
-                    <h3>Department ID Look Up</h3>
-                    <input class="form-control mb-3" id="tree-input" aria-describedby="emailHelp" placeholder="Search by department">
-                    {% include  "tree.html" %}
-
-                    <!--
-                    <div class="tree-div">
-                        {% for vp in d %}
-                        <div id="vp-{{vp.0}}">
-                            <p class="bold">
-                            <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
-                            {{vp.1}}
-                            <i class="fa fa-plus-circle" id="add-vp-{{vp.0}}"></i>
-                            </p>
-
-                            {% for grp in vp.2 %}
-                            <div id="vp-{{vp.0}}-grp-{{grp.0}}">
-                                <p class="pl-2">
-                                <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
-                                {{grp.0}} - {{grp.1}}
-                                <i class="fa fa-plus-circle" id="add-grp-{{grp.0}}"></i>
-                                </p>
-                                {% for dept in grp.2 %}
-                                <div id="vp-{{vp.0}}-grp-{{grp.0}}-dept-{{dept.0}}">
-                                    <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
-                                    <small class="pl-4"> {{dept.0}} - {{dept.1}} </small>
-                                    <i class="fa fa-plus-circle" id="add-d-{{dept.0}}"></i>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        {% endfor %}
-                    </div>
-                    -->
                 </div>
             </div>
 

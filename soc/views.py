@@ -8,6 +8,7 @@ from decorators import user_has_permission
 from models import um_ecomm_dept_units_rept
 from django.db import models
 from django.http import JsonResponse
+import re
 
 from . import database
 from django.conf import settings
@@ -48,7 +49,6 @@ def dept_info(request):
 @user_has_permission
 def table(request):
 
-  print 'table'
   form = MainForm()
   # if coming from index
   if request.method == 'POST':
@@ -242,12 +242,19 @@ def handleDeptQuery(dept_str):
       begin = int(i.split('-')[0])
       end = int(i.split('-')[1])
       newQuery = um_ecomm_dept_units_rept.objects.filter(deptid__lte=end, deptid__gte=begin)
+    elif '.' in i:
+      scope = i.split('.')[0]
+      print scope
     else:
       newQuery = um_ecomm_dept_units_rept.objects.filter(deptid=int(i))
 
     query = query | newQuery #chain our queries but union them
 
   return query 
+
+def hasNumbers(string):
+  return bool(re.search(r'\d', string))
+
 
 
 
