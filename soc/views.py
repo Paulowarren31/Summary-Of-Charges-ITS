@@ -47,13 +47,13 @@ def index(request):
       dept_grp = list(dept_grp)
       dept_grp.append(list(query)) #dept_grp[2] is list of depts for a dept_grp
 
+  res['d'] = final_groups
+
   content = render(request, 'index.html', res) 
   with open('/code/test.html', 'w') as s_file:
-    s_file.write(content)
+    s_file.write(str(content))
     print 'saved PogChamp'
 
-
-  res['d'] = final_groups
 
   return render(request, 'index.html', res) 
 @login_required(login_url='/accounts/login')
