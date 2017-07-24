@@ -55,22 +55,23 @@ $(function(){
     split = e.target.id.split('-')
     scope = split[1]
     val = split[2]
+    name = split[3]
 
     console.log(scope, val)
 
     var tr = ''
 
     if(scope == 'd'){
-      tr = $("<tr></tr>").html("<td>"+val+"</td><td>Department</td>")
+      tr = $("<tr></tr>").html("<td>"+val+"</td><td>"+name+"</td>")
       val = 'd.'+val
     }
     else if(scope == 'grp'){
-      tr = $("<tr></tr>").html("<td>"+val+"</td><td>Dept Group</td>")
+      tr = $("<tr></tr>").html("<td>"+val+"</td><td>"+name+"</td>")
       val = 'g.'+val
 
     }
     else if(scope == 'vp'){
-      tr = $("<tr></tr>").html("<td>"+val+"</td><td>VP Group</td>")
+      tr = $("<tr></tr>").html("<td>"+val+"</td><td>"+name"</td>")
       val = 'v.'+val
     }
 
