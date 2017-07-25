@@ -46,11 +46,6 @@ body{
     background: #efefef;
 }
 
-.blue-bg{
-    background-color: #00274c;
-    color: white;
-}
-
 .top{
     padding-top: 11rem;
 }
@@ -146,7 +141,7 @@ input:checked + .slider:before {
     background-color:#8a8080;
 }
 
-.thead-blue{
+.blue{
     color: white;
     background-color: #546d88;
 }

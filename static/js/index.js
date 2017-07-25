@@ -143,12 +143,12 @@ function deptUpdate(dept_ids, callback){
     var tr = ''
 
     if(depts.list.length > 3){
-      addDept(depts.list[0][0] - depts.list[depts.list.length - 1][0], 'Range', dept_ids);
+      addDept(depts.list[0][0] + '-' + depts.list[depts.list.length - 1][0], 
+        'Range', dept_ids);
     }
     else{
       addDept(depts.list[0][0], depts.list[0][1], dept_ids);
     }
-
 
     $('#id_dept_id_range').val('') //clear the box
 
@@ -173,23 +173,21 @@ function updateActual(string){
 
 function addDept(id, name, rm){
 
-  tr = $("<tr></tr>").html("<td>"+id+"</td><td>"+name+'<i id="remove-'+rm+'" class="fa fa-minus-circle float-right" aria-hidden="true"></i></td>')
+  //gross 
+  tr = $("<tr></tr>").html("<td>"+ id +"</td><td>"+ name
+    + '<i id="remove-'+rm 
+    +'" class="fa fa-minus-circle float-right" aria-hidden="true"></i></td>')
 
   $('#dept_ids_table').append(tr)
 
   $(tr).on('click', e => {
     toRemove = e.target.id.split('-')[1]
 
-    console.log($('#dept_id_range_actual').val())
-
-    console.log(toRemove)
     prev = $('#dept_id_range_actual').val().split(',')
     idx = prev.indexOf(toRemove)
-    console.log(idx)
-    console.log(prev)
+
     if(idx > -1) prev.splice(idx, 1)
 
-    console.log(prev)
     $('#dept_id_range_actual').val(prev)
 
     $(e.target.parentNode.parentNode).remove() //remove row 
