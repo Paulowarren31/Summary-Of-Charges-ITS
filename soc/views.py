@@ -128,7 +128,7 @@ def table(request):
 
         b_query = query.filter(calendar_yr__gte=b_year, month__gte=b_month)
         e_query = query.filter(calendar_yr__lte=e_year, month__lte=e_month)
-        query = (b_query & e_query) | query
+        query = ((b_query & e_query) | query).distinct()
 
       rows = list(query)
 
