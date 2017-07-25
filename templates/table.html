@@ -39,7 +39,7 @@
             {% for account in accounts %}
             <tr class="account-row">
                 <td>
-                    <strong>I</strong>
+                    <strong>{{forloop.counter | roman }}</strong>
                     <i id="group-{{forloop.counter}}-drop" class="fa fa-minus-circle" aria-hidden="true"></i>
 
                     <strong>{{account.desc}}  ({{account.num}})</strong>

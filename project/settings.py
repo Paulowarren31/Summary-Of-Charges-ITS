@@ -79,7 +79,8 @@ TEMPLATES = [
           'django.contrib.messages.context_processors.messages',
           ],
         'builtins': [
-          'soc.templatetags.money_format'
+          'soc.templatetags.money_format',
+          'soc.templatetags.roman',
           ],
         },
       },
