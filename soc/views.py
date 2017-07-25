@@ -16,7 +16,8 @@ from django.conf import settings
 import requests
 import base64
 
-
+#TODO
+# month queries are buggy
 
 # index view
 @login_required(login_url='/accounts/login')

@@ -134,6 +134,13 @@ function deptUpdate(dept_ids, callback){
 
   $.post(url, data, depts => {
 
+    if(depts.list.length == 0){
+      $("#alert").show()
+      $("#alert").alert('close')
+      //setTimeout(function() { $("#alert").hide(); }, 5000);
+      return
+    }
+
     console.log(depts)
 
     depts.list = depts.list.sort((a, b) => {
@@ -143,7 +150,7 @@ function deptUpdate(dept_ids, callback){
     var tr = ''
 
     if(depts.list.length > 3){
-      addDept(depts.list[0][0] + '-' + depts.list[depts.list.length - 1][0], 
+      addDept(depts.list[0][0] + '-' + depts.list[depts.list.length - 1][0],
         'Range', dept_ids);
     }
     else{
@@ -173,10 +180,10 @@ function updateActual(string){
 
 function addDept(id, name, rm){
 
-  //gross 
+  //gross
   tr = $("<tr></tr>").html("<td>"+ id +"</td><td>"+ name
-    + '<i id="remove-'+rm 
-    +'" class="fa fa-minus-circle float-right" aria-hidden="true"></i></td>')
+    + '<i id="remove-'+rm
+      +'" class="fa fa-minus-circle float-right" aria-hidden="true"></i></td>')
 
   $('#dept_ids_table').append(tr)
 
@@ -190,7 +197,7 @@ function addDept(id, name, rm){
 
     $('#dept_id_range_actual').val(prev)
 
-    $(e.target.parentNode.parentNode).remove() //remove row 
+    $(e.target.parentNode.parentNode).remove() //remove row
   })
 
 }
