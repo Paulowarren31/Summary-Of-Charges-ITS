@@ -29,26 +29,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col">Account</div>
-        <div class="col">Description</div>
-        <div class="col">Rate</div>
-        <div class="col">Avg monthly Billed</div>
-        <div class="col">Billed Units</div>
-        <div class="col">Total</div>
+        <div style="padding-left: 2rem; width: 24%;">Account</div>
+        <div style="padding: .3rem; width: 40%;">Description</div>
+        <div style="padding: .3rem; width: 7%;">Rate</div>
+        <div style="padding: .3rem; width: 13%;">Avg monthly Billed</div>
+        <div style="padding: .3rem; width: 7%;">Billed Units</div>
+        <div style="padding: .3rem; width: 9%;">Total</div>
     </div>               
 </nav>
 <div class="container-fluid top">
     <table id="main-table" class="table table-sm">
-        <thead>
-            <tr>
-                <th>Acc</th>
-                <th>Desc</th>
-                <th>Rate</th>
-                <th>Avg Monthly billed</th>
-                <th>Billed </th>
-                <th>Total</th>
-            </tr>
-        </thead>
         <tbody>
             <!-- for each account -->
             {% for account in accounts %}
