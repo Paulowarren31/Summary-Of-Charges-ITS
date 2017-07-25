@@ -38,7 +38,17 @@
     </div>               
 </nav>
 <div class="container-fluid top">
-    <table class="table table-sm">
+    <table id="main-table" class="table table-sm">
+        <thead>
+            <tr>
+                <th>Acc</th>
+                <th>Desc</th>
+                <th>Rate</th>
+                <th>Avg Monthly billed</th>
+                <th>Billed </th>
+                <th>Total</th>
+            </tr>
+        </thead>
         <tbody>
             <!-- for each account -->
             {% for account in accounts %}

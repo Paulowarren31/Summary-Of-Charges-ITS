@@ -1,4 +1,8 @@
 $(function(){
+
+  var $table = $('main-table')
+  $table.floatThead();
+
   account_icons = $('[id^=group][id$=drop]')
 
   account_icons.on('click', function(e){
