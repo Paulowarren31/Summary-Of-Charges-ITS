@@ -1,5 +1,5 @@
 $(function(){
-  //refill dept table if we are coming back to this form 
+  //refill dept table if we are coming back to this form
   if($('#dept_id_range_actual').val().length > 0)
     deptUpdate($('#dept_id_range_actual').val(), () => {});
 
@@ -55,8 +55,8 @@ $(function(){
     })
   })
 
-  
-  //tree add event 
+
+  //tree add event
   $('[id^=add]').on('click', e => {
     split = e.target.id.split('-')
     scope = split[1]
@@ -68,39 +68,27 @@ $(function(){
     var tr = ''
 
     if(scope == 'd'){
-      tr = $("<tr></tr>").html("<td>"+val+"</td><td>"+name+"</td>")
       val = 'd.'+ val
+      addDept(val, name, val)
     }
     else if(scope == 'grp'){
-      tr = $("<tr></tr>").html("<td>Dept Grp</td><td>"+name+"</td>")
       val = 'g.'+ val
-
+      addDept('Dept Grp', name, val)
     }
     else if(scope == 'vp'){
-      tr = $("<tr></tr>").html("<td>VP Grp</td><td>"+name+"</td>")
       val = 'v.'+ val
+      addDept('VP Grp', name, val)
     }
 
-
-    $('#dept_ids_table').append(tr)
     updateActual(val)
 
-  })
-
-  $('[id^=remove]').on('click', e => {
-    toRemove = e.target.id.split('-')[1]
-    console.log($('#dept_id_range_actual').val())
-    prev = $('#dept_id_range_actual').val()
-    prev.replace(toRemove, '')
-    console.log(toRemove, prev)
-    $('#dept_id_range_actual').val(prev)
   })
 
 
 })
 
 
-//function from django docs to get csrf cookie to do ajax 
+//function from django docs to get csrf cookie to do ajax
 function getCookie(name) {
   var cookieValue = null;
   if (document.cookie && document.cookie !== '') {
@@ -117,7 +105,7 @@ function getCookie(name) {
   return cookieValue;
 }
 
-//function from django docs to get csrf cookie to do ajax 
+//function from django docs to get csrf cookie to do ajax
 function csrfSafeMethod(method) {
   // these HTTP methods do not require CSRF protection
   return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -155,16 +143,12 @@ function deptUpdate(dept_ids, callback){
     var tr = ''
 
     if(depts.list.length > 3){
-      tr = $("<tr></tr>").html("<td>"+depts.list[0][0]+" - "
-        + depts.list[depts.list.length - 1][0] +
-        "</td><td> RANGE </td>")
+      addDept(depts.list[0][0], depts.list[depts.list.length - 1][0], dept_ids);
     }
     else{
-      tr = $('<tr></tr>').html('<td>'+depts.list[0][0]+'</td><td>'+depts.list[0][1]+'<i id="remove-'+dept_ids+'" class="fa fa-minus-circle" aria-hidden="true"></i></td>')
-                    
+      addDept(depts.list[0][0], depts.list[0][1], dept_ids);
     }
 
-    $('#dept_ids_table').append(tr)
 
     $('#id_dept_id_range').val('') //clear the box
 
@@ -185,6 +169,30 @@ function updateActual(string){
   else{
     $('#dept_id_range_actual').val(string)
   }
+}
+
+function addDept(id, name, rm){
+
+  tr = $("<tr></tr>").html("<td>"+id+"</td><td>"+name+'<i id="remove-'+rm+'" class="fa fa-minus-circle float-right" aria-hidden="true"></i></td>')
+
+  $('#dept_ids_table').append(tr)
+
+  $('[id^=remove]').on('click', e => {
+    toRemove = e.target.id.split('-')[1]
+
+    console.log($('#dept_id_range_actual').val())
+
+    console.log(toRemove)
+    prev = $('#dept_id_range_actual').val().split(',')
+    idx = prev.indexOf(toRemove)
+    console.log(idx)
+    console.log(prev)
+    if(idx > -1) prev = prev.splice(idx, 1)
+
+    console.log(prev)
+    $('#dept_id_range_actual').val(prev)
+  })
+
 }
 
 
