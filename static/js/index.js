@@ -1,4 +1,11 @@
 $(function(){
+  //refill dept table if we are coming back to this form 
+  if($('#dept_id_range_actual').val().length > 0)
+    deptUpdate($('#dept_id_range_actual').val(), () => {});
+
+
+
+  //submit event for form, we figure out some stuff for backend
   $('#main-form').submit( () => {
 
     date = $('input[name=date_radio]:checked').attr('id')
@@ -23,10 +30,11 @@ $(function(){
 
 
     return true
-
   })
 
+  //slider for cal yr or fiscal yr event
   $('#date-slide').on('click', e => {
+
     if($('input[name=fc_choice]:checked').length == 1){
       $('#fy-tag').addClass('bold')
       $('#c-tag').removeClass('bold')
@@ -38,7 +46,7 @@ $(function(){
   })
 
 
-
+  //when adding a dept, get the dept descr from server
   $('#submit-dept-btn').on('click', e => {
     let dept_ids = $('#id_dept_id_range').val()
 
@@ -47,10 +55,8 @@ $(function(){
     })
   })
 
-  if($('#dept_id_range_actual').val().length > 0)
-    deptUpdate($('#dept_id_range_actual').val(), () => {});
-
-
+  
+  //tree add event 
   $('[id^=add]').on('click', e => {
     split = e.target.id.split('-')
     scope = split[1]
@@ -81,10 +87,20 @@ $(function(){
 
   })
 
+  $('[id^=remove]').on('click', e => {
+    toRemove = e.target.id.split('-')[1]
+    console.log($('#dept_id_range_actual').val())
+    prev = $('#dept_id_range_actual').val()
+    prev.replace(toRemove, '')
+    console.log(toRemove, prev)
+    $('#dept_id_range_actual').val(prev)
+  })
+
 
 })
 
 
+//function from django docs to get csrf cookie to do ajax 
 function getCookie(name) {
   var cookieValue = null;
   if (document.cookie && document.cookie !== '') {
@@ -100,6 +116,8 @@ function getCookie(name) {
   }
   return cookieValue;
 }
+
+//function from django docs to get csrf cookie to do ajax 
 function csrfSafeMethod(method) {
   // these HTTP methods do not require CSRF protection
   return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -108,7 +126,7 @@ function csrfSafeMethod(method) {
 function deptUpdate(dept_ids, callback){
   let csrftoken = getCookie('csrftoken')
 
-  //required for django
+  //required for django ajax
   $.ajaxSetup({
     beforeSend: function(xhr, settings) {
       if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
@@ -142,7 +160,8 @@ function deptUpdate(dept_ids, callback){
         "</td><td> RANGE </td>")
     }
     else{
-      tr = $("<tr></tr>").html("<td>"+depts.list[0][0]+"</td><td>"+depts.list[0][1]+"</td>")
+      tr = $('<tr></tr>').html('<td>'+depts.list[0][0]+'</td><td>'+depts.list[0][1]+'<i id="remove-'+dept_ids+'" class="fa fa-minus-circle" aria-hidden="true"></i></td>')
+                    
     }
 
     $('#dept_ids_table').append(tr)

@@ -40,8 +40,6 @@ def dept_info(request):
 
     dept_list = list(query)
 
-    print dept_list
-
     return JsonResponse({'list': dept_list})
 
 # table view
