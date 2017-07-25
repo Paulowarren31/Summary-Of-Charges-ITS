@@ -4,7 +4,7 @@ from django.utils.dates import MONTHS
 
 class MainForm(forms.Form):
 
-  dept_id_range = forms.CharField(label='Department IDs', max_length=20, widget=forms.TextInput(attrs={'placeholder': 'type individual ids or a range of ids'}), required=False)
+  dept_id_range = forms.CharField(label='Department IDs', max_length=40, widget=forms.TextInput(attrs={'placeholder': 'type individual ids or a range of ids'}), required=False)
 
   DEPT_GRPS = list(um_ecomm_dept_units_rept.objects.order_by().values_list('dept_grp', flat=True).distinct())
 

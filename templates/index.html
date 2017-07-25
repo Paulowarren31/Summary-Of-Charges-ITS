@@ -20,7 +20,42 @@
             <input type="hidden" name="calendar_yr" id="c_yr_in" value="" />
 
             <div class="row index-top pb-4">
-                <div class="col-md-6 col-xs-12 pl-3 col-md-border">
+                <div class="col-md-6 col-xs-12 pl-3 col-md-border d-flex" style="height: 900px; flex-direction: column;">
+                    <h3>Department Look Up</h3>
+                    <input class="form-control mb-3" id="tree-input" aria-describedby="emailHelp" placeholder="Search by department">
+                    {% include "tree.html" %}
+
+                    <!--
+                        <div class="tree-div">
+                        {% for vp in d %}
+                        <div id="vp-{{vp.0}}">
+                        <p class="bold">
+                        <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
+                        {{vp.1}}
+                        <i class="fa fa-plus-circle" id="add-vp-{{vp.0}}-{{vp.1}}"></i>
+                        </p>
+
+                        {% for grp in vp.2 %}
+                        <div id="vp-{{vp.0}}-grp-{{grp.0}}">
+                        <p class="pl-2">
+                        <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
+                        {{grp.0}} - {{grp.1}}
+                        <i class="fa fa-plus-circle" id="add-grp-{{grp.0}}-{{grp.1}}"></i>
+                        </p>
+                        {% for dept in grp.2 %}
+                        <div id="vp-{{vp.0}}-grp-{{grp.0}}-dept-{{dept.0}}">
+                        <small class="pl-4"> {{dept.0}} - {{dept.1}} </small>
+                        <i class="fa fa-plus-circle" id="add-d-{{dept.0}}-{{dept.1}}"></i>
+                        </div>
+                        {% endfor %}
+                        </div>
+                        {% endfor %}
+                        </div>
+                        {% endfor %}
+                        </div>
+                    -->
+                </div>
+                <div class="col-md-6 col-xs-12 col-md-border">
                     <h3> Department IDs</h3>
                     <div class="d-flex">
                         {{ form.non_field_errors }}
@@ -28,16 +63,18 @@
                         <input type="text" id="id_dept_id_range" placeholder="type individual ids or a range of ids" class="form-control" maxlength="20">
                         <button class="btn blue-bg" type="button" id="submit-dept-btn"> + </button>
                     </div>
-                    <table class="table table-bordered mt-3">
-                        <thead class="thead-blue">
-                            <tr>
-                                <th>Department ID</th>
-                                <th>Department Name</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dept_ids_table">
-                        </tbody>
-                    </table>
+                    <div class="left-col">
+                        <table class="table table-bordered mt-3">
+                            <thead class="thead-blue">
+                                <tr>
+                                    <th style="width: 30%">Department ID</th>
+                                    <th>Department Name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dept_ids_table">
+                            </tbody>
+                        </table>
+                    </div>
                     <h3 class="pt-5"> Date Range </h3>
                     <div class="d-flex align-items-center pl-3">
                         <label class="custom-control custom-radio pl-3">
@@ -106,10 +143,6 @@
                         <input class="btn blue-bg" style="width:100%; background-color: #546d88;" type="submit" value="Generate Report">
 
                     </div>
-                </div>
-                <div class="col-md-6 col-xs-12 col-md-border">
-                    <h3>Department ID Look Up</h3>
-
                 </div>
             </div>
 

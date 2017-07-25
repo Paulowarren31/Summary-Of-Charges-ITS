@@ -27,7 +27,6 @@ $(function(){
   })
 
   $('#date-slide').on('click', e => {
-
     if($('input[name=fc_choice]:checked').length == 1){
       $('#fy-tag').addClass('bold')
       $('#c-tag').removeClass('bold')
@@ -42,24 +41,46 @@ $(function(){
 
   $('#submit-dept-btn').on('click', e => {
     let dept_ids = $('#id_dept_id_range').val()
+
     deptUpdate(dept_ids, () => {
-      let prev = $('#dept_id_range_actual').val()
-
-      if(prev.length > 0){
-        $('#dept_id_range_actual').val( prev + ',' + dept_ids)
-      }
-      else{
-
-        $('#dept_id_range_actual').val(dept_ids)
-      }
-
-
-
-
+      updateActual(dept_ids)
     })
   })
 
-  deptUpdate($('#dept_id_range_actual').val())
+  if($('#dept_id_range_actual').val().length > 0)
+    deptUpdate($('#dept_id_range_actual').val(), () => {});
+
+
+  $('[id^=add]').on('click', e => {
+    split = e.target.id.split('-')
+    scope = split[1]
+    val = split[2]
+    name = split[3]
+
+    console.log(scope, val)
+
+    var tr = ''
+
+    if(scope == 'd'){
+      tr = $("<tr></tr>").html("<td>"+val+"</td><td>"+name+"</td>")
+      val = 'd.'+ val
+    }
+    else if(scope == 'grp'){
+      tr = $("<tr></tr>").html("<td>Dept Grp</td><td>"+name+"</td>")
+      val = 'g.'+ val
+
+    }
+    else if(scope == 'vp'){
+      tr = $("<tr></tr>").html("<td>VP Grp</td><td>"+name+"</td>")
+      val = 'v.'+ val
+    }
+
+
+    $('#dept_ids_table').append(tr)
+    updateActual(val)
+
+  })
+
 
 })
 
@@ -109,22 +130,43 @@ function deptUpdate(dept_ids, callback){
 
     console.log(depts)
 
-    depts.list.forEach(dept => {
-
-      let tr = $("<tr></tr>").html("<td>"+dept[0]+"</td><td>"+dept[1]+"</td>")
-      $('#dept_ids_table').append(tr)
-
+    depts.list = depts.list.sort((a, b) => {
+      return a[0] - b[0]
     })
+
+    var tr = ''
+
+    if(depts.list.length > 3){
+      tr = $("<tr></tr>").html("<td>"+depts.list[0][0]+" - "
+        + depts.list[depts.list.length - 1][0] +
+        "</td><td> RANGE </td>")
+    }
+    else{
+      tr = $("<tr></tr>").html("<td>"+depts.list[0][0]+"</td><td>"+depts.list[0][1]+"</td>")
+    }
+
+    $('#dept_ids_table').append(tr)
 
     $('#id_dept_id_range').val('') //clear the box
 
-    if(depts.length > 0) callback()
+    if(depts.list.length > 0) callback()
 
   })
 }
 
 
 
+
+function updateActual(string){
+  let prev = $('#dept_id_range_actual').val()
+
+  if(prev.length > 0){
+    $('#dept_id_range_actual').val( prev + ',' + string)
+  }
+  else{
+    $('#dept_id_range_actual').val(string)
+  }
+}
 
 
 

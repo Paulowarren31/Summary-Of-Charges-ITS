@@ -8,6 +8,7 @@ from decorators import user_has_permission
 from models import um_ecomm_dept_units_rept
 from django.db import models
 from django.http import JsonResponse
+import re
 
 from . import database
 from django.conf import settings
@@ -23,10 +24,9 @@ import base64
 @user_has_permission
 def index(request):
   res = {}
-
   res['form'] = MainForm()
 
-  return render(request, 'index.html', res)
+  return render(request, 'index.html', res) 
 
 @login_required(login_url='/accounts/login')
 @user_has_permission
@@ -49,7 +49,6 @@ def dept_info(request):
 @user_has_permission
 def table(request):
 
-  print 'table'
   form = MainForm()
   # if coming from index
   if request.method == 'POST':
@@ -133,7 +132,7 @@ def table(request):
         e_query = query.filter(calendar_yr__lte=e_year, month__lte=e_month)
         query = b_query.intersection(e_query)
 
-      rows = list(query.distinct())
+      rows = list(query)
 
       accounts, total = handleAccounts(rows)
 
@@ -143,6 +142,8 @@ def table(request):
           group['items'] = handleDescriptions(group)
 
       form.save(unit, date_range) # save what they searched for
+
+      print accounts
 
       return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
 
@@ -241,12 +242,25 @@ def handleDeptQuery(dept_str):
       begin = int(i.split('-')[0])
       end = int(i.split('-')[1])
       newQuery = um_ecomm_dept_units_rept.objects.filter(deptid__lte=end, deptid__gte=begin)
+    elif '.' in i:
+      scope = i.split('.')[0]
+      val = i.split('.')[1]
+      if scope == 'd':
+        newQuery = um_ecomm_dept_units_rept.objects.filter(deptid=int(val))
+      elif scope == 'g':
+        newQuery = um_ecomm_dept_units_rept.objects.filter(dept_grp=val)
+      elif scope == 'v':
+        newQuery = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=val)
     else:
       newQuery = um_ecomm_dept_units_rept.objects.filter(deptid=int(i))
 
     query = query | newQuery #chain our queries but union them
 
   return query 
+
+def hasNumbers(string):
+  return bool(re.search(r'\d', string))
+
 
 
 

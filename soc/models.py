@@ -12,14 +12,19 @@ class um_ecomm_dept_units_rept(ExternalModel):
   fiscal_yr = models.CharField(primary_key=True, db_column='fiscal_yr', max_length=4)
   calendar_yr = models.CharField(db_column='calendar_yr', max_length=4)
   month = models.CharField(db_column='month', max_length=2)
+
   deptid = models.CharField(db_column='deptid', max_length=6)
   dept_descr = models.CharField(db_column='dept_descr', max_length=30)
+
   dept_grp = models.CharField(db_column='dept_grp', max_length=20)
   dept_grp_descr = models.CharField(db_column='dept_grp_descr', max_length=30)
+
   dept_grp_vp_area = models.CharField(db_column='dept_grp_vp_area', max_length=20)
   dept_grp_vp_area_descr = models.CharField(db_column='dept_grp_vp_area_descr', max_length=30)
+
   account = models.CharField(db_column='account', max_length=6)
   account_desc = models.CharField(db_column='account_desc', max_length=20)
+
   charge_group = models.CharField(db_column='charge_group', max_length=50)
   charge_code = models.CharField(db_column='charge_code', max_length=12)
   description = models.CharField(db_column='description', max_length=50)
@@ -29,6 +34,7 @@ class um_ecomm_dept_units_rept(ExternalModel):
   quantity = models.FloatField()
   # $$ made
   amount = models.FloatField()
+
   dept_bud_seq = models.CharField(db_column='dept_bud_seq', max_length=20)
   dept_bud_seq_descr = models.CharField(db_column='dept_bud_seq_descr', max_length=30)
 
