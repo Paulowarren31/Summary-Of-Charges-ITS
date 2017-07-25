@@ -192,7 +192,7 @@ function addDept(id, name, rm){
     console.log(prev)
     $('#dept_id_range_actual').val(prev)
 
-    tr.remove()
+    $(e.target.parentNode.parentNode).remove() //remove row 
   })
 
 }
