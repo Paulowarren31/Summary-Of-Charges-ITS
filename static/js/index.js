@@ -136,8 +136,13 @@ function deptUpdate(dept_ids, callback){
 
     if(depts.list.length == 0){
       $("#alert").show()
-      $("#alert").alert('close')
-      //setTimeout(function() { $("#alert").hide(); }, 5000);
+      
+      setTimeout(() => {
+        $("#alert").addClass('fade')
+        $("#alert").alert('close') 
+      }, 5000);
+      $('#id_dept_id_range').val('') // clear input
+
       return
     }
 
