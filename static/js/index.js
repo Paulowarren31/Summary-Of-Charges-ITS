@@ -143,7 +143,7 @@ function deptUpdate(dept_ids, callback){
     var tr = ''
 
     if(depts.list.length > 3){
-      addDept(depts.list[0][0], depts.list[depts.list.length - 1][0], dept_ids);
+      addDept(depts.list[0][0] - depts.list[depts.list.length - 1][0], 'Range', dept_ids);
     }
     else{
       addDept(depts.list[0][0], depts.list[0][1], dept_ids);
@@ -177,7 +177,7 @@ function addDept(id, name, rm){
 
   $('#dept_ids_table').append(tr)
 
-  $('[id^=remove]').on('click', e => {
+  $(tr).on('click', e => {
     toRemove = e.target.id.split('-')[1]
 
     console.log($('#dept_id_range_actual').val())
@@ -187,10 +187,12 @@ function addDept(id, name, rm){
     idx = prev.indexOf(toRemove)
     console.log(idx)
     console.log(prev)
-    if(idx > -1) prev = prev.splice(idx, 1)
+    if(idx > -1) prev.splice(idx, 1)
 
     console.log(prev)
     $('#dept_id_range_actual').val(prev)
+
+    tr.remove()
   })
 
 }
