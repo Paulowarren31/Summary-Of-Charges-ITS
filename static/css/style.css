@@ -152,15 +152,15 @@ input:checked + .slider:before {
 }
 
 .left-col{
-    height:500px;
+    height: 20rem;
 }
 
 @media (min-width: 992px) {
     .col-md-border:not(:last-child) {
-        border-right: 1px solid #d7d7d7;
+        border-right: 2px solid #546d88;
     }
     .col-md-border + .col-md-border {
-        border-left: 1px solid #d7d7d7;
+        border-left: 2px solid #546d88;
         margin-left: -1px;
     }
 }

@@ -20,7 +20,7 @@
             <input type="hidden" name="calendar_yr" id="c_yr_in" value="" />
 
             <div class="row index-top pb-4">
-                <div class="col-md-6 col-xs-12 pl-3 col-md-border d-flex" style="height: 900px; flex-direction: column;">
+                <div class="col-md-6 col-xs-12 pl-3 col-md-border d-flex" style="flex-direction: column;">
                     <h3>Department Look Up</h3>
                     <input class="form-control mb-3" id="tree-input" aria-describedby="emailHelp" placeholder="Search by department">
                     {% include "tree.html" %}
@@ -61,11 +61,11 @@
                         {{ form.non_field_errors }}
                         {{ form.dept_id_range.errors }}
                         <input type="text" id="id_dept_id_range" placeholder="type individual ids or a range of ids" class="form-control" maxlength="20">
-                        <button class="btn blue-bg" type="button" id="submit-dept-btn"> + </button>
+                        <button class="btn blue" type="button" id="submit-dept-btn"> + </button>
                     </div>
                     <div class="left-col">
                         <table class="table table-bordered mt-3">
-                            <thead class="thead-blue">
+                            <thead class="blue">
                                 <tr>
                                     <th style="width: 30%">Department ID</th>
                                     <th>Department Name</th>
@@ -140,7 +140,7 @@
                     </div>
                     <hr>
                     <div class="d-flex pl-3">
-                        <input class="btn blue-bg" style="width:100%; background-color: #546d88;" type="submit" value="Generate Report">
+                        <input class="btn blue" style="width:100%;" type="submit" value="Generate Report">
 
                     </div>
                 </div>
