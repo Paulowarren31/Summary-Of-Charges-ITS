@@ -20,7 +20,7 @@ $(function(){
     //when toggling off, we wanna also hide the items
     if(categories.hasClass('hidden')){
       //get all items belonging to the categories above
-      items = $('[id^=item-'+acc+'-]')
+      items = $('[id^=item-'+acc+'-]').not('i')
       items.addClass('hidden')
     }
 

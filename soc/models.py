@@ -39,7 +39,7 @@ class um_ecomm_dept_units_rept(ExternalModel):
   dept_bud_seq_descr = models.CharField(db_column='dept_bud_seq_descr', max_length=30)
 
   def __str__(self):
-    return 'ACC: '+ self.account + ' GRP: ' + self.charge_group + ' DESCR: ' + self.description
+    return self.account_desc + ' - ' + self.charge_group + ' - ' + self.dept_descr
 
   class Meta(ExternalModel.Meta):
     db_table = 'PINN_CUSTOM\".\"UM_ECOMM_DEPT_UNITS_REPT'

@@ -66,21 +66,8 @@ def table(request):
 
       print choice2
 
-      
-      #if choice1 == 1:
-      #  dept_id = cd.get('dept_id')
-
-      #  unit = 'Dept id: ' + dept_id
-      #  query = um_ecomm_dept_units_rept.objects.filter(deptid=dept_id)
-
-      #  query2 = query.filter(calendar_yr='2015').filter(month='1')
-      #  print 'trying debug query'
-      #  print list(query2)
-
       dept_range = cd.get('dept_id_range')
-
       unit = 'Dept ids: ' + dept_range
-
       query = handleDeptQuery(dept_range)
 
       if choice2 == 1:
@@ -94,21 +81,6 @@ def table(request):
 
         date_range = 'Calendar year ' + calendar_yr
         query = query.filter(calendar_yr=calendar_yr)
-
-      #elif choice2 == 8:
-      #  month = cd.get('single_month_m')
-      #  year = cd.get('single_month_y')
-
-      #  print 'single month'
-      #  print month
-      #  print year
-
-      #  date_range = month + ' / ' + year
-
-      #  if len(month) == 1:
-      #    month = month.zfill(2)
-
-      #  query = query.filter(calendar_yr=year).filter(month=month)
 
       elif choice2 == 3:
         b_month = cd.get('range_begin_m')
@@ -146,7 +118,8 @@ def table(request):
 
       return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
 
-    else:
+
+    else: #if form has errors
       print form.errors
       return render(request, 'index.html', {'form': form})
 

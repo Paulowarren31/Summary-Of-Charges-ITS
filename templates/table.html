@@ -33,7 +33,7 @@
     </div>               
 </nav>
 <div class="container-fluid top">
-    <table id="main-table" class="table table-sm">
+    <table id="main-table" class="table table-sm table-hover table-responsive">
         <tbody>
             <!-- for each account -->
             {% for account in accounts %}
@@ -92,7 +92,7 @@
             {% endfor %}
             <!-- endfor account -->
             <tr>
-                <td> Total ITCom Charges </td>
+                <td> <strong>Total ITCom Charges</strong></td>
                 <td colspan="4"></td>
                 <td class="t-total">
                     ${{total|floatformat:2|intcomma}}
