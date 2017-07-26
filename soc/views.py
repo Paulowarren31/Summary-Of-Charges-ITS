@@ -243,7 +243,7 @@ def test(request):
   unit = request.session.get('unit')
   dateRange = request.session.get('dateRange')
 
-  print acccounts
+  print accounts
   print total
 
 
