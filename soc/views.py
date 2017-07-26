@@ -319,7 +319,7 @@ def download(request):
   fsock = open('/code/sheet.xlsx', "rb")
 
   response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-  response['Content-Disposition'] = 'attachment; filename='unit + ' ' + date_range + 'report.xlsx'
+  response['Content-Disposition'] = 'attachment; filename=' + unit + ' ' + date_range + 'report.xlsx'
 
   os.remove('/code/sheet.xlsx')
 
