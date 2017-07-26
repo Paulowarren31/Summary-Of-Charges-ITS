@@ -51,85 +51,87 @@ def table(request):
   form = MainForm()
   # if coming from index
   if request.method == 'POST':
-    print 'post'
-    # create form obj with post params
-    form = MainForm(request.POST)
+    request.session['post'] = request.POST
+    accounts, total, unit, date_range = handlePost(request.POST)
 
-    if form.is_valid():
-      print 'clean form'
+    if not accounts:
+      return render(request, 'index.html', {'form': total})
 
-      cd = form.cleaned_data
-      date_range = ''
-      unit = ''
-
-      choice2 = int(cd.get('t_choice'))
-
-      print choice2
-
-      dept_range = cd.get('dept_id_range')
-      unit = 'Dept ids: ' + dept_range
-      query = handleDeptQuery(dept_range)
-
-      if choice2 == 1:
-        fiscal_yr = cd.get('fiscal_yr')
-
-        query = query.filter(fiscal_yr=fiscal_yr)
-        date_range = 'Fiscal year ' + fiscal_yr
-
-      elif choice2 == 2:
-        calendar_yr = cd.get('calendar_yr')
-
-        date_range = 'Calendar year ' + calendar_yr
-        query = query.filter(calendar_yr=calendar_yr)
-
-      elif choice2 == 3:
-        b_month = cd.get('range_begin_m')
-
-        if len(b_month) == 1:
-          b_month = b_month.zfill(2)
-
-        b_year = cd.get('range_begin_y')
-
-        e_month = cd.get('range_end_m')
-
-        if len(e_month) == 1:
-          e_month = e_month.zfill(2)
-
-        e_year = cd.get('range_end_y')
-
-        date_range = b_month + '/' + b_year + ' to ' + e_month + '/' + e_year
-
-        b_query = query.filter(calendar_yr__gte=b_year, month__gte=b_month)
-        e_query = query.filter(calendar_yr__lte=e_year, month__lte=e_month)
-        query = (b_query & e_query).distinct()
-
-      rows = list(query)
-
-      accounts, total = handleAccounts(rows)
-
-      for acc in accounts:
-        acc['items'] = handleGroups(acc)
-        for group in acc['items']:
-          group['items'] = handleDescriptions(group)
-
-      form.save(unit, date_range) # save what they searched for
-
-      #print accounts
-
-      request.session['post'] = request.POST
-      request.session['total'] = total
-      request.session['unit'] = unit
-      request.session['dateRange'] = date_range
-
-      return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
-
-
-    else: #if form has errors
-      print form.errors
-      return render(request, 'index.html', {'form': form})
+    return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
 
   else: #if not POST request
     return render(request, 'index.html', {'form': form})
+
+def handlePost(post):
+
+  form = MainForm(post)
+  if form.is_valid():
+    print 'clean form'
+
+    cd = form.cleaned_data
+    date_range = ''
+    unit = ''
+
+    choice2 = int(cd.get('t_choice'))
+
+    print choice2
+
+    dept_range = cd.get('dept_id_range')
+    unit = 'Dept ids: ' + dept_range
+    query = handleDeptQuery(dept_range)
+
+    if choice2 == 1:
+      fiscal_yr = cd.get('fiscal_yr')
+
+      query = query.filter(fiscal_yr=fiscal_yr)
+      date_range = 'Fiscal year ' + fiscal_yr
+
+    elif choice2 == 2:
+      calendar_yr = cd.get('calendar_yr')
+
+      date_range = 'Calendar year ' + calendar_yr
+      query = query.filter(calendar_yr=calendar_yr)
+
+    elif choice2 == 3:
+      b_month = cd.get('range_begin_m')
+
+      if len(b_month) == 1:
+        b_month = b_month.zfill(2)
+
+      b_year = cd.get('range_begin_y')
+
+      e_month = cd.get('range_end_m')
+
+      if len(e_month) == 1:
+        e_month = e_month.zfill(2)
+
+      e_year = cd.get('range_end_y')
+
+      date_range = b_month + '/' + b_year + ' to ' + e_month + '/' + e_year
+
+      b_query = query.filter(calendar_yr__gte=b_year, month__gte=b_month)
+      e_query = query.filter(calendar_yr__lte=e_year, month__lte=e_month)
+      query = (b_query & e_query).distinct()
+
+    rows = list(query)
+
+    accounts, total = handleAccounts(rows)
+
+    for acc in accounts:
+      acc['items'] = handleGroups(acc)
+      for group in acc['items']:
+        group['items'] = handleDescriptions(group)
+
+    form.save(unit, date_range) # save what they searched for
+
+    #print accounts
+
+    return accounts, total, unit, date_range
+
+  else: #if form has errors
+    print form.errors
+    return False, form, False, False
+
 
 # tries to convert a string to a float, returns 0 if exception
 def floatOrZ(string):
@@ -238,13 +240,10 @@ def hasNumbers(string):
 
 
 def test(request):
-  accounts = request.session.get('post')
-  total = request.session.get('total')
-  unit = request.session.get('unit')
-  dateRange = request.session.get('dateRange')
+  post = request.session.get('post')
+  accounts, total, unit, date_range = handlePost(request.POST)
 
   print accounts
-  print total
 
 
 
