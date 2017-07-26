@@ -116,6 +116,11 @@ def table(request):
 
       print accounts
 
+      request.session['accounts'] = accounts
+      request.session['total'] = total
+      request.session['unit'] = unit
+      request.session['dateRange'] = date_range
+
       return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
 
 
@@ -193,9 +198,7 @@ def handleDescriptions(group):
   return descs
 
 
-
 def departments(request):
-
   if request.method == 'GET':
     dept_grp = request.GET.get('dept_grp', '')
     query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp)
@@ -234,8 +237,14 @@ def hasNumbers(string):
   return bool(re.search(r'\d', string))
 
 
+def test(request):
+  accounts = request.session.get('accounts')
+  total = request.session.get('total')
+  unit = request.session.get('unit')
+  dateRange = request.session.get('dateRange')
 
-
+  print acccounts
+  print total
 
 
 

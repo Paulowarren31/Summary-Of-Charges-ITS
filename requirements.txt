@@ -10,3 +10,4 @@ django-health-check
 django-crispy-forms
 cx_Oracle
 django-widget-tweaks
+XlsxWriter
