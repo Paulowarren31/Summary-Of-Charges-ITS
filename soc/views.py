@@ -9,6 +9,7 @@ from models import um_ecomm_dept_units_rept
 from django.db import models
 from django.http import JsonResponse
 import re
+import xlsxwriter
 
 from . import database
 from django.conf import settings
@@ -244,6 +245,20 @@ def test(request):
   accounts, total, unit, date_range = handlePost(post)
 
   print accounts
+
+  workbook = xlsxwriter.Workbook('hello.xlsx')
+
+  worksheet = workbook.add_worksheet()
+
+  worksheet.write('A1', str(total))
+  workbook.close()
+
+  fsock = open('/hello.xlsx', "rb")
+  response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+  response['Content-Disposition'] = 'attachment; filename=hello.xlsx'
+
+  return response
+
 
 
 
