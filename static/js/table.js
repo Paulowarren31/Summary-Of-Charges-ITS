@@ -46,21 +46,23 @@ $(function(){
 
   })
 
+  $('#expand-slide').on('click', e => {
 
-  $('#ex-all').on('click', function(e){
-    all = $('[id^=item]').not('[id$=drop]')
-    $(all).removeClass('hidden')
-    handleToggles('fa-plus-circle')
-  })
 
-  $('#hd-all').on('click', function(e){
-    all = $('[id^=item]').not('[id$=drop]')
-    $(all).addClass('hidden')
-    handleToggles('fa-minus-circle')
-  })
+    //expand all
+    if($('input[name=ex_choice]:checked').length == 1){
+      all = $('[id^=item]').not('[id$=drop]')
+      $(all).removeClass('hidden')
+      handleToggles('fa-plus-circle')
 
-  $('#btn-back').on('click', e => {
-    window.history.back()
+    }
+    //hide all
+    else{
+      all = $('[id^=item]').not('[id$=drop]')
+      $(all).addClass('hidden')
+      handleToggles('fa-minus-circle')
+
+    }
   })
 
 })
