@@ -12,14 +12,20 @@
             <h4>{{dateRange}}</h4>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-2">
-            <button class="btn btn-sm m-2" id="ex-all">Expand All</button>
+    <div class="d-flex justify-content-end">
+        <div class="p-2">
+            Expand All
         </div>
-        <div class="col-sm-2">
-            <button class="btn btn-sm m-2" id="hd-all">Hide All</button>
+
+        <label class="switch mx-0" style="margin-bottom: .25rem;">
+            <input name="ex_choice" type="checkbox">
+            <span style="background-color: #9c9898;" id="expand-slide" class="slider round"></span>
+        </label>
+
+        <div class="p-2">
+            Hide All
         </div>
-        <div class="col-sm-1 offset-sm-7">
+        <div class="p-2">
             <button class="btn btn-sm float-right t-total" id="download-btn"> <a href="/download"> Download .xls </a></button>
         </div>
     </div>
@@ -30,7 +36,7 @@
         <div style="padding: .3rem; width: 8%;">Avg monthly Billed</div>
         <div style="padding: .3rem; width: 9%;">Billed Units</div>
         <div style="padding: .3rem; width: 9%;">Total</div>
-    </div>               
+    </div>
 </nav>
 <div class="container-fluid top">
     <table id="main-table" class="table table-sm table-hover">
