@@ -114,7 +114,7 @@ def table(request):
 
       form.save(unit, date_range) # save what they searched for
 
-      print accounts
+      #print accounts
 
       request.session['post'] = request.POST
       request.session['total'] = total
@@ -238,7 +238,7 @@ def hasNumbers(string):
 
 
 def test(request):
-  accounts = request.session.get('accounts')
+  accounts = request.session.get('post')
   total = request.session.get('total')
   unit = request.session.get('unit')
   dateRange = request.session.get('dateRange')
