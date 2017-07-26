@@ -253,7 +253,7 @@ def test(request):
   worksheet.write('A1', str(total))
   workbook.close()
 
-  fsock = open('/hello.xlsx', "rb")
+  fsock = open('/code/hello.xlsx', "rb")
   response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
   response['Content-Disposition'] = 'attachment; filename=hello.xlsx'
 
