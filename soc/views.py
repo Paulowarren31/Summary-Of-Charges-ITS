@@ -247,20 +247,94 @@ def download(request):
 
   print accounts
 
-  workbook = xlsxwriter.Workbook('sheet.xlsx')
-  worksheet = workbook.add_worksheet()
-  worksheet.write('A1', str(total))
-  workbook.close()
+  wb = xlsxwriter.Workbook('sheet.xlsx')
+  ws = workbook.add_worksheet()
+
+
+  header = wb.add_format({'bold': True, 'align': 'center', 'valign': 'vcenter', 'text_wrap': True})
+  money = wb.add_format({'num_format': '$#.#0'})
+  bold = wb.add_format({'bold': True})
+
+
+  ws.set_column(0, 1, 25)
+  ws.set_column(2, 2, 15)
+  ws.set_column(3, 5, 10)
+  ws.set_column(6, 8, 15)
+
+  ws.write(3, 0, 'Expense\nAccount', header)
+  ws.write(3, 1, 'Item\nDescription', header)
+  ws.write(3, 2, 'Charge\nCodes', header)
+  ws.write(3, 3, 'Rate', header)
+  ws.write(3, 4, 'Average Monthly Units Billed', header)
+  ws.write(3, 5, 'Billed\nUnits', header)
+  ws.write(3, 6, 'Item\nTotal', header)
+  ws.write(3, 7, 'Item\nGroup Total', header)
+  ws.write(3, 8, 'Account\nTotal', header)
+
+  raw_data = [{
+    'total': 989.17,
+    'items': [{
+      'total': 989.17,
+      'items': [{
+        'monthly': 0.0,
+        'months': ['07'],
+        'descr':'SERVICE REQUESTS',
+        'cc': '',
+        'items': [ 611450, 'Service Requests', 'DESCR SERVICE REQUESTS'],
+        'unit_rate': '',
+        'total': 989.17,
+        'm_count': 1,
+        'quantity': 0.0
+      }],
+      'code': '',
+      'grp': 'Service Requests'
+    }],
+    'num': '611450',
+    'desc': 'Service Requests'
+  }]
+
+
+  row = 3
+  for item in raw_data:
+    row = row + 1
+    ws.write(row, 8, item['total'], money)
+    ws.write(row, 0, item['desc'] + " (" + item['num'] + ")", bold)
+    for sub in item['items']:
+      row = row + 1
+      ws.write(row, 7, sub['total'], money)
+      ws.write(row, 0, sub['grp'])
+      row = row + 1
+      for i in sub['items']:
+        ws.write(row, 1, i['descr'])
+        ws.write(row, 2, i['cc'])
+        ws.write(row, 3, i['monthly'], money)
+        ws.write(row, 4, i['unit_rate'])
+        ws.write(row, 5, i['quantity'])
+        ws.write(row, 6, i['total'], money)
+        row = row + 1
+    
+
+  wb.close()
 
   fsock = open('/code/sheet.xlsx', "rb")
 
   response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-  response['Content-Disposition'] = 'attachment; filename=hello.xlsx'
+  response['Content-Disposition'] = 'attachment; filename='unit + ' ' + date_range + 'report.xlsx'
 
   os.remove('/code/sheet.xlsx')
 
   return response
 
+
+def search(request):
+  if request.method == 'GET':
+    search = request.GET.get('search', '')
+
+    query = um_ecomm_dept_units_rept.objects.filter(dept_bud_seq__contains=search)
+
+    #get all unique bud seqs that match search,
+    # for each bud seq, get all unique vp grps 
+      # for each vp grp, get all 
 
 
 
