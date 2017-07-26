@@ -116,7 +116,7 @@ def table(request):
 
       print accounts
 
-      request.session['accounts'] = accounts
+      request.session['post'] = request.POST
       request.session['total'] = total
       request.session['unit'] = unit
       request.session['dateRange'] = date_range
