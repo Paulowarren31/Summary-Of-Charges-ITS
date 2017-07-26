@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^$', index),
     url(r'^dept_id', dept_info),
     url(r'^table/', table),
-    url(r'^download/', test),
+    url(r'^download/', download),
     url(r'^dept_grps/$', departments),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ht/$', include('health_check.urls')),
