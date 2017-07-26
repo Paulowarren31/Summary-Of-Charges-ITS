@@ -125,7 +125,8 @@ def handlePost(post):
 
     form.save(unit, date_range) # save what they searched for
 
-    #print accounts
+    print accounts
+    
 
     return accounts, total, unit, date_range
 
