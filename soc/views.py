@@ -240,22 +240,23 @@ def hasNumbers(string):
   return bool(re.search(r'\d', string))
 
 
-def test(request):
+def download(request):
   post = request.session.get('post')
   accounts, total, unit, date_range = handlePost(post)
 
   print accounts
 
-  workbook = xlsxwriter.Workbook('hello.xlsx')
-
+  workbook = xlsxwriter.Workbook('sheet.xlsx')
   worksheet = workbook.add_worksheet()
-
   worksheet.write('A1', str(total))
   workbook.close()
 
-  fsock = open('/code/hello.xlsx', "rb")
+  fsock = open('/code/sheet.xlsx', "rb")
+
   response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
   response['Content-Disposition'] = 'attachment; filename=hello.xlsx'
+
+  os.remove('/code/sheet.xlsx')
 
   return response
 
