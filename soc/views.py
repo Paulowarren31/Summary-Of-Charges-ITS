@@ -241,7 +241,7 @@ def hasNumbers(string):
 
 def test(request):
   post = request.session.get('post')
-  accounts, total, unit, date_range = handlePost(request.POST)
+  accounts, total, unit, date_range = handlePost(post)
 
   print accounts
 
