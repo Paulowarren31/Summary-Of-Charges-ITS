@@ -306,8 +306,8 @@ def search(request):
   if request.method == 'GET':
     search = request.GET.get('search', '')
 
-    query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area__contains=search).order_by().values_list('dept_grp_vp_area','dept_grp_vp_area_descr').distinct()
-    vp_groups =list(query)
+    query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area__icontains=search).order_by().values_list('dept_grp_vp_area','dept_grp_vp_area_descr').distinct()
+    vp_groups = list(query)
 
     final_groups = []
 
@@ -330,8 +330,6 @@ def search(request):
         idx += 1
 
       final_groups.append(vp)
-
-    print final_groups
         
 
 
