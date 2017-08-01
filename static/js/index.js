@@ -209,7 +209,6 @@ function tree(search){
     $('#search-text').show()
     $('#load-spinner').html('')
     treeadd()
-  })
 
 
 }
