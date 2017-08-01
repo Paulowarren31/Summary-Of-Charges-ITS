@@ -227,6 +227,7 @@ function tree(search){
 
   $.get(url, {search: search}, data => {
     console.log(data)
+    $('#tree-div').html(data)
   })
 
 

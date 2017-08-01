@@ -1,28 +1,25 @@
-<div class="tree-div">
-    {% for vp in d %}
-    <div id="vp-{{vp.0}}">
-        <p class="bold">
-        <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
-        {{vp.1}}
-        <i class="fa fa-plus-circle" id="add-vp-{{vp.0}}-{{vp.1}}"></i>
-        </p>
+{% for vp in d %}
+<div id="vp-{{vp.0}}">
+    <p class="bold">
+    <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
+    {{vp.1}}
+    <i class="fa fa-plus-circle" id="add-vp-{{vp.0}}-{{vp.1}}"></i>
+    </p>
 
-        {% for grp in vp.2 %}
-        <div id="vp-{{vp.0}}-grp-{{grp.0}}">
-            <p class="pl-2">
-            <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
-            {{grp.0}} - {{grp.1}}
-            <i class="fa fa-plus-circle" id="add-grp-{{grp.0}}-{{grp.1}}"></i>
-            </p>
-            {% for dept in grp.2 %}
-            <div id="vp-{{vp.0}}-grp-{{grp.0}}-dept-{{dept.0}}">
-                <small class="pl-4"> {{dept.0}} - {{dept.1}} </small>
-                <i class="fa fa-plus-circle" id="add-d-{{dept.0}}-{{dept.1}}"></i>
-            </div>
-            {% endfor %}
+    {% for grp in vp.2 %}
+    <div id="vp-{{vp.0}}-grp-{{grp.0}}">
+        <p class="pl-2">
+        <i class="fa fa-caret-down mr-2" aria-hidden="true"></i>
+        {{grp.0}} - {{grp.1}}
+        <i class="fa fa-plus-circle" id="add-grp-{{grp.0}}-{{grp.1}}"></i>
+        </p>
+        {% for dept in grp.2 %}
+        <div id="vp-{{vp.0}}-grp-{{grp.0}}-dept-{{dept.0}}">
+            <small class="pl-4"> {{dept.0}} - {{dept.1}} </small>
+            <i class="fa fa-plus-circle" id="add-d-{{dept.0}}-{{dept.1}}"></i>
         </div>
         {% endfor %}
     </div>
     {% endfor %}
 </div>
-
+{% endfor %}
