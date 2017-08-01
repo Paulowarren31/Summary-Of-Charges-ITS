@@ -14,7 +14,6 @@ def user_has_permission(function):
     result = c.execute(query, {'u': request.user.username}).fetchall()
 
     if len(result) != 0 or request.user.is_superuser or request.user.username == 'djamison' or request.user.username == 'rutag':
-:
       return function(request, *args, **kwargs)
     else:
       raise PermissionDenied
