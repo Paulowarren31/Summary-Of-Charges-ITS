@@ -134,19 +134,6 @@ def handlePost(post):
     print form.errors
     return False, form, False, False # need to still return same # of things
 
-@login_required(login_url='/accounts/login')
-@user_has_permission
-def tree(request):
-  return None
-  #get all unique vp groups that match the string
-  # for each vp group get all unique dept groups 
-  #     for each dept group get all unique depts
-
-  #get all unique dept groups that match the string
-    # for each dept group get all unique depts
-
-  #
-
 # tries to convert a string to a float, returns 0 if exception, used for display
 def floatOrZ(string):
   try:
@@ -319,12 +306,37 @@ def search(request):
   if request.method == 'GET':
     search = request.GET.get('search', '')
 
-    query = um_ecomm_dept_units_rept.objects.filter(dept_bud_seq__contains=search)
+    query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area__contains=search).values_list('dept_grp_vp_area','dept_grp_vp_area_descr').distinct()
+    vps = list(query)
+
+    tree = []
+    
+    for vp in vps:
+      query = um_ecomm_dept_units_rept.objects.filter(dept_grp=vp[0]).values_list('dept_grp','dept_grp_descr').distinct()
+      vp = list(vp)
+      vp.append(list(query)) # vp[2] is now the list of dept_grps associated with that thing
+
+      idx = 0
+      for group in vp[2]:
+        query = um_ecomm_dept_units_rept.objects.filter(dept_grp=group[0]).values_list('deptid','dept_descr').distinct()
+
+        vp[2][idx] = list(vp[2][idx])
+        vp[2][idx].append(list(query))
+        idx += 1
+
+      tree.append(vp)
+
+    print tree
+
+    return render(request, 'tree-dynamic.html', {'d': tree})
 
     #get all unique bud seqs that match search,
     # for each bud seq, get all unique vp grps 
       # for each vp grp, get all 
 
+def list_append(lst, item):
+  lst.append(item)
+  return item
 
 
 
