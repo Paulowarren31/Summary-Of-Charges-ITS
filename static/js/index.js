@@ -229,6 +229,7 @@ function tree(search){
 
   $.get(url, {search: search}, data => {
     console.log(data)
+    if(data.length == 0){alert('none found')}
     $('#tree-div').html(data)
     $('#search-text').show()
     $('#load-spinner').html('')
