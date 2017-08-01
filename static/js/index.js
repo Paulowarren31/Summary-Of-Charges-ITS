@@ -55,7 +55,6 @@ $(function(){
     })
   })
 
-  treeadd()
 
 
   $('#tree-search-btn').on('click', e => {
@@ -63,6 +62,8 @@ $(function(){
 
     tree(search)
   })
+
+  treeadd()
 
 
 })
