@@ -55,34 +55,9 @@ $(function(){
     })
   })
 
+  treeadd()
 
-  //tree add event
-  $('[id^=add]').on('click', e => {
-    split = e.target.id.split('-')
-    scope = split[1]
-    val = split[2]
-    name = split[3]
 
-    console.log(scope, val)
-
-    var tr = ''
-
-    if(scope == 'd'){
-      val = 'd.'+ val
-      addDept(val, name, val)
-    }
-    else if(scope == 'grp'){
-      val = 'g.'+ val
-      addDept('Dept Grp', name, val)
-    }
-    else if(scope == 'vp'){
-      val = 'v.'+ val
-      addDept('VP Grp', name, val)
-    }
-
-    updateActual(val)
-
-  })
   $('#tree-search-btn').on('click', e => {
     search = $('#tree-input').val()
 
@@ -233,9 +208,41 @@ function tree(search){
     $('#tree-div').html(data)
     $('#search-text').show()
     $('#load-spinner').html('')
+    treeadd()
   })
 
 
+}
+
+function treeadd(){
+
+  //tree add event
+  $('[id^=add]').on('click', e => {
+    split = e.target.id.split('-')
+    scope = split[1]
+    val = split[2]
+    name = split[3]
+
+    console.log(scope, val)
+
+    var tr = ''
+
+    if(scope == 'd'){
+      val = 'd.'+ val
+      addDept(val, name, val)
+    }
+    else if(scope == 'grp'){
+      val = 'g.'+ val
+      addDept('Dept Grp', name, val)
+    }
+    else if(scope == 'vp'){
+      val = 'v.'+ val
+      addDept('VP Grp', name, val)
+    }
+
+    updateActual(val)
+
+  })
 }
 
 
