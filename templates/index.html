@@ -24,9 +24,13 @@
                     <h3>Department Look Up</h3>
                     <div class="d-flex mb-3">
                         <input class="form-control" id="tree-input" aria-describedby="emailHelp" placeholder="Search by department">
-                        <button class="btn blue" type="button" id="tree-search-btn"> Search</button>
+                        <button class="btn blue" type="button" id="tree-search-btn"> 
+                            <div id="search-text">Search</div>
+                            <i id="load-spinner" class="fa fa-gear fa-spin" style="color: white;"></i>
+
+                        </button>
                     </div>
-                    <div id="tree-div">
+                    <div id="tree-div" class="tree-div">
                     {% include "tree.html" %}
                     </div>
                 </div>

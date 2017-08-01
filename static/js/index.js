@@ -213,6 +213,8 @@ function addDept(id, name, rm){
 }
 
 function tree(search){
+  $('#search-text').hide()
+  $('#load-spinner').show()
   let csrftoken = getCookie('csrftoken')
 
   $.ajaxSetup({
@@ -228,6 +230,8 @@ function tree(search){
   $.get(url, {search: search}, data => {
     console.log(data)
     $('#tree-div').html(data)
+    $('#search-text').show()
+    $('#load-spinner').hide()
   })
 
 
