@@ -128,14 +128,26 @@ def handlePost(post):
     print accounts
     
 
-    return accounts, total, unit, date_range
+    return accounts, total, unit, date_range # returns tuple of all of the info we need to display
 
   else: #if form has errors
     print form.errors
-    return False, form, False, False
+    return False, form, False, False # need to still return same # of things
 
+@login_required(login_url='/accounts/login')
+@user_has_permission
+def tree(request):
+  return None
+  #get all unique vp groups that match the string
+  # for each vp group get all unique dept groups 
+  #     for each dept group get all unique depts
 
-# tries to convert a string to a float, returns 0 if exception
+  #get all unique dept groups that match the string
+    # for each dept group get all unique depts
+
+  #
+
+# tries to convert a string to a float, returns 0 if exception, used for display
 def floatOrZ(string):
   try:
     return float(string)
@@ -245,7 +257,6 @@ def download(request):
   post = request.session.get('post')
   accounts, total, unit, date_range = handlePost(post)
 
-  print accounts
 
   wb = xlsxwriter.Workbook('sheet.xlsx')
   ws = wb.add_worksheet()
@@ -271,31 +282,9 @@ def download(request):
   ws.write(3, 7, 'Item\nGroup Total', header)
   ws.write(3, 8, 'Account\nTotal', header)
 
-  raw_data = [{
-    'total': 989.17,
-    'items': [{
-      'total': 989.17,
-      'items': [{
-        'monthly': 0.0,
-        'months': ['07'],
-        'descr':'SERVICE REQUESTS',
-        'cc': '',
-        'items': [ 611450, 'Service Requests', 'DESCR SERVICE REQUESTS'],
-        'unit_rate': '',
-        'total': 989.17,
-        'm_count': 1,
-        'quantity': 0.0
-      }],
-      'code': '',
-      'grp': 'Service Requests'
-    }],
-    'num': '611450',
-    'desc': 'Service Requests'
-  }]
-
 
   row = 3
-  for item in raw_data:
+  for item in accounts:
     row = row + 1
     ws.write(row, 8, item['total'], money)
     ws.write(row, 0, item['desc'] + " (" + item['num'] + ")", bold)
