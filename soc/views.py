@@ -306,20 +306,20 @@ def search(request):
   if request.method == 'GET':
     search = request.GET.get('search', '')
 
-    query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area__contains=search).values_list('dept_grp_vp_area','dept_grp_vp_area_descr').distinct()
+    query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area__contains=search).order_by().values_list('dept_grp_vp_area','dept_grp_vp_area_descr').distinct()
     vps = list(query)
     print vps
 
     tree = []
     
     for vp in vps:
-      query = um_ecomm_dept_units_rept.objects.filter(dept_grp=vp[0]).values_list('dept_grp','dept_grp_descr').distinct()
+      query = um_ecomm_dept_units_rept.objects.filter(dept_grp=vp[0]).order_by().values_list('dept_grp','dept_grp_descr').distinct()
       vp = list(vp)
       vp.append(list(query)) # vp[2] is now the list of dept_grps associated with that thing
 
       idx = 0
       for group in vp[2]:
-        query = um_ecomm_dept_units_rept.objects.filter(dept_grp=group[0]).values_list('deptid','dept_descr').distinct()
+        query = um_ecomm_dept_units_rept.objects.filter(dept_grp=group[0]).order_by().values_list('deptid','dept_descr').distinct()
 
         vp[2][idx] = list(vp[2][idx])
         vp[2][idx].append(list(query))
