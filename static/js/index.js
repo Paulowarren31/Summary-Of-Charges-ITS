@@ -214,7 +214,7 @@ function addDept(id, name, rm){
 
 function tree(search){
   $('#search-text').hide()
-  $('#load-spinner').show()
+  $('#load-spinner').html('<i class="fa fa-gear fa-spin" style="color: white;"></i>')
   let csrftoken = getCookie('csrftoken')
 
   $.ajaxSetup({
@@ -231,7 +231,7 @@ function tree(search){
     console.log(data)
     $('#tree-div').html(data)
     $('#search-text').show()
-    $('#load-spinner').hide()
+    $('#load-spinner').html('')
   })
 
 
