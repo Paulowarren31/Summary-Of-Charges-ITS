@@ -308,6 +308,7 @@ def search(request):
 
     query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area__contains=search).values_list('dept_grp_vp_area','dept_grp_vp_area_descr').distinct()
     vps = list(query)
+    print vps
 
     tree = []
     
