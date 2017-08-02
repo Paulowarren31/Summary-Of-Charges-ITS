@@ -24,14 +24,19 @@
                     <h3>Department Look Up</h3>
                     <div class="d-flex mb-3">
                         <input class="form-control" id="tree-input" aria-describedby="emailHelp" placeholder="Search by department">
-                        <button class="btn blue" type="button" id="tree-search-btn"> 
+                        <button class="btn blue" type="button" id="tree-search-btn">
                             <div id="search-text">Search</div>
                             <div id="load-spinner">
                             </div>
                         </button>
                     </div>
                     <div id="tree-div" class="tree-div">
-                    {% include "tree.html" %}
+                        {% include "tree.html" %}
+                    </div>
+                    <div class="d-flex">
+                        <p class="text-muted"><small>
+                            Add departments and/or department groups to the table for making the report by clicking on the (+) icon next to their name.
+                        </small></p>
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12 col-md-border">
@@ -58,6 +63,10 @@
                             <tbody id="dept_ids_table">
                             </tbody>
                         </table>
+                        <div class="d-flex">
+                            <small class="text-muted">Remove departments and/or department groups from the table(and the report) by clicking on the (-) icon next to their name.
+                            </small>
+                        </div>
                     </div>
                     <h3 class="pt-5"> Date Range </h3>
                     <div class="d-flex align-items-center pl-3">
@@ -92,6 +101,12 @@
                             <option value="2005">2005</option>
                         </select>
                     </div>
+                    <div class="d-flex pl-5 pt-2">
+                        <small class="text-muted ">eg. Fiscal Year 2016 = July 2015 - June 2016</small>
+                    </div>
+                    <div class="d-flex pl-5">
+                        <small class="text-muted ">eg. Calendar Year 2016 = January 2016 - December 2016</small>
+                    </div>
                     <hr>
                     <div class="pl-3">
                         <div class="d-flex flex-row">
@@ -121,6 +136,9 @@
                             </div>
                         </div>
 
+                    </div>
+                    <div class="d-flex pl-5 pt-2">
+                        <small class="text-muted ">For a single month, make the following selection - March 2016 = March 2016 TO March 2016</small>
                     </div>
                     <hr>
                     <div class="d-flex pl-3">

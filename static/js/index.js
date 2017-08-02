@@ -114,7 +114,7 @@ function deptUpdate(dept_ids, callback){
 
   $.post(url, data, depts => {
 
-    if(depts.list.length == 0){
+    if(depts.list && depts.list.length == 0){
       $("#alert").show()
 
       setTimeout(() => {

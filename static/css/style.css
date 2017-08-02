@@ -147,7 +147,9 @@ input:checked + .slider:before {
 }
 
 .left-col{
+    max-height: 20rem;
     height: 20rem;
+    overflow: auto;
 }
 
 @media (min-width: 992px) {
