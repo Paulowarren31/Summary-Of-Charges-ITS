@@ -7,7 +7,7 @@ from forms import MainForm
 from decorators import user_has_permission
 from models import um_ecomm_dept_units_rept
 from django.db import models
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 import re
 import xlsxwriter
 
@@ -55,8 +55,9 @@ def table(request):
     request.session['post'] = request.POST
     accounts, total, unit, date_range = handlePost(request.POST)
 
-    if not accounts:
-      return render(request, 'index.html', {'form': total})
+
+    if accounts == 'error':
+      return render(request, 'index.html', {'form': form})
 
     return render(request, 'table.html', {'accounts': accounts, 'total': total, 'unit': unit, 'dateRange': date_range})
 
@@ -116,6 +117,8 @@ def handlePost(post):
 
     rows = list(query)
 
+    print rows
+
     accounts, total = handleAccounts(rows)
 
     for acc in accounts:
@@ -132,7 +135,7 @@ def handlePost(post):
 
   else: #if form has errors
     print form.errors
-    return False, form, False, False
+    return 'error', form, False, False
 
 
 # tries to convert a string to a float, returns 0 if exception
