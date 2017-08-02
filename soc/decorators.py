@@ -13,7 +13,7 @@ def user_has_permission(function):
     query = 'select * from um_authorized_dept_users where uniqname=:u'
     result = c.execute(query, {'u': request.user.username}).fetchall()
 
-    if len(result) != 0 or request.user.is_superuser or request.user.username == 'rutag':
+    if len(result) != 0 or request.user.is_superuser or request.user.username == 'djamison' or request.user.username == 'rutag':
       return function(request, *args, **kwargs)
     else:
       raise PermissionDenied

@@ -13,14 +13,15 @@ class um_ecomm_dept_units_rept(ExternalModel):
   calendar_yr = models.CharField(db_column='calendar_yr', max_length=4)
   month = models.CharField(db_column='month', max_length=2)
 
-  deptid = models.CharField(db_column='deptid', max_length=6)
-  dept_descr = models.CharField(db_column='dept_descr', max_length=30)
+  dept_grp_vp_area = models.CharField(db_column='dept_grp_vp_area', max_length=20)
+  dept_grp_vp_area_descr = models.CharField(db_column='dept_grp_vp_area_descr', max_length=30)
 
   dept_grp = models.CharField(db_column='dept_grp', max_length=20)
   dept_grp_descr = models.CharField(db_column='dept_grp_descr', max_length=30)
 
-  dept_grp_vp_area = models.CharField(db_column='dept_grp_vp_area', max_length=20)
-  dept_grp_vp_area_descr = models.CharField(db_column='dept_grp_vp_area_descr', max_length=30)
+  deptid = models.CharField(db_column='deptid', max_length=6)
+  dept_descr = models.CharField(db_column='dept_descr', max_length=30)
+
 
   account = models.CharField(db_column='account', max_length=6)
   account_desc = models.CharField(db_column='account_desc', max_length=20)

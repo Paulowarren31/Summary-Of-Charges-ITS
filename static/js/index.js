@@ -56,34 +56,14 @@ $(function(){
   })
 
 
-  //tree add event
-  $('[id^=add]').on('click', e => {
-    split = e.target.id.split('-')
-    scope = split[1]
-    val = split[2]
-    name = split[3]
 
-    console.log(scope, val)
+  $('#tree-search-btn').on('click', e => {
+    search = $('#tree-input').val()
 
-    var tr = ''
-
-    if(scope == 'd'){
-      val = 'd.'+ val
-      addDept(val, name, val)
-    }
-    else if(scope == 'grp'){
-      val = 'g.'+ val
-      addDept('Dept Grp', name, val)
-    }
-    else if(scope == 'vp'){
-      val = 'v.'+ val
-      addDept('VP Grp', name, val)
-    }
-
-    updateActual(val)
-
+    tree(search)
   })
 
+  treeadd()
 
 })
 
@@ -136,10 +116,10 @@ function deptUpdate(dept_ids, callback){
 
     if(depts.list.length == 0){
       $("#alert").show()
-      
+
       setTimeout(() => {
         $("#alert").addClass('fade')
-        $("#alert").alert('close') 
+        $("#alert").alert('close')
       }, 5000);
       $('#id_dept_id_range').val('') // clear input
 
@@ -205,6 +185,64 @@ function addDept(id, name, rm){
     $(e.target.parentNode.parentNode).remove() //remove row
   })
 
+}
+
+function tree(search){
+  $('#search-text').hide()
+  $('#load-spinner').html('<i class="fa fa-gear fa-spin" style="color: white;"></i>')
+  let csrftoken = getCookie('csrftoken')
+
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      }
+    }
+  });
+
+  let url = 'https://django-example-paulo-test.openshift.dsc.umich.edu/search'
+
+  $.get(url, {search: search}, data => {
+    console.log(data)
+    if(data.length == 0){alert('none found')}
+    $('#tree-div').html(data)
+    $('#search-text').show()
+    $('#load-spinner').html('')
+    treeadd()
+
+
+  })
+}
+
+function treeadd(){
+
+  //tree add event
+  $('[id^=add]').on('click', e => {
+    split = e.target.id.split('-')
+    scope = split[1]
+    val = split[2]
+    name = split[3]
+
+    console.log(scope, val)
+
+    var tr = ''
+
+    if(scope == 'd'){
+      val = 'd.'+ val
+      addDept(val, name, val)
+    }
+    else if(scope == 'grp'){
+      val = 'g.'+ val
+      addDept('Dept Grp', name, val)
+    }
+    else if(scope == 'vp'){
+      val = 'v.'+ val
+      addDept('VP Grp', name, val)
+    }
+
+    updateActual(val)
+
+  })
 }
 
 

@@ -131,14 +131,13 @@ def handlePost(post):
     print accounts
     
 
-    return accounts, total, unit, date_range
+    return accounts, total, unit, date_range # returns tuple of all of the info we need to display
 
   else: #if form has errors
     print form.errors
     return 'error', form, False, False
 
-
-# tries to convert a string to a float, returns 0 if exception
+# tries to convert a string to a float, returns 0 if exception, used for display
 def floatOrZ(string):
   try:
     return float(string)
@@ -248,7 +247,6 @@ def download(request):
   post = request.session.get('post')
   accounts, total, unit, date_range = handlePost(post)
 
-  print accounts
 
   wb = xlsxwriter.Workbook('sheet.xlsx')
   ws = wb.add_worksheet()
@@ -274,31 +272,9 @@ def download(request):
   ws.write(3, 7, 'Item\nGroup Total', header)
   ws.write(3, 8, 'Account\nTotal', header)
 
-  raw_data = [{
-    'total': 989.17,
-    'items': [{
-      'total': 989.17,
-      'items': [{
-        'monthly': 0.0,
-        'months': ['07'],
-        'descr':'SERVICE REQUESTS',
-        'cc': '',
-        'items': [ 611450, 'Service Requests', 'DESCR SERVICE REQUESTS'],
-        'unit_rate': '',
-        'total': 989.17,
-        'm_count': 1,
-        'quantity': 0.0
-      }],
-      'code': '',
-      'grp': 'Service Requests'
-    }],
-    'num': '611450',
-    'desc': 'Service Requests'
-  }]
-
 
   row = 3
-  for item in raw_data:
+  for item in accounts:
     row = row + 1
     ws.write(row, 8, item['total'], money)
     ws.write(row, 0, item['desc'] + " (" + item['num'] + ")", bold)
@@ -333,12 +309,64 @@ def search(request):
   if request.method == 'GET':
     search = request.GET.get('search', '')
 
-    query = um_ecomm_dept_units_rept.objects.filter(dept_bud_seq__contains=search)
+    query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area__icontains=search).order_by().values_list('dept_grp_vp_area','dept_grp_vp_area_descr').distinct()
+    vp_groups = list(query)
+
+    final_groups = []
+
+    # each vp is a tuple of 2 
+    for vp in vp_groups:
+
+      #get all dept_grps from each vp_group
+      query = um_ecomm_dept_units_rept.objects.filter(dept_grp_vp_area=vp[0]).order_by().values_list('dept_grp','dept_grp_descr').distinct()
+
+      vp = list(vp)
+      vp.append(list(query)) # vp[2] is now the list of dept_grps associated with that thing
+
+      # each dept_grp is a tuple of 2
+      idx = 0
+      for dept_grp in vp[2]:
+        query = um_ecomm_dept_units_rept.objects.filter(dept_grp=dept_grp[0]).order_by().values_list('deptid','dept_descr').distinct()
+
+        vp[2][idx] = list(vp[2][idx])
+        vp[2][idx].append(list(query))
+        idx += 1
+
+      final_groups.append(vp)
+        
+
+
+    #vps = list(query)
+
+    #tree = []
+    #
+    #for vp in vps:
+    #  query = um_ecomm_dept_units_rept.objects.filter(dept_grp=vp[0]).order_by().values_list('dept_grp','dept_grp_descr').distinct()
+    #  vp = list(vp)
+    #  vp.append(list(query)) # vp[2] is now the list of dept_grps associated with that thing
+
+    #  idx = 0
+    #  for group in vp[2]:
+    #    query = um_ecomm_dept_units_rept.objects.filter(dept_grp=group[0]).order_by().values_list('deptid','dept_descr').distinct()
+
+    #    vp[2][idx] = list(vp[2][idx])
+    #    vp[2][idx].append(list(query))
+    #    idx += 1
+    #    print vp
+
+    #  tree.append(vp)
+
+    #print tree
+
+    return render(request, 'tree-dynamic.html', {'d': final_groups})
 
     #get all unique bud seqs that match search,
     # for each bud seq, get all unique vp grps 
       # for each vp grp, get all 
 
+def list_append(lst, item):
+  lst.append(item)
+  return item
 
 
 
