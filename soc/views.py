@@ -40,6 +40,8 @@ def dept_info(request):
 
     query = handleDeptQuery(dept_ids).order_by().values_list('deptid','dept_descr').distinct()
 
+
+
     dept_list = list(query)
 
     return JsonResponse({'list': dept_list})
@@ -112,8 +114,11 @@ def handlePost(post):
       date_range = b_month + '/' + b_year + ' to ' + e_month + '/' + e_year
 
       b_query = query.filter(calendar_yr__gte=b_year, month__gte=b_month)
+      print list(b_query)
       e_query = query.filter(calendar_yr__lte=e_year, month__lte=e_month)
+      print list(e_query)
       query = (b_query & e_query).distinct()
+      print list(query)
 
     rows = list(query)
 
