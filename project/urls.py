@@ -15,3 +15,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ht/$', include('health_check.urls')),
 ]
+
+if settings.DEBUG:
+  import debug_toolbar
+  urlpatterns = [
+    url(r'^debug/', include(debug_toolbar.urls)),
+  ] + urlpatterns

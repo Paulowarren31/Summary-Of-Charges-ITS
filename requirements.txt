@@ -1,6 +1,6 @@
 django==1.11
 cryptography==1.5.1
-django-debug-toolbar==1.5
+django-debug-toolbar
 gunicorn==19.4.5
 psycopg2
 whitenoise==3.0

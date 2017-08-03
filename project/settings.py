@@ -64,6 +64,9 @@ MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware'
     )
 
+INTERNAL_IPS = ['*']
+
+
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
