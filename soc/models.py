@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class ExternalModel(models.Model):
   class Meta:
     managed = False
@@ -46,6 +45,17 @@ class um_ecomm_dept_units_rept(ExternalModel):
     db_table = 'PINN_CUSTOM\".\"UM_ECOMM_DEPT_UNITS_REPT'
     ordering = ['account', 'charge_group', 'description']
 
+class Authorized_User(ExternalModel):
+
+  deptid = models.CharField(primary_key=True, db_column='deptid', max_length=10)
+  uniqname = models.CharField(db_column='uniqname', max_length=20)
+  role = models.CharField(db_column='role', max_length=30)
+  timestamp = models.DateField(db_column='timestamp')
+
+  class Meta(ExternalModel.Meta):
+    db_table = 'PINN_CUSTOM\".\"UM_AUTHORIZED_DEPT_USERS'
+
+
 class Search(models.Model):
   dept = models.CharField(max_length=15)
   time = models.CharField(max_length=15)
@@ -55,6 +65,8 @@ class Search(models.Model):
 class DBRouter(object):
   def db_for_read(self, model, **hints):
     if model._meta.db_table == 'PINN_CUSTOM"."UM_ECOMM_DEPT_UNITS_REPT':
+      return 'oracle'
+    elif model._meta.db_table == 'PINN_CUSTOM"."UM_AUTHORIZED_DEPT_USERS':
       return 'oracle'
     return 'default'
 

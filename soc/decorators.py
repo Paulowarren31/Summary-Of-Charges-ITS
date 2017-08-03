@@ -1,19 +1,15 @@
 from django.core.exceptions import PermissionDenied
 from django.conf import settings
+from models import Authorized_User
 import cx_Oracle
 
 def user_has_permission(function):
-  connection_string = 'paulowar/'+settings.DB_PASSWORD+'@pinntst.dsc.umich.edu:1521/pinndev.world'
 
   def wrap(request, *args, **kwargs):
 
-    print request.user.username + ' loggin in'
+    query = Authorized_User.objects.filter(uniqname=request.user.username)
 
-    c = cx_Oracle.connect(connection_string).cursor()
-    query = 'select * from um_authorized_dept_users where uniqname=:u'
-    result = c.execute(query, {'u': request.user.username}).fetchall()
-
-    if len(result) != 0 or request.user.is_superuser or request.user.username == 'djamison' or request.user.username == 'rutag':
+    if len(query) != 0 or request.user.is_superuser or request.user.username == 'djamison' or request.user.username == 'rutag':
       return function(request, *args, **kwargs)
     else:
       raise PermissionDenied
