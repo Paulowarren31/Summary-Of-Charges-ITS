@@ -70,15 +70,12 @@ def handlePost(post):
 
   form = MainForm(post)
   if form.is_valid():
-    print 'clean form'
 
     cd = form.cleaned_data
     date_range = ''
     unit = ''
 
     choice2 = int(cd.get('t_choice'))
-
-    print choice2
 
     dept_range = cd.get('dept_id_range')
     unit = 'Dept ids: ' + dept_range
@@ -90,6 +87,7 @@ def handlePost(post):
       query = query.filter(fiscal_yr=fiscal_yr)
       date_range = 'Fiscal year ' + fiscal_yr
 
+
     elif choice2 == 2:
       calendar_yr = cd.get('calendar_yr')
 
@@ -97,39 +95,34 @@ def handlePost(post):
       query = query.filter(calendar_yr=calendar_yr)
 
     elif choice2 == 3:
+
       b_month = cd.get('range_begin_m')
-
-      if len(b_month) == 1:
-        b_month = b_month.zfill(2)
-
       b_year = cd.get('range_begin_y')
-
       e_month = cd.get('range_end_m')
-
-      if len(e_month) == 1:
-        e_month = e_month.zfill(2)
-
       e_year = cd.get('range_end_y')
+
+      b_month = zfill(b_month)
+      e_month = zfill(e_month)
 
       date_range = b_month + '/' + b_year + ' to ' + e_month + '/' + e_year
 
-      query = query.filter(calendar_yr__gte=b_year, month__gte=b_month).filter(calendar_yr__lte=e_year, month__lte=e_month)
+      query = handleDateQuery(query, b_year, b_month, e_year, e_month)
 
     rows = list(query)
 
-    print rows
-
-    accounts, total = handleAccounts(rows)
+    # splits rows into accounts they belong to
+    accounts, total = handleAccounts(rows) 
 
     for acc in accounts:
-      acc['items'] = handleGroups(acc)
+      # splits the account items into groups they blong to
+      acc['items'] = handleGroups(acc) 
       for group in acc['items']:
-        group['items'] = handleDescriptions(group)
+        # splits group items into groups of descriptions
+        group['items'] = handleDescriptions(group) 
 
     form.save(unit, date_range) # save what they searched for
 
     print accounts
-    
 
     return accounts, total, unit, date_range # returns tuple of all of the info we need to display
 
@@ -238,6 +231,25 @@ def handleDeptQuery(dept_str):
     query = query | newQuery #chain our queries but union them
 
   return query 
+
+def handleDateQuery(query, b_year, b_month, e_year, e_month):
+  diff = int(e_year) - int(b_year)
+
+  if diff >= 2:
+    q1 = query.filter(calendar_yr=b_year, month__gte=b_month)
+    q2 = query.filter(calendar_yr__lt=e_year, calendar_yr__gte=str(int(b_year)+1))
+    q3 = query.filter(calendar_yr=e_year, month__lte=e_month)
+    return (q1 | q2 | q3).distinct()
+
+  elif diff == 1:
+    q1 = query.filter(calendar_yr=b_year, month__gte=b_month)
+    q2 = query.filter(calendar_yr=e_year, month__lte=e_month)
+    return (q1 | q2 ).distinct()
+
+  else:
+    q1 = query.filter(calendar_yr=b_year, month__gte=b_month, month__lte=e_month)
+    return q1.distinct()
+
 
 def hasNumbers(string):
   return bool(re.search(r'\d', string))
@@ -368,6 +380,10 @@ def list_append(lst, item):
   lst.append(item)
   return item
 
+def zfill(string):
+  if len(string) == 1:
+    return string.zfill(2)
+  return string
 
 
 

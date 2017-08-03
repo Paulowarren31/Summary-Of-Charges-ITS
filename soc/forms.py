@@ -4,7 +4,7 @@ from django.utils.dates import MONTHS
 
 class MainForm(forms.Form):
 
-  dept_id_range = forms.CharField(label='Department IDs', max_length=100, widget=forms.TextInput(attrs={'placeholder': 'type individual ids or a range of ids'}), required=False)
+  dept_id_range = forms.CharField(label='Department IDs', max_length=100, widget=forms.TextInput(attrs={'placeholder': 'type individual ids or a range of ids'}), required=True)
 
   DEPT_GRPS = list(um_ecomm_dept_units_rept.objects.order_by().values_list('dept_grp', flat=True).distinct())
 
@@ -31,4 +31,3 @@ class MainForm(forms.Form):
   def save(self, dept, time):
     search = Search(dept=dept, time=time)
     search.save()
-
